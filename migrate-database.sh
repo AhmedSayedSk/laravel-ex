@@ -1,8 +1,5 @@
 #!/bin/bash
 set -e 
 
-echo "Migrating database 'php artisan migrate --force'..."
-php artisan migrate --force
-
-echo "seeding database 'php artisan db:seed'..."
-php artisan db:seed
+echo "Migrating database & seeding 'php artisan migrate:refresh --seed --force'..."
+php artisan migrate:refresh --seed --force
