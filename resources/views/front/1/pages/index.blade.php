@@ -3,6 +3,6 @@
 
 @section('content')
 	<div id="index">
-		<center><h1>{{ trans("frontend.$frontendNumber.I1.T1") }}</h1></center>
+		<center><h1>{{ trans("frontend.$frontendNumber.I1.T1") }} 2</h1></center>
 	</div>
 @stop
