@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
+use App\User;
+use App\Models\Admin\Admin;
+
+use Auth;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -23,29 +29,66 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-    /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
+    // using after success login or registration
+    protected $redirectPath = '/';
+    protected $redirectAfterLogout = '/';
 
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    protected function handleUserWasAuthenticated(Request $request, $throttles)
+    {
+        $redirectPath = $this->redirectPath();
+
+        if ($throttles) {
+            $this->clearLoginAttempts($request);
+        }
+
+        if (method_exists($this, 'authenticated')) {
+            return $this->authenticated($request, Auth::guard($this->getGuard())->user());
+        }
+
+        if(Auth::check()){
+           // when login by admin account
+            if(Admin::where('user_id', Auth::user()->id)->lists('id')->count() == 1){
+                $redirectPath = '/admin';
+            }
+
+            $input = (object) $request->all();
+
+            // when refered to product to make add-to-cart
+            if(isset($input->isReferedToProduct) && $input->isReferedToProduct == 1){
+                $redirectPath = $input->refToProduct_value;
+            }
+
+        }
+
+        return redirect()->intended($redirectPath);
+    }
+
+    // Current laravel fn: Illuminate\Foundation\Auth\RegistersUsers.php
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $this->create($request->all());
+
+        $request->session()->flash('flashMessage', [
+            "type" => "success",
+            "content" => trans('auth.register.T6')
+        ]);
+
+        return redirect("/login");
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -55,12 +98,6 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
     protected function create(array $data)
     {
         return User::create([
