@@ -14,7 +14,8 @@ class CategoryRequest extends Request
 
     public function rules()
     {
-        $regex = "~^[A-Za-z0-9\(-_.)\s]{1,9999}$~iu";
+        // allow unicode letters + spaces + (-_)
+        $regex = "~^[\p{L}\s(-_)]{1,255}$~iu";
 
         return [
             'name' => "required|max:255|regex:$regex",

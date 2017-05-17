@@ -1,7 +1,9 @@
 <?php
 
-$PN = config('setting.productNameKeywords.en.one'); // Product Name
-$SN = config('setting.productNameKeywords.en.much'); // productS Name
+$TR_brand = "keywords.brand";
+
+$PN = trans("$TR_brand.one");
+$SN = trans("$TR_brand.much");
 
 return [
 	// frontend number

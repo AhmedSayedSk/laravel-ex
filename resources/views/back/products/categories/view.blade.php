@@ -8,6 +8,9 @@
 
 @section('content')
 	<div id="products-categories-view-page">
+		@include('includes.flash-message')
+		@include('includes.back-error')
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">{{ trans("$TR.T2") }}</div>
 			<div class="panel-body">

@@ -2,8 +2,10 @@
 
 $CRUD        = "متكامل التحكم";
 $adminCPanel = "لوحة تحكم المشرف";
-$PN          = config('setting.productNameKeywords.ar.one'); // Product Name
-$SN          = config('setting.productNameKeywords.ar.much'); // productS Name
+$TR_brand = "keywords.brand";
+
+$PN = trans("$TR_brand.one");
+$SN = trans("$TR_brand.much");
 
 return [
 	'A1'       => 'غير محدود',

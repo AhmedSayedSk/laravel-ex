@@ -15,14 +15,14 @@ class Product extends Model
         return [
             "product_name" => "required|min:5|max:255|regex:$regex",
             "product_description" => "required|min:5|regex:$regex",
-            "serial_number" => "required|numeric|between:1,99999999999",
+            "serial_number" => "numeric|between:1,99999999999",
 
             "category_table_number" => "required|numeric|min:1",
             "category_id" => "required|numeric|min:1",
 
             "product_price" => "required|numeric|min:1",
-            "discount_percentage" => "required|numeric|min:0|max:95",
-            "product_amount" => "required_without:is_amount_unlimited|numeric|min:1",
+            "discount_percentage" => "numeric|min:0|max:95",
+            "product_amount" => "required_if:is_amount_unlimited,0|numeric|min:1",
 
             "is_start_view_now" => "boolean",
             "is_amount_unlimited" => "boolean",

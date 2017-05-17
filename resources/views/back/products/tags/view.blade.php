@@ -19,55 +19,61 @@
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
-					<div id="response-table">
-						<table class="table table-striped table-hover sortable ps-view">
-							<thead>
-								<tr>
-									<th>{{ trans("$TR.T2") }}</th>
-									<th colspan="2">{{ trans("$TR.T3") }}</th>
-									<th>{{ trans("$TR.T7") }}</th>
-								</tr>
-								<tr>
-									<th></th>
-									<th width="15%" class="success">{{ trans("$TR.T4") }}</th>
-									<th width="15%" class="warning">
-										{{ trans("$TR.T5") }} 
-										(<a href="/admin/products/search?isLive=1" target="_blank">{{ trans("$TR.T6") }}</a>)
-									</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($tags as $inner)
-									<tr data-tagId="{{ $inner->id }}">
-										<td data-title='{{ trans("$TR.T2") }}' class="tag-name">
-											{!! $inner->tag_name !!}
-										</td>
-										<td data-title='{{ trans("$TR.T4") }}' class="success">
-											{!! $products_count_live = App\Models\Product\Tag::find($inner->id)->products()->users_roles()->count() !!}
-										</td>
-										<td data-title='{{ trans("$TR.T5") }}' class="warning">
-											{!! App\Models\Product\Tag::find($inner->id)->products()->count() !!}
-										</td>
-										<td data-title='{{ trans("$TR.T7") }}'>
-											<a href="/admin/products/tags/{{ $inner->tag_name }}" class="btn btn-default btn-xs" {{ $products_count_live <= '0' ? 'disabled' : '' }}>
-												<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-											</a>
-											<a href="#" class="btn btn-success btn-xs edit-tag">
-												<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-											</a>
-											{!! Form::open(["url"=>"/admin/products/tags/$inner->id", "method"=>"DELETE"]) !!}
-												<button type="submit" class="btn btn-danger btn-xs delete-tag" aria-label="Left Align">
-													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-												</button>
-												{!! Form::hidden("delete_products", 0, ["class"=>"delete-products"]) !!}
-											{!! Form::close() !!}
-										</td>
+					@if(count($tags) == 0)
+						<div class="text-center empty-content">
+							<h3>{{ trans("$TR.T12") }}</h3>
+						</div>
+					@else
+						<div id="response-table">
+							<table class="table table-striped table-hover sortable ps-view">
+								<thead>
+									<tr>
+										<th>{{ trans("$TR.T2") }}</th>
+										<th colspan="2">{{ trans("$TR.T3") }}</th>
+										<th>{{ trans("$TR.T7") }}</th>
 									</tr>
-								@endforeach				
-							</tbody>
-						</table>
-					</div>
+									<tr>
+										<th></th>
+										<th width="15%" class="success">{{ trans("$TR.T4") }}</th>
+										<th width="15%" class="warning">
+											{{ trans("$TR.T5") }} 
+											(<a href="/admin/products/search?isLive=1" target="_blank">{{ trans("$TR.T6") }}</a>)
+										</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach($tags as $inner)
+										<tr data-tagId="{{ $inner->id }}">
+											<td data-title='{{ trans("$TR.T2") }}' class="tag-name">
+												{!! $inner->tag_name !!}
+											</td>
+											<td data-title='{{ trans("$TR.T4") }}' class="success">
+												{!! $products_count_live = App\Models\Product\Tag::find($inner->id)->products()->users_roles()->count() !!}
+											</td>
+											<td data-title='{{ trans("$TR.T5") }}' class="warning">
+												{!! App\Models\Product\Tag::find($inner->id)->products()->count() !!}
+											</td>
+											<td data-title='{{ trans("$TR.T7") }}'>
+												<a href="/admin/products/tags/{{ $inner->tag_name }}" class="btn btn-default btn-xs" {{ $products_count_live <= '0' ? 'disabled' : '' }}>
+													<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+												</a>
+												<a href="#" class="btn btn-success btn-xs edit-tag">
+													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+												</a>
+												{!! Form::open(["url"=>"/admin/products/tags/$inner->id", "method"=>"DELETE"]) !!}
+													<button type="submit" class="btn btn-danger btn-xs delete-tag" aria-label="Left Align">
+														<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+													</button>
+													{!! Form::hidden("delete_products", 0, ["class"=>"delete-products"]) !!}
+												{!! Form::close() !!}
+											</td>
+										</tr>
+									@endforeach				
+								</tbody>
+							</table>
+						</div>
+					@endif
 				</div>
 			</div>
 		</div>

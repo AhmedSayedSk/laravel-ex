@@ -92,7 +92,7 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
+        'required_if' => [
             'rule-name' => 'custom-message',
         ],
     ],

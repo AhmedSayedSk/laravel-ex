@@ -33,9 +33,7 @@ class CreateProductsTable extends Migration {
             $table->boolean('is_payment_on_delivery')->default(0);
             $table->boolean('is_payment_by_paypal')->default(0);
 
-            $table->boolean('is_real')->default(0);
             $table->boolean('is_live')->default(0);
-
             $table->boolean('is_new')->default(0);
             $table->string('new_status_time')->nullable(); // related by `is_new` coulmn: to control for on/off status
 

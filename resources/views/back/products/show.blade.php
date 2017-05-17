@@ -24,16 +24,12 @@
 			<div class="panel-body">
 				<div class="carousel">
 					<h3>{{ trans("$TR.T2") }}</h3>
-					@if($product->is_real)
-						@if(count($product->carousels) > 0)
-							@foreach($product->carousels as $carousel)
-								<img src='{{ asset("uploaded/products/carousel_gallery/small/$carousel") }}'>
-							@endforeach
-						@else
-							<img src='{{ asset("assets/images/no-image.png") }}'>
-						@endif
+					@if(count($product->carousels) > 0)
+						@foreach($product->carousels as $carousel)
+							<img src='{{ asset("uploaded/products/carousel_gallery/small/$carousel") }}'>
+						@endforeach
 					@else
-						<img src='http://placehold.it/250x120/2d2d2d/FFF'>
+						<img src='{{ asset("assets/images/no-image.png") }}'>
 					@endif
 				</div>
 				<div class="images">
@@ -42,16 +38,12 @@
 							<a href="/admin/products/{{ $product->id }}/edit">edit images</a>
 						</small>
 					</h3>
-					@if($product->is_real)
-						@if(count($product->images) > 0)
-							@foreach($product->images as $image)
-								<img src='{{ asset("uploaded/products/images/icon_size/$image") }}'>
-							@endforeach
-						@else
-							<img src='{{ asset("assets/images/no-image.png") }}'>
-						@endif
+					@if(count($product->images) > 0)
+						@foreach($product->images as $image)
+							<img src='{{ asset("uploaded/products/images/icon_size/$image") }}'>
+						@endforeach
 					@else
-						<img src='http://placehold.it/120x120/2d2d2d/FFF'>
+						<img src='{{ asset("assets/images/no-image.png") }}'>
 					@endif
 				</div>
 				<hr>

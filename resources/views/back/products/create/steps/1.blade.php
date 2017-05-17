@@ -46,17 +46,17 @@
 						        <div class="tab-pane active" id="literal-data">
 						        	<div class="form-group">
 										{!! Form::label("productName", trans("$TR.T5")) !!}
-										{!! Form::text("product_name", $faker->sentence($nbWords = 3, $variableNbWords = true), ["class"=>"form-control", "id"=>"productName"]) !!}
+										{!! Form::text("product_name", "", ["class"=>"form-control", "id"=>"productName"]) !!}
 										<span class="help-block">{{ trans("sub_validation.register.T4") }}</span>
 									</div>
 									<div class="form-group">
 										{!! Form::label("productDetails", trans("$TR.T7")) !!}
-										{!! Form::textarea("product_description", $faker->paragraph, ["class"=>"form-control", "id"=>"productDetails"]) !!}
+										{!! Form::textarea("product_description", "", ["class"=>"form-control", "id"=>"productDetails"]) !!}
 										<span class="help-block">{{ trans("sub_validation.register.T1") }}</span>
 									</div>
 									<div class="form-group">
 										{!! Form::label("serialNumber", trans("$TR.T9")) !!}
-										{!! Form::number("serial_number", rand(10000000, 99999999), ["class"=>"form-control", "id"=>"serialNumber"]) !!}
+										{!! Form::number("serial_number", "", ["class"=>"form-control", "id"=>"serialNumber"]) !!}
 									</div>
 									<button class="btn btn-default continue" type="button">{{ trans("$TR.T10") }} <span class="icomoon-arrow-10"></span></button>
 						        </div>
@@ -74,8 +74,8 @@
 										{!! Form::select("p_cat4", [], 0, ["class"=>"form-control p-cat", "data-table-num"=>"4"]) !!}
 										{!! Form::select("p_cat5", [], 0, ["class"=>"form-control p-cat", "data-table-num"=>"5"]) !!}
 										
-										{!! Form::hidden("category_id", 1, ["class"=>"category-id"]) !!}
-										{!! Form::hidden("category_table_number", 1, ["class"=>"cat-table-number"]) !!}
+										{!! Form::hidden("category_id", 0, ["class"=>"category-id"]) !!}
+										{!! Form::hidden("category_table_number", 0, ["class"=>"cat-table-number"]) !!}
 						        	</div>
 						        	<button type="button" class="btn btn-default back">
 						        		<span class="icomoon-arrow-10 flipped col-flip-180"></span> 
@@ -90,24 +90,24 @@
 						        	<div class="form-group">
 										{!! Form::label("productPrice", trans("$TR.T15")) !!}
 										<div class="input-group">
-											{!! Form::text("product_price", rand(100, 9999), ["class"=>"form-control", "id"=>"productPrice", "aria-label"=>trans("$TR.T16")]) !!}
-											<span class="input-group-addon">{{ $global_setting->main_currency }}</span>
+											{!! Form::text("product_price", "", ["class"=>"form-control", "id"=>"productPrice", "aria-label"=>trans("$TR.T16")]) !!}
+											<span class="input-group-addon">{{ $main_currency }}</span>
 										</div>				
 									</div>
 									<div class="form-group">
 										{!! Form::label("priceDiscount", trans("$TR.T17")) !!}
 										<div class="input-group">
-									      {!! Form::text("discount_percentage", rand(1, 70), ["class"=>"form-control", "id"=>"priceDiscount"]) !!}
+									      {!! Form::text("discount_percentage", "", ["class"=>"form-control", "id"=>"priceDiscount"]) !!}
 									      <span class="input-group-addon">%</span>
 									    </div>
 									</div>
 									<div class="form-group product-amount">
 										{!! Form::label("productAmount", trans("$TR.T18")) !!}
-										{!! Form::text("product_amount", rand(1, 500), ["class"=>"form-control", "id"=>"productAmountText"]) !!}
+										{!! Form::text("product_amount", "", ["class"=>"form-control", "id"=>"productAmountText"]) !!}
 										<div class="checkbox">
 											<label>
 												{!! Form::hidden("is_amount_unlimited", 0) !!}
-												{!! Form::checkbox("is_amount_unlimited", 1, null, ["class"=>"checkbox", "id"=>"productAmountStatus"]) !!}
+												{!! Form::checkbox("is_amount_unlimited", 1, "checked", ["class"=>"checkbox", "id"=>"productAmountStatus"]) !!}
 												<span>{{ trans("$TR.T19") }}</span>
 											</label>
 										</div>

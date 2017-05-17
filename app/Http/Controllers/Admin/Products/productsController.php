@@ -60,11 +60,25 @@ class productsController extends Controller {
         ));
     }
 
+    protected function checkForIssetCategories(){
+        if(Category1::count() <= 0){
+            Session::flash('flashMessage', [
+                "type" => "warning",
+                "content" => trans('admin_panel.ACPP.T46')
+            ]);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public function create($step_id = NULL)
     {
-        if (!isset($step_id)) return redirect(route("admin.products..create")."/step/1");
+        if(!$this->checkForIssetCategories()) 
+            return redirect("/admin/products/categories");
 
-        $faker = Faker::create();
+        if(!isset($step_id))
+            return redirect(route("admin.products..create")."/step/1");
 
         switch($step_id){
             case 1:
@@ -72,15 +86,13 @@ class productsController extends Controller {
 
                 $p_cat1 = Category1::lists('name', 'id');
                 return view('back.products.create.steps.1')
-                    ->withFaker($faker)
-                    ->withP_cat1($p_cat1);
+                    ->with("p_cat1", $p_cat1);
             break;
             case 2:
                 if(!Session::has('products_step1'))
                     return abort(404);
 
-                return view('back.products.create.steps.2')
-                    ->withFaker($faker);
+                return view('back.products.create.steps.2');
             break;
             default:
                 return abort(404);
@@ -89,7 +101,10 @@ class productsController extends Controller {
 
     public function store($step_id, Request $request)
     {
-        $regex = "~^[A-Za-z0-9\(<->:.,%؟?)\s]{1,9999}$~iu";
+        if(!$this->checkForIssetCategories()) 
+            return redirect("/admin/products/categories");
+        
+        $regex = "~^[\p{L}\s(-_.)]{1,9999}$~iu";
 
         switch($step_id){
             case 1:
@@ -129,7 +144,6 @@ class productsController extends Controller {
 
                 $product = Product::find($input->product_id);
 
-                $product->is_real = 1;
                 $product->is_new = $input->is_new;
                 $product->is_live = $input->is_live;
 

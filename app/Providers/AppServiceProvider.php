@@ -9,7 +9,6 @@ use App\Models\Admin\Admin;
 
 use Visitor;
 use Storage;
-use Config;
 use Cart;
 use DB;
 
@@ -33,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'global_setting' => $global_setting,
             	'main_currency' => $static_setting[$global_setting->main_currency],
-        		'frontendNumber' => Config::get('setting.frontendNumber'),
+        		'frontendNumber' => config('setting.frontendNumber'),
             	'personType' => Admin::type(),
                 'cart_count' => Cart::getContent()->count(),
             	'publicProdcutsCats' => $p_cats,

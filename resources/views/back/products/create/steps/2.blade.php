@@ -12,9 +12,9 @@
 		@include('includes.flash-message')
 		@include('includes.back-error')
 
-		<div class="alert alert-warning" role="alert">
+		<div class="alert alert-warning alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<span>{!! trans("$TR.H26") !!}</span>
-			<span class="pull-right"><a href="#">{!! trans("$TR.T27") !!}</a></span>
 		</div>
 
 		<div class="panel panel-default">

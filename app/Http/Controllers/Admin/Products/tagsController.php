@@ -31,7 +31,7 @@ class tagsController extends Controller
 
     public function store(Request $request){
         $input = (object) $request->all();
-        $validator = Validator::make((array) $input, Tag::$rules);
+        $validator = Validator::make((array) $input, Tag::rules());
 
         if ($validator->fails()) {
             return Response::json([

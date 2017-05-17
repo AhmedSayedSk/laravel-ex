@@ -7,3 +7,5 @@ As far I remember, XAMP only allocates 128 MB RAM for PHP.
 Check your php.ini and increase the memory limit, e.g.:
 
 memory_limit = 512MB
+
+can't run more than 1 seed in 1 shoot, only first seed will runs cuz not do interpoletion

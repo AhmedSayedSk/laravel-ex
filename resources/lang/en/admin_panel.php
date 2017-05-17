@@ -1,8 +1,10 @@
 <?php
 
 $adminCPanel = "Admin c.panel";
-$PN          = config('setting.productNameKeywords.en.one'); // Product Name
-$SN          = config('setting.productNameKeywords.en.much'); // productS Name
+$TR_brand = "keywords.brand";
+
+$PN = trans("$TR_brand.one");
+$SN = trans("$TR_brand.much");
 
 return [
 	'A1'       => 'unlimited',
@@ -99,7 +101,7 @@ return [
 		"T3"     => "categories",
 		"T4"     => "numerical data",
 		"T5"     => "$PN name",
-		"T7"     => "$PN details",
+		"T7"     => "$PN description",
 		"T9"     => "serial number",
 		"T10"    => "next",
 		"T11"    => "add new category",
@@ -117,8 +119,7 @@ return [
 		"H23"    => "or expires after <input class=':inputClass' name=':inputName' type='text'> days from today :today",
 		"T24"    => "or unlimited expires?",
 		"T25"    => "next step",
-		"H26"    => "<b>Warning !!</b> you must complete this step to because ur $PN is not finshed yet.",
-		"T27"    => "i know, go out now",
+		"H26"    => "<b>Warning !!</b> you must complete this step, because ur $PN is not finshed yet.",
 		"T28"    => "upload images & carousel",
 		"T29"    => "tags",
 		"T30"    => "options",
@@ -137,6 +138,7 @@ return [
 		"T43"    => "max carousel upload is :max_carousel carousel",
 		"T44"    => "set carousel live?",
 		"T45"    => "$PN was created successfully.",
+		"T46"    => "Excuse me, you must add 1 category at least to can create $PN.",
 	],
 
 	// APSP: Admin Product Show Page
@@ -206,6 +208,7 @@ return [
 		"T10"    => "Are you sure for delete this tag?",
 		"T11"    => "create tag",
 		"T12"    => "create new tag",
+		"T12"    => "there is no tags yet.",
 	],
 
 	// APATM: Admin Products Append Tags Modal
