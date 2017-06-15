@@ -8,7 +8,7 @@
 	<div class="form-group">
 		<label for="tagName">{{ trans("$TR.T1") }}</label>
 		<div class="input-group">
-	      <input name="tag_name" type="text" class="form-control" id="tagName" placeholder='{{ trans("$TR.T2") }}'>
+	      <input name="tag_name" type="text" class="form-control" id="tagName" placeholder='{{ trans("$TR.T2") }}' autofocus="true">
 	      <span class="input-group-btn">
 	        <button class="btn btn-success set-tagName" type="button">{{ trans("$TR.T3") }}</button>
 	      </span>

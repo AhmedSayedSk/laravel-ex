@@ -10,45 +10,6 @@ use DB;
 
 class Product extends Model
 {
-    public static function rulesStep1($regex)
-    {
-        return [
-            "product_name" => "required|min:5|max:255|regex:$regex",
-            "product_description" => "required|min:5|regex:$regex",
-            "serial_number" => "numeric|between:1,99999999999",
-
-            "category_table_number" => "required|numeric|min:1",
-            "category_id" => "required|numeric|min:1",
-
-            "product_price" => "required|numeric|min:1",
-            "discount_percentage" => "numeric|min:0|max:95",
-            "product_amount" => "required_if:is_amount_unlimited,0|numeric|min:1",
-
-            "is_start_view_now" => "boolean",
-            "is_amount_unlimited" => "boolean",
-            "expires_condition" => "string",
-
-            "start_at" => "required_without:is_start_view_now|date|date_format:Y-m-d",
-            "expires_at" => "required_without:expires_condition|date|date_format:Y-m-d",
-            "expires_days" => "required_if:expires_condition,by_days|numeric|min:1|max:365"
-        ];
-    }
-
-    public static function rulesStep2($regex)
-    {
-        return [
-            "product_tags" => "regex:$regex",
-            "is_carousel_live" => "required|boolean",
-            "is_new" => "required|boolean",
-            "is_live" => "required|boolean",
-            "is_payment_on_delivery" => "required|boolean",
-            "is_payment_by_paypal" => "required|boolean",
-            'primary_image_id' => 'numeric|min:1',
-            'primary_carousel_id' => 'numeric|min:1',
-            "create_again" => "required|boolean"
-        ];
-    }
-
     public function tags() {
     	return $this->belongsToMany('App\Models\Product\Tag', 'products_tags_relationship', 'product_id', 'tag_id');
     }
@@ -58,11 +19,17 @@ class Product extends Model
     }
 
     public function scopeUsers_roles($query) {
-        return $query->where([
+        $query->where([
             ['is_live', 1],
-            ['start_at', "<=", time()],
-            ['expires_at', ">=", time()]
-        ]);
+            ['start_at', "<=", time()]
+        ])->orWhere(function ($query) {
+            $query->where([
+                ['expires_at', ">=", time()],
+                ['is_forever', 1]
+            ]);
+        });
+
+        return $query;
     }
 
     public function scopeProducts_carousel($query) {
@@ -91,16 +58,32 @@ class Product extends Model
         return $query;
     }
 
+    /* 
+        get all categories list by table number and category id
+        using in edit and view product backend pages
+    */
     public function scopeCategories_list($query, $cat_table_number, $cat_id){
         for ($i = $cat_table_number; $i >= 1; $i--) {
             if($i == $cat_table_number && $i > 1){
                 $table_values = DB::table("products_categories_$i")->find($cat_id);
-                $related_id = $table_values->related_id;
+
+                // check if category not founded in categories table
+                if($table_values == null) {
+                    return "empty";
+                }
+        
                 $categories[] = $table_values->name;
+                $related_id = $table_values->related_id;
             } else {
                 if(!isset($related_id)) $related_id = $cat_id;
-                $categories[] = DB::table("products_categories_$i")
-                    ->find($related_id)->name;
+                $table_values = DB::table("products_categories_$i")->find($related_id);
+
+                // check if category not founded in categories table
+                if($table_values == null) {
+                    return "empty";
+                }
+
+                $categories[] = $table_values->name;
             }    
         }
         return array_reverse($categories);
@@ -228,6 +211,5 @@ class Product extends Model
                 return $query;
             break;
         } 
-            
     }
 }

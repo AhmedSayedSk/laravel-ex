@@ -12,7 +12,7 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<b>{{ trans("$TR.T1") }}</b>
+				{{ trans("$TR.T1") }}
 				<a href="{{ route('admin.products..create') }}/step/1" class="btn btn-default btn-sm pull-right" title='{{ trans("$TR.T2") }}'>
 					<span class="glyphicon glyphicon-plus"></span>
 				</a>

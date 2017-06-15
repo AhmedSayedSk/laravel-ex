@@ -61,10 +61,11 @@ $.fn.extend({
 
 function optimizeCategories(){
 	$('#categories select.p-cat').on("change", function(){
-		if($(this).val() != 0){
-			var p_cat_id = $(this).val();
-			var table_num = parseInt($(this).attr("data-table-num"));
-			var max_categories = parseInt($(this).parents('#categories').attr("data-max-categories"));
+		var _this = $(this);
+		if(_this.val() != 0){
+			var p_cat_id = _this.val();
+			var table_num = parseInt(_this.attr("data-table-num"));
+			var max_categories = parseInt(_this.parents('#categories').attr("data-max-categories"));
 
 			if(table_num < max_categories){
 				$.ajax({
@@ -76,7 +77,7 @@ function optimizeCategories(){
 					},
 					success: function(data){
 						$('select.p-cat:gt('+(table_num-1)+')').text('');
-						$("<option value='0'>Choose something...</option>").appendTo('select[data-table-num="'+(table_num+1)+'"]');
+						$("<option value='0'>choose something...</option>").appendTo('select[data-table-num="'+(table_num+1)+'"]');
 
 						$.each(data.cat_list, function(i, val) {
 							var div_data = "<option value="+i+">"+val+"</option>";
@@ -94,58 +95,89 @@ function optimizeCategories(){
 }
 
 function tags_searcher(){
-	$(".tags_searcher").keyup(function(){
-		var _this = $(this);
 
-		$('.well button').each(function(){
+	var delay = (function(){
+		var timer = 0;
+		return function(callback, ms){
+			clearTimeout (timer);
+			timer = setTimeout(callback, ms);
+		};
+	})();
+
+	function storage_tags(){
+    	var tags_ids = Array();
+
+        $('#tags .well button').each(function(){
+        	var tag_id = $(this).attr('data-id');
+        	
 			if($(this).hasClass('saved-tag')){
-				// some code
+				// add some value to array
+				tags_ids.push(tag_id);
 			} else {
-				$(this).remove();
+				// delete some value from array
+				delete tags_ids[tag_id];
 			}
+
+			tags_ids = tags_ids.filter(function(item, pos) {
+			    return tags_ids.indexOf(item) == pos;
+			});
+
+			$('#tags .well [type="hidden"]').val(tags_ids + '');
 		});
 
-		function storage_tags(){
-        	var tags_ids = Array();
+		window.tags_ids = tags_ids;
+    }
 
-            $('.well button').each(function(){
-				if($(this).hasClass('saved-tag')){
-					tags_ids.push($(this).attr('data-id'));
+    $('#tags .well').delegate('button', 'click', function(){
+    	$(this).toggleClass('static-tags-btn saved-tag');
+    	storage_tags();
+    });
 
-					tags_ids = tags_ids.filter(function(item, pos) {
-					    return tags_ids.indexOf(item) == pos;
-					});
+	$(".tags_searcher").on("keyup", function(){
+		var _this = $(this);
 
-					$('.well [type="hidden"]').val(tags_ids + '');
+		$('#tags .loading-text').text("loading...").slideDown(200);
+
+		delay(function(){
+
+			$('#tags .well button').each(function(){
+				if(!$(this).hasClass('saved-tag')){
+					$(this).remove();
+					$('#tags .loading-text').hide();
 				}
 			});
 
-			window.tags_ids = tags_ids;
-        }
+			if(_this.val().length > 0){
+				$.ajax({
+					url: '/admin/products/tags/view-by-keyword',
+					type: 'post',
+					data: {
+						keyword: _this.val(),
+						appended_ids: JSON.stringify(window.tags_ids)
+					},
+					success: function(data){
+						var data = JSON.parse(data);
 
-		if(_this.val().length > 0){
-			$.ajax({
-				url: '/admin/products/tags/view-by-keyword',
-				type: 'post',
-				data: {
-					keyword: _this.val(),
-					appended_ids: JSON.stringify(window.tags_ids)
-				},
-				success: function(data){
-					var data = JSON.parse(data);
+						for(var i in data){
+							if(data[i].id !== undefined){
+								$('#tags .well').append('<button type="button" class="btn btn-default btn-sm" data-id="'+data[i].id+'">'+data[i].tag_name+'</button> ');
+							}
+	                    }
 
-					for(var i in data){
-						if(data[i].id !== undefined){
-							$('.well').append('<button type="button" class="btn btn-default btn-sm" data-id="'+data[i].id+'">'+data[i].tag_name+'</button> ');
-						}
-                    }
+	                    // console.log(data.length);
 
-                    $('.well button').on('click', function(){
-                    	$(this).toggleClass('static-tags-btn saved-tag');
-                    	storage_tags();
-                    });
-				}
-			})
-		}
+	                    if(data.length == 0){
+	                    	$('#tags .loading-text').html('no new tags, <a href="http://localhost:8000/admin/products/tags/view-append-modal" data-toggle="modal" data-target="#Modal" data-remote="false">append new tags</a>').slideDown(200);
+	                    } else {
+	                    	$('#tags .loading-text').hide();
+	                    }
+
+					}
+				})
+			} else {
+				$('#tags .loading-text').hide();
+			}
+
+		}, 1000);
 	});
 }

@@ -81,4 +81,26 @@ class categoriesController extends Controller
         	 "cat_list" => $cat_list
         ];
     }
+
+    public function postRefreshParameters(Request $request){
+        $related_id = $request->input('related_id');
+        $parameters_count = $request->input('parameters_count');
+        $category_table_number = $request->input('category_table_number');
+
+        $cuurent_count = DB::table("products_categories_$category_table_number")->count();
+
+        if($parameters_count < $cuurent_count) {
+            
+            if($related_id == 0) {
+                $new_parameters = DB::table("products_categories_$category_table_number")->lists('name', 'id');
+            } else {
+                $new_parameters = DB::table("products_categories_$category_table_number")->where("related_id", $related_id)->lists('name', 'id');
+            }
+
+            return $new_parameters;
+            
+        } else {
+            return 0;
+        }
+    }
 }

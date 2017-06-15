@@ -5,8 +5,8 @@
 	    list-style:none
 	}
 	.tree ul {
-	    margin-left:1em;
-	    position:relative
+	    margin-left: 1em;
+	    position: relative
 	}
 	.tree ul ul {
 	    margin-left:.5em
@@ -67,5 +67,26 @@
 	    margin:0px 0px 0px 0px;
 	    padding:0px 0px 0px 0px;
 	    outline: 0;
+	}
+
+	#tree1 > li {
+		padding: 3px;
+		//background: #FAFAFA;
+
+		form {
+			display: inline-block;
+		}
+
+		/*> ul li {
+			background: #F3F3F3;
+
+			> ul li {
+				background: #EAEAEA;
+
+				> ul li {
+					background: #E3E3E3;
+				}
+			}
+		}*/
 	}
 }

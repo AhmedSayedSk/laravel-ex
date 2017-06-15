@@ -5,6 +5,9 @@
 table form {
   display: inline !important; }
 
+form label {
+  font-weight: 300; }
+
 .fixed-footer {
   position: fixed;
   bottom: 0;

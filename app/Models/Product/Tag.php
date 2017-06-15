@@ -10,10 +10,8 @@ class Tag extends Model
     protected $table = "products_tags";
 
     public static function rules(){
-    	$regex = "~^[\p{L}_]{1,50}$~iu";
-
     	return [
-    		'tag_name' => "required|unique:products_tags|min:2|max:50|regex:$regex",
+    		'tag_name' => "required|unique:products_tags|min:2|max:50|regex:~^[0-9\p{L}_]+$~iu",
     	];
     }
 

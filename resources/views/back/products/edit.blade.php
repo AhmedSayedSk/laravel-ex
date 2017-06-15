@@ -11,9 +11,15 @@
 		@include('includes.flash-message')
 		@include('includes.back-error')
 
+		<div id="warning-alert" class="alert alert-warning alert-dismissible" role="alert" style="display: none">
+		  	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  	<span class="glyphicon glyphicon-info-sign"></span>
+		  	<span class="body"></span>
+		</div>
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<b><u>{{ trans('admin_panel.APEP.T1') }}</u> {{ $product->name }}</b>
+				<span class="product-name">{{ $product->name }}</span>
 				<a href="{{ route('admin.products..show', $product->id) }}" class="btn btn-default btn-sm pull-right" title="{{ trans('admin_panel.APEP.T2') }}">
 					show &nbsp;
 					<span class="glyphicon glyphicon-eye-open"></span>
@@ -27,64 +33,82 @@
 					{!! Form::open(["url"=>"/admin/products/$product->id", "method"=>"PATCH", "files"=>"true"]) !!}
 						<div class="form-group">
 							{!! Form::label("productName", trans("$TR.T5")) !!}
-							{!! Form::text("product_name", $product->name, ["class"=>"form-control", "id"=>"productName"]) !!}
+							{!! Form::text("product_name", $product->name, ["class"=>"form-control input-xlg", "id"=>"productName"]) !!}
 						</div>
 						<div class="form-group">
 							{!! Form::label("productDescription", trans("$TR.T7")) !!}
-							{!! Form::textarea("product_description", $product->description, ["class"=>"form-control", "id"=>"productDescription"]) !!}
+							{!! Form::textarea("product_description", $product->description, ["class"=>"form-control input-lg", "id"=>"productDescription", "rows"=>"5"]) !!}
 						</div>
-						<div class="form-group">
+						<div class="form-group serial-number">
 							{!! Form::label("", trans("$TR.T9")) !!}
-							{!! Form::text("serial_number", $product->serial_number, ["class"=>"form-control"]) !!}
+							<div class="input-group">
+								{!! Form::text("serial_number", $product->serial_number, ["class"=>"form-control serial-number"]) !!}
+							    <span class="input-group-addon">
+							    	<a href="#" class="generate">generate</a>
+							    </span>
+							</div>
 						</div>
 						<hr>
 						<div class="form-group" id="categories" data-max-categories="{{ count($product_trueCats) }}">
 							<label>{{ trans('admin_panel.APEP.T3') }}</label>
-							<p>my list is: <?= implode('</span> -> <span>', $product_categories_list) ?></p>
-							<p><u>please choose new category tree:</u></p>
 
-							<?php $i = 0; $counter = 1; ?>
-							@foreach($product_trueCats as $arr)
-								<select name="p_cat{{$counter}}" class="form-control p-cat" data-table-num="{{$counter}}">
-									<option value="0" selected>{{ trans("$TR.T12") }}</option>
-									@foreach($arr as $cat)
-										<option value="{{ $cat->id }}"
-											@if(isset($product_categories_list[$i]) && $product_categories_list[$i] == $cat->name)
-												selected
-												<?php $i++; $category_id = $cat->id ?>
-											@endif>
-											{{ $cat->name }}
-										</option>
-									@endforeach
-								</select>
-								<?php $counter++ ?>
-							@endforeach
+								<?php $category_id = "" ?>
 
-							{!! Form::hidden("category_id", $category_id, ["class"=>"category-id"]) !!}
-							{!! Form::hidden("category_table_number", $i, ["class"=>"cat-table-number"]) !!}
+								@if($product_categories_list != "empty")
+									<p>my list is: <?= implode('</span> -> <span>', $product_categories_list) ?></p>
+								@endif
+
+								<p><u>please choose new category tree:</u></p>
+
+								<?php $i = 0; $counter = 1; ?>
+								@foreach($product_trueCats as $arr)
+									<select name="p_cat{{$counter}}" class="form-control p-cat" data-table-num="{{$counter}}">
+										<option value="0" selected>{{ trans("$TR.T12") }}</option>
+										@foreach($arr as $cat)
+											<option value="{{ $cat->id }}"
+												@if(isset($product_categories_list[$i]) && $product_categories_list[$i] == $cat->name)
+													selected
+													<?php $i++; $category_id = $cat->id ?>
+												@endif>
+												{{ $cat->name }}
+											</option>
+										@endforeach
+									</select>
+									<?php $counter++ ?>
+								@endforeach
+
+								{!! Form::hidden("category_id", $category_id, ["class"=>"category-id"]) !!}
+								{!! Form::hidden("category_table_number", $i, ["class"=>"cat-table-number"]) !!}
 						</div>
 						<hr>
 						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
+			        		<div class="col-md-5">
+			        			<div class="form-group">
 									{!! Form::label("productPrice", trans("$TR.T15")) !!}
+									<span class="text-danger">*</span>
 									<div class="input-group">
-										{!! Form::text("product_price", $product->price, ["class"=>"form-control", "id"=>"productPrice", "aria-label"=>"Amount (to the nearest dollar)"]) !!}
-										<span class="input-group-addon">{{ $global_setting->main_currency }}</span>
-									</div>
+										{!! Form::text("product_price", $product->price . ".00", ["class"=>"form-control price input-xlg", "id"=>"productPrice", "aria-label"=>trans("$TR.T16"), "style"=>"color: green"]) !!}
+										<snap class="input-group-addon">{{ $main_currency }}</snap>
+									</div>				
 								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
+			        		</div>							        		
+			        		<div class="col-md-3">
+			        			<div class="form-group">
 									{!! Form::label("priceDiscount", trans("$TR.T17")) !!}
 									<div class="input-group">
-										{!! Form::text("discount_percentage", $product->discount_percentage, ["class"=>"form-control", "id"=>"priceDiscount"]) !!}
-										<span class="input-group-addon">%</span>
-									</div>
+								      {!! Form::text("discount_percentage", $product->discount_percentage, ["class"=>"form-control discount-percentage input-xlg", "id"=>"priceDiscount", "maxlength"=>"3", "style"=>"color: #EF6C00"]) !!}
+								      <snap class="input-group-addon">%</snap>
+								    </div>
 								</div>
-							</div>
-						</div>
-						<div class="form-group">
+			        		</div>
+			        		<div class="col-md-4">
+			        			<div class="form-group">
+									{!! Form::label("discountedPrice", trans("$TR.T47")) !!}
+								    {!! Form::text("", $product->discountedPrice, ["class"=>"form-control discounted-price input-xlg", "id"=>"discountedPrice"]) !!}
+								</div>
+			        		</div>					
+			        	</div>
+						<div class="form-group start-at">
 							{!! Form::label("productAmount", trans("$TR.T18")) !!}
 							{!! Form::text("product_amount", $product->amount, ["class"=>"form-control", "id"=>"productAmountText"]) !!}
 							<div class="checkbox">
@@ -96,33 +120,73 @@
 							</div>
 						</div>
 						<hr>
-						<div class="form-group start-at">
-							{!! Form::label("startAtData", trans("$TR.T20")) !!}
-							{!! Form::date("start_at", date("Y-m-d", $product->start_at), ["class"=>"form-control", "id"=>"startAtData"]) !!}
-							<span></span>
-							<div class="checkbox">
-								<label>
-									{!! Form::hidden("is_start_view_now", 0) !!}
-									{!! Form::checkbox("is_start_view_now", 1, "checked", ["class"=>"checkbox", "id"=>"startAtStatus"]) !!}
-									<span>{{ trans("$TR.T21") }}</span>
-								</label>
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group start-at">
+									{!! Form::label("startAtData", trans("$TR.T20")) !!}
+									{!! Form::date("start_at", date("Y-m-d", $product->start_at), ["class"=>"form-control", "id"=>"startAtData"]) !!}
+									<div class="checkbox">
+										<label>
+											{!! Form::hidden("is_start_view_now", 0) !!}
+											{!! Form::checkbox("is_start_view_now", 1, "checked", ["class"=>"checkbox", "id"=>"startAtStatus"]) !!}
+											<span>{{ trans("$TR.T21") }}</span>
+										</label>
+									</div>				
+								</div>	
+							</div>
+							<div class="col-md-7">
+								<?php 
+									if($product->is_forever)
+										$forever_activation = null;
+									else
+										$forever_activation = "active";
+								?>
+								<div class="form-group expires-condition">
+									<label>expires_condition</label>
+									<div class="section">
+										<div class="radio">
+											<label>
+												{!! Form::radio("expires_condition", "expires_at", $product->is_forever ? null : " checked", ["class"=>"checkbox"]) !!}
+												<span>expire viewing at</span>
+											</label>
+										</div>
+										{!! Form::date("expires_at", $product->is_forever ? null : date("Y-m-d", $product->expires_at), ["class"=>"form-control expires-at $forever_activation"]) !!}
+									</div>
+									<div class="section">
+										<div class="radio">
+											<label>
+												{!! Form::radio("expires_condition", "by_days", null, ["class"=>"checkbox"]) !!}
+												<span>{!! trans("$TR.H23", ['inputClass'=>"wid-100 expires-days", 'inputName'=>'expires_days', 'today' => date("d/m/Y", time()), 'disabled'=>"disabled"]) !!}</span>
+											</label>
+										</div>
+									</div>
+									<div class="section">
+										<div class="radio">
+											<label>
+												{!! Form::radio("expires_condition", "unlimited_expires", $product->is_forever ? "checked" : null, ["class"=>"checkbox"]) !!}
+												<span>{{ trans("$TR.T24") }}</span>
+											</label>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							{!! Form::label("", trans("$TR.T22")) !!}
-							{!! Form::date("expires_at", date("Y-m-d", $product->expires_at), ["class"=>"form-control"]) !!}
-							<div class="radio">
-								<label>
-									{!! Form::radio("expires_condition", "by_days", null, ["class"=>"checkbox"]) !!}
-									<span>{!! trans("$TR.H23", ['inputClass'=>'wid-100', 'inputName'=>'expires_days', 'today' => date("d/m/Y", time())]) !!}</span>
-								</label>
+						<hr>
+						<div id="tags">
+				        	<div class="form-group">
+								{!! Form::label("", trans("$TR.T29")) !!} 
+								&nbsp; [<a href="{{ route('APT.view-append-modal') }}" data-toggle="modal" data-target="#Modal" data-remote="false">{{ trans("$TR.T33") }}</a>]
+								{!! Form::text("", "", ["class"=>"form-control tags_searcher"]) !!}
 							</div>
-							<div class="radio">
-								<label>
-									{!! Form::radio("expires_condition", "unlimited_expires", "checked", ["class"=>"checkbox"]) !!}
-									<span>{{ trans("$TR.T24") }}</span>
-								</label>
+							{!! Form::label("", "current tags") !!} 
+							<div class="well p-tags">
+								@foreach($products_tags as $id => $tag)
+									<button type="button" class="btn btn-default btn-sm static-tags-btn saved-tag" data-id="{{ $id }}">{{ $tag }}</button>
+									<?php $tags_ids[] = $id ?>
+								@endforeach
+								{!! Form::hidden("product_tags_ids", isset($tags_ids) > 0 ? implode(",", $tags_ids) : '') !!}
 							</div>
+							<p class="loading-text" style="display: none">loading...</p>
 						</div>
 						<hr>
 						<div class="form-group">
@@ -147,12 +211,101 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Default bootstrap modal example -->
+	@include('standers.modal')
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			optimizeCategories();
 
 			enable_disable_input($("#productAmountStatus"), $("#productAmountText"));
 			enable_disable_input($("#startAtStatus"), $("#startAtData"));
+
+			/* reapeted in create product step 1, please modify it later */
+
+			$("#product-edit .form-group.expires-condition :input:not(:radio):not(.active)").attr("disabled", "disabled");
+
+			$("#product-edit .form-group.expires-condition :radio").on("change", function(){
+				var current_value = $(this).val();
+
+				$(this).parents(".form-group").find(":input:not(:radio)").attr("disabled", "disabled");
+
+				switch(current_value){
+					case "expires_at":
+						$(this).parents('.form-group').find(":input.expires-at").removeAttr("disabled");
+					break;
+					case "by_days":
+						$(this).parents('.form-group').find(":input.expires-days").removeAttr("disabled");
+					break;
+					default:
+						return false;
+				}
+			});
+
+			$('#product-edit .serial-number a.generate').on("click", function(e){
+				var _this = $(this);
+				e.preventDefault();
+				$.ajax({
+					url: "/admin/products/create/generate-serial-number",
+					type: "post",
+					success: function(result){
+						_this.parents('.form-group.serial-number').find("input.serial-number").val(result);
+					}
+				})
+			});
+
+			$('#product-edit input.price, #product-edit .discounted-price').priceFormat({
+				prefix: ""
+			});
+
+			$("#product-edit .price, #product-edit .discount-percentage").on("keyup change", function(){
+				var result;
+				var price = $("#product-edit .price").unmask() / 100;
+				var discount = $("#product-edit .discount-percentage").val() || 0;
+
+				if(discount != 0){
+					result = price - (price * (discount/100));
+					result = result.toFixed(2);
+				} else {
+					result = price;
+					result = result.toFixed(2);
+				}
+
+				$("#product-edit .discounted-price").val(result);
+				$("#product-edit .discounted-price").priceFormat({
+					prefix: ""
+				});
+			});
+
+			$("#product-edit .discounted-price").on("keyup", function(){
+				var discount;
+				var discountedPrice = $(this).unmask() / 100;
+				var price = $("#product-edit .price").unmask() / 100;
+
+				if(price > 0){
+					if(discountedPrice < price){
+						discount = 100 * ( 1 - (discountedPrice/price));
+						discount = discount.toFixed(2);
+						$("#product-edit .discount-percentage").val(discount);
+						$("#warning-alert").slideUp(300);
+					} else {
+						$("#warning-alert").slideDown(300).find(".body").html("<b>Warning !!</b>, Current price is less than discounted price!");
+					}
+				}
+			});
+
+			/* --------- */
+
+			tags_searcher();
+
+			tagModal([
+				'{{ trans("$TR.T33") }}'
+			], null, null, null);
 		})
 	</script>
+@stop
+
+@section('footer-js')
+	<script type="text/javascript" src="./packages/Jquery-Price-Format/jquery.priceformat.min.js"></script>
 @stop

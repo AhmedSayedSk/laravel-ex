@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Product\Product;
 use App\Models\Admin\Admin;
 
+use Schema;
 use Visitor;
 use Storage;
 use Cart;
@@ -16,7 +17,10 @@ class AppServiceProvider extends ServiceProvider
 {
 
     public function boot() {
-        //Visitor::log();
+
+        if (Schema::hasTable('visitor_registry')) {
+            Visitor::log();
+        }
 
         view()->composer('*', function ($view) {
             for ($i = 1; $i <= 4; $i++) { 
@@ -24,14 +28,11 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $global_setting = json_decode(Storage::get('setting.json'));
-
-            $locale = config('app.locale');
-            $static_setting = json_decode(Storage::get("static_setting.json"))->currencies->$locale;
-            $static_setting = explode(',', $static_setting);
+            $currencies = trans("admin_setting.currencies");
 
             $view->with([
                 'global_setting' => $global_setting,
-            	'main_currency' => $static_setting[$global_setting->main_currency],
+            	'main_currency' => $currencies[$global_setting->main_currency],
         		'frontendNumber' => config('setting.frontendNumber'),
             	'personType' => Admin::type(),
                 'cart_count' => Cart::getContent()->count(),

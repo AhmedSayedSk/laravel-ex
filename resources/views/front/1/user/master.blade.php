@@ -29,7 +29,7 @@
 <body>
 	@include("front.$frontendNumber.add-ons.navbar-1")
 	
-	<div class="container-fluid">
+	<div id="profile" class="container-fluid">
 		<div class="row">
 			<div class="col-md-3" id="left-nav">
 				@include("front.$frontendNumber.user.add-ons.left-nav")
