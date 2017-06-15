@@ -82,8 +82,7 @@ class ImageRepository
         $manager = new ImageManager();
         $image = $manager->make( $photo )->resize(200, null, function ($constraint) {
             $constraint->aspectRatio();
-            })
-            ->save(Config::get('images.icon_size')  . $filename);
+        })->save(Config::get('images.icon_size')  . $filename);
 
         return $image;
     }

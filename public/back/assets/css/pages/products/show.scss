@@ -1,16 +1,30 @@
-#product-show {
-	h3 {
+#product-show-page {
+
+	.panel {
+		.panel-heading {
+			.product-name {
+				display: inline-block;
+				white-space: nowrap;
+				width: 70%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				margin-bottom: -10px;
+			}
+		}
+	}
+
+	/*h3 {
 		margin-top: 0;
 		padding-bottom: 5px;
 		display: inline-block;
 		border-bottom: 1px solid rgba(45,45,45,.4);
-	}
+	}*/
 
-	.images-section {
+	/*.images-section {
 		border-right: 1px solid rgba(45,45,45,.1);
-	}
+	}*/
 
-	.carousel-image {
+	/*.carousel-image {
 		img {
 			width: 300px;
 		}
@@ -23,9 +37,9 @@
 			width: 180px;
 			border: 1px solid rgba(45,45,45,.1);
 		}
-	}
+	}*/
 
-	.tags a {
+	/*.tags a {
 		line-height: 30px;
-	}
+	}*/
 }

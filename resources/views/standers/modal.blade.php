@@ -6,9 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">{{ trans('modals.stander.title') }}</h4>
       </div>
       <div class="modal-body">
-      	<center>
-      		<img src="./assets/gif/hex-loader2.gif" width="300">
-      	</center>
+      	<h3><center>Loading...</center></h3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">{{ trans('modals.stander.close') }}</button>

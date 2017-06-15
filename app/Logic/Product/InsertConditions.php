@@ -22,18 +22,20 @@ class InsertConditions
     }
 
     public function expiresCondition($input, $product){
-        if(isset($input->expires_condition)){
-            switch($input->expires_condition){
-                case "by_days":
-                    $product->expires_at = time() + ($input->expires_days * 24 * 60 * 60);
-                break;
-                case "unlimited_expires":
-                    $product->is_forever = 1;
-                break;
-            }  
-        } else {
-            $f2 = explode('-', $input->expires_at);
-            $product->expires_at = mktime(0, 0, 0, $f2[1], $f2[2], $f2[0]);        
-        }
+        switch($input->expires_condition){
+            case "expires_at":
+                $f2 = explode('-', $input->expires_at);
+                $product->expires_at = mktime(0, 0, 0, $f2[1], $f2[2], $f2[0]);
+                $product->is_forever = 0;
+            break;
+            case "by_days":
+                $product->expires_at = time() + ($input->expires_days * 24 * 60 * 60);
+                $product->is_forever = 0; 
+            break;
+            case "unlimited_expires":
+                $product->expires_at = null;
+                $product->is_forever = 1;
+            break;
+        }  
     }
 }

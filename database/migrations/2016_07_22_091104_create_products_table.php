@@ -9,12 +9,12 @@ class CreateProductsTable extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('serial_number');
             $table->string('name');
             $table->string('description');
+            $table->string('serial_number')->nullable();
 
             $table->float('price');
-            $table->integer('discount_percentage');
+            $table->float('discount_percentage');
 
             $table->integer('category_table_number');
             $table->integer('category_id');

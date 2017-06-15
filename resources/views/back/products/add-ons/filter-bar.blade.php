@@ -18,14 +18,12 @@
 			{!! Form::open(['url'=>'/admin/products/search', "method"=>"get", "target"=>"_blank"]) !!}
 				<div class="form-group" data-type="name" data-values="1" data-status="0">
 					<label>
-						<span class="glyphicon glyphicon-pencil"></span>
 						<b>{{ trans("$TR.T5") }}</b>
 					</label>
 					{!! Form::text("", "", ["class"=>"form-control name1"]) !!}
 				</div>
 				<div class="form-group" data-type="price" data-values="2" data-status="0">
 					<label>
-						<span class="glyphicon glyphicon-piggy-bank"></span>
 						<b>{{ trans("$TR.T6") }}</b>
 					</label>
 					<div class="input-group">

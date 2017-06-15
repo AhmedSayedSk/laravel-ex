@@ -19,6 +19,7 @@ class ProductRepository
 
     public function setDiscountedPriceFormat($product){
         $product->discountPrice = $product->price - ($product->price * ($product->discount_percentage / 100));
+        $product->discountPrice = round($product->discountPrice, 2);
     }
 
     public function setCategoryViewFormat($product){

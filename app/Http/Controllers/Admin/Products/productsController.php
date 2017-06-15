@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin\Products;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Faker\Factory as Faker;
+use App\Http\Requests\Product\Create\Step1Request;
+use App\Http\Requests\Product\Create\Step2Request;
 
 use App\Logic\Product\ProductRepository;
 use App\Logic\Product\InsertConditions;
@@ -14,11 +15,14 @@ use App\Logic\Product\Categories;
 
 use App\Models\Product\Product;
 use App\Models\Product\Tag;
+use App\Models\Product\TagRelationship;
 use App\Models\Product\Image;
 use App\Models\Product\Carousel;
 use App\Models\Product\Comment;
 use App\Models\Product\LiveCarousel;
 use App\Models\Product\Category1;
+
+use Hashids\Hashids;
 
 use DB;
 use File;
@@ -47,7 +51,7 @@ class productsController extends Controller {
 
     public function index()
     {
-        $paginate_number = 3;
+        $paginate_number = 5;
         $this->checkPage($paginate_number);
 
         $products = Product::orderBy('id', 'DESC')->paginate($paginate_number);
@@ -72,6 +76,11 @@ class productsController extends Controller {
         }
     }
 
+    public function generateUniqueSerialNumber(){
+        $hashids = new Hashids('', 0, '0123456789AEOIUC');
+        return $hashids->encode(time());
+    }
+
     public function create($step_id = NULL)
     {
         if(!$this->checkForIssetCategories()) 
@@ -85,8 +94,11 @@ class productsController extends Controller {
                 Session::forget('products_step1');
 
                 $p_cat1 = Category1::lists('name', 'id');
-                return view('back.products.create.steps.1')
-                    ->with("p_cat1", $p_cat1);
+                $categories_table_number = json_decode(Storage::get("static_setting.json"))->categories_table_number;
+
+                return view('back.products.create.steps.1')->with(compact(
+                    "p_cat1", "categories_table_number"
+                ));
             break;
             case 2:
                 if(!Session::has('products_step1'))
@@ -99,36 +111,91 @@ class productsController extends Controller {
         }
     }
 
+
+    protected function insertStep1($input){
+        $product = new Product;
+        $product->serial_number = $input->serial_number;
+        $product->name = $input->product_name;
+        $product->description = $input->product_description;
+        $product->price = $input->product_price;
+        $product->discount_percentage = $input->discount_percentage;
+        $product->category_table_number = $input->category_table_number;
+        $product->category_id = $input->category_id;
+
+        $insertConditions = new InsertConditions;
+        $insertConditions->isAmountUnlimited($input, $product);
+        $insertConditions->isStartViewNow($input, $product);
+        $insertConditions->expiresCondition($input, $product);
+
+        $product->save();
+
+        return $product;
+    }
+
+    protected function insertTags($input){
+        $products_tags = explode(',', $input->product_tags);
+
+        foreach ($products_tags as $tag) {
+            $isSavedTag = DB::table('products_tags_relationship')->insert([
+                'product_id' => $input->product_id,
+                'tag_id' => $tag
+            ]);
+
+            if(!$isSavedTag)
+                return back()->withErrors(['Some error in save tags.']);
+        }
+    }
+
+    protected function updateTags($input){
+        $tags_ids = explode(',', $input->product_tags_ids);
+
+        if(strlen($input->product_tags_ids) > 0) {
+            foreach ($tags_ids as $tag) {
+                $isFounded = TagRelationship::where([
+                    'product_id' => $input->product_id,
+                    'tag_id' => $tag
+                ])->count();
+
+                if(!$isFounded) {
+                    $isSavedTag = DB::table('products_tags_relationship')->insert([
+                        'product_id' => $input->product_id,
+                        'tag_id' => $tag
+                    ]);
+
+                    if(!$isSavedTag)
+                        return back()->withErrors(['Some error in save tags.']);
+                }
+            }
+
+            TagRelationship::whereNotIn('tag_id', $tags_ids)->delete();
+        } else {
+            $product = Product::find($input->product_id);
+            $tags_ids = $product->tags()->select("products_tags.id")->lists('id');
+
+            Tag::destroy($tags_ids);
+            TagRelationship::whereIn('tag_id', $tags_ids)->delete();
+        }
+    } 
+    
+
     public function store($step_id, Request $request)
     {
         if(!$this->checkForIssetCategories()) 
             return redirect("/admin/products/categories");
-        
-        $regex = "~^[\p{L}\s(-_.)]{1,9999}$~iu";
 
         switch($step_id){
             case 1:
                 $input = (object) $request->all();
-                $validator = Validator::make((array) $input, Product::rulesStep1($regex));
+                $input->product_price = str_replace(",", "", $input->product_price);
+
+                $request1 = new Step1Request;
+                $validator = Validator::make((array) $input, $request1->rules(), $request1->messages());
 
                 if ($validator->fails())
                     return back()->withErrors($validator)->withInput();
 
-                $product = new Product;
-                $product->serial_number = $input->serial_number;
-                $product->name = $input->product_name;
-                $product->description = $input->product_description;
-                $product->price = $input->product_price;
-                $product->discount_percentage = $input->discount_percentage;
-                $product->category_table_number = $input->category_table_number;
-                $product->category_id = $input->category_id;
+                $product = $this->insertStep1($input);
 
-                $insertConditions = new InsertConditions;
-                $insertConditions->isAmountUnlimited($input, $product);
-                $insertConditions->isStartViewNow($input, $product);
-                $insertConditions->expiresCondition($input, $product);
-
-                $product->save();
                 $request->session()->set('products_step1', [
                     'product_id' => $product->id
                 ]);
@@ -137,7 +204,9 @@ class productsController extends Controller {
             break;
             case 2:
                 $input = (object) $request->all();
-                $validator = Validator::make((array) $input, Product::rulesStep2($regex));
+
+                $request2 = new Step2Request;
+                $validator = Validator::make((array) $input, $request2->rules(), $request2->messages());
 
                 if ($validator->fails())
                     return back()->withErrors($validator);
@@ -145,6 +214,12 @@ class productsController extends Controller {
                 $product = Product::find($input->product_id);
 
                 $product->is_new = $input->is_new;
+
+                // to set counterdown for 'new_status' expires
+                if($product->is_new == 1) {
+                    $product->new_status_time = time();
+                }
+
                 $product->is_live = $input->is_live;
 
                 $product->is_payment_on_delivery = $input->is_payment_on_delivery;
@@ -157,17 +232,7 @@ class productsController extends Controller {
                     return back()->withErrors(["Please choose 1 payment method at least."]);
                 }
 
-                $products_tags = explode(',', $input->product_tags);
-
-                foreach ($products_tags as $tag) {
-                    $isSaveTag = DB::table('products_tags_relationship')->insert([
-                        'product_id' => $input->product_id,
-                        'tag_id' => $tag
-                    ]);
-
-                    if(!$isSaveTag)
-                        return back()->withErrors(['Some error in save tags.']);
-                }
+                $this->insertTags($input);
 
                 $product->timestamps = false;
                 $product->save();
@@ -220,17 +285,25 @@ class productsController extends Controller {
         $productCats = new Categories;
         $product_trueCats = $productCats->getCategories();
 
+        $product->discountedPrice = $product->price - $product->price * ($product->discount_percentage / 100);
+        $product->discountedPrice = number_format(round($product->discountedPrice, 2), 2);
+
+        $products_tags = $product->tags()->select("products_tags.id", "products_tags.tag_name")->lists('tag_name', 'id');
+
         return view("back.products.edit")->with(compact(
-            'product', 'product_images', 'product_trueCats', 'product_categories_list'
+            'product', 'product_images', 'product_trueCats', 'product_categories_list',
+            'products_tags'
         ));
     }
 
     public function update(Request $request, $id)
     {
-        $regex = "~^[A-Za-z0-9\(<->:.,%؟?)\s]{1,9999}$~iu";
-
         $input = (object) $request->all();
-        $validator = Validator::make((array) $input, Product::rulesStep1($regex));
+        $input->product_id = $id; // to use it in insertTags protected fn
+        $input->product_price = str_replace(",", "", $input->product_price);
+
+        $request1 = new Step1Request;
+        $validator = Validator::make((array) $input, $request1->rules(), $request1->messages());
 
         if ($validator->fails())
             return back()->withErrors($validator);
@@ -254,6 +327,8 @@ class productsController extends Controller {
         if($input->is_payment_by_paypal == 0 && $input->is_payment_on_delivery == 0){
             return back()->withErrors(["Please choose 1 payment method at least."]);
         }
+
+        $this->updateTags($input);
 
         $product->save();
 
