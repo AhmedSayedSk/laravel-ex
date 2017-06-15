@@ -30,7 +30,7 @@
 				{!! Form::label("confirmationPassword", trans("$TR.T2")) !!}
 				{!! Form::password("password_confirmation", ["class"=>"form-control", "id"=>"confirmationPassword"]) !!}
 			</div>
-			{!! Form::submit(trans("$TR.T3"), ["class"=>"btn btn-primary"]) !!}
+			{!! Form::submit(trans("$TR.T3"), ["class"=>"btn btn-default"]) !!}
 
 			<span class="message right-text">
 				{{ trans("$TR.T4") }} <a href="/login">{{ trans("$TR.T5") }}</a>

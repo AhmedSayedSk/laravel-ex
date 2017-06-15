@@ -18,26 +18,27 @@
 					<div class="form-group">
 						{!! Form::label("", trans("$TR.T15")) !!}
 						<span class="text-danger">*</span>
-						{!! Form::text("name", "", ["class"=>"form-control"]) !!}
+						{!! Form::text("name", Faker\Factory::create()->name(), ["class"=>"form-control"]) !!}
 					</div>
 					<div class="form-group">
 						{!! Form::label("", trans("$TR.T12")) !!}
 						<span class="text-danger">*</span>
-						{!! Form::email("email", "", ["class"=>"form-control"]) !!}
+						{!! Form::email("email", Faker\Factory::create()->email(), ["class"=>"form-control"]) !!}
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								{!! Form::label("", trans("$TR.T16")) !!}
 								<span class="text-danger">*</span>
-								<input type="password" name="password" class="form-control">
+								<input type="password" name="password" value="123456" class="form-control">
+								<span class="help-block">{{ trans("$TR.T16") }}: 123456</span>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								{!! Form::label("", trans("$TR.T17")) !!}
 								<span class="text-danger">*</span>
-								<input type="password" name="password_confirmation" class="form-control">
+								<input type="password" name="password_confirmation" value="123456" class="form-control">
 							</div>
 						</div>
 					</div>

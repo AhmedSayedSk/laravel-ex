@@ -12,7 +12,7 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<span class="product-name">{{ $product->name }}</span>
+				<b>{{ $product->name }}</b>
 				<a href="{{ route('admin.products..edit', $product->id) }}" class="btn btn-default btn-sm pull-right" title='{{ trans("$TR.T1") }}'>
 					edit &nbsp;
 					<span class="glyphicon glyphicon-pencil"></span>

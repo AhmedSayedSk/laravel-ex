@@ -1,3 +1,6 @@
 {
-	"categories_table_number": 4
+	"currencies": {
+		"en": "USD,RUB,EUR,SHP,BRL",
+		"ar": "دولار,فرك,يورو,شب,برل"
+	}
 }

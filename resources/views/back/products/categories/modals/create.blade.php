@@ -8,7 +8,7 @@
 	{!! Form::open(["url"=>"/admin/products/categories"]) !!}
 		<div class="form-group">
 	    	{!! Form::label("", trans("$TR.T4"), ["class"=>"text-primary"]) !!}
-	    	{!! Form::text('name', '', ['class'=>"form-control cat-name input-xlg", "dir"=>"auto"]) !!}
+	    	{!! Form::text('name', '', ['class'=>"form-control cat-name input-lg"]) !!}
 		</div>
 		{!! Form::hidden('table_number', $_GET['table_number']) !!}
 		{!! Form::hidden('related_id', $_GET['related_id']) !!}
@@ -60,4 +60,8 @@
 			}
 		})
 	});
+
+	$('#Modal').on('shown.bs.modal', function(){
+	    input.focus();
+	})
 </script>

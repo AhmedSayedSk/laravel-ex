@@ -11,7 +11,7 @@
 @include('standers.add-ons.carousel-status-btn')
 
 {!! Form::open(["url"=>"admin/products/$product->id", "method"=>"DELETE"]) !!}
-  	<button type="submit" class="btn btn-default btn-sm delete" title="{{ trans('admin_panel.A5') }}" aria-hidden="true" data-toggle="tooltip" data-placement="top">
+  	<button type="submit" class="btn btn-default btn-sm" title="{{ trans('admin_panel.A5') }}" aria-hidden="true" data-toggle="tooltip" data-placement="top">
   		<span class="glyphicon glyphicon-remove"></span>
   	</button>
 {!! Form::close() !!}

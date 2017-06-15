@@ -1,7 +1,8 @@
 <?php
 
 Route::get('test', function(){
-	
+	$x = Cart::get(78);
+	dd($x);
 });
 
 // Auth routes
@@ -27,7 +28,6 @@ Route::group(['prefix' => '/', 'namespace' => 'Auth'], function() {
 
 			Route::group(['prefix' => 'categories'], function(){
 				Route::post('/get-data-by-method1', 'categoriesController@postGetDataByMethod1');
-				Route::post('/refresh-parameters', 'categoriesController@postRefreshParameters');
 				Route::resource('/', 'categoriesController', ['parameters' => ['' => 'id']]);
 			});
 
@@ -47,7 +47,6 @@ Route::group(['prefix' => '/', 'namespace' => 'Auth'], function() {
 			Route::post('store/step/{step_id}', 'productsController@store')->where('step_id', '[0-9]+');
 			Route::post('/live-status', 'productsController@liveStatus');
 			Route::post('/is-new-status', 'productsController@isNewStatus');
-			Route::post('/create/generate-serial-number', 'productsController@generateUniqueSerialNumber');
 		});
 
 		Route::group(['namespace' => 'Clients', 'prefix' => 'clients'], function(){

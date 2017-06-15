@@ -15,13 +15,13 @@ class SiteSettingRequest extends Request
 
     public function rules()
     {
-        $global_setting = json_decode(Storage::get('setting.json'));
-        $currencies = trans("admin_setting.currencies");
+        $locale = config('app.locale');
+        $currencies = json_decode(Storage::get("static_setting.json"))->currencies->$locale;
 
         return [
             'site_name' => 'required|min:3|max:20',
             'site_category' => 'required|min:3|max:50',
-            'main_currency' => "required|min:0|max:" . count($currencies),
+            'main_currency' => "required|min:0|max:" . count($currencies-1),
             'customer_service_number' => "required:string|min:10",
         ];
     }

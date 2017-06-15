@@ -58,7 +58,7 @@ class tagsController extends Controller
 
         $redirectFrom = 'tags';
         $caller = $tag->products();
-        $products = $caller->orderBy('id', 'DESC')->paginate(10);
+        $products = $caller->paginate(10);
 
         $productsIds = $caller->lists('products.id');
         $productsIds = trim($productsIds, '[]');

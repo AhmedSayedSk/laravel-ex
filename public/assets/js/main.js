@@ -20,7 +20,7 @@ function navLinkActivation(path){
 	}
 
 	$('.list-group a[href'+corrector+'="'+path+'"]').addClass('active').click(function(e){
-		e.preventDefault();
+		e.preventDefault;
 		return false;
 	});
 }
@@ -223,10 +223,5 @@ $(document).ready(function(){
 
 	$(window).load(function(){
 		response_footer();
-	});
-
-	$('form :submit.delete').click(function(e) {
-		if(!confirm('Are you sure?'))
-			e.preventDefault();
 	});
 });

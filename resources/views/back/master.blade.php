@@ -13,7 +13,6 @@
     <title>@yield('title')</title>
 
 	<link rel="stylesheet" type="text/css" href="./packages/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./assets/css/custom/bootstrap.css">
 	@yield('head-css')
 	<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="./back/assets/css/main.css">

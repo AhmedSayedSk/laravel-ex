@@ -12,8 +12,7 @@ return [
             '2001:14b8:100:934b::3:1',
             '2001:14b8:100:934b::/64',
           //  '*.example.com',
-            'localhost',
-            '127.0.0.1'
+            'localhost'
     ),
     
     'maxmind_db_path' => storage_path().'/geo/GeoLite2-City.mmdb',

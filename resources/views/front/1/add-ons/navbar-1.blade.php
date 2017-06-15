@@ -36,9 +36,10 @@
             <li class="btn-style">
               <a href="/register">{{ trans("$TR.T5") }}</a>
             </li>
-            <li class="btn-style">
-              <a href="/login">{{ trans("$TR.T6") }}</a>
-            </li>
+            <li class="btn-style"><a href="/login">
+              <span class="glyphicon glyphicon-user"></span> 
+              {{ trans("$TR.T6") }}
+            </a></li>
           @else
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

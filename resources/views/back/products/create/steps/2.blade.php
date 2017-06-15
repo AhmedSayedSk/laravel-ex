@@ -34,7 +34,7 @@
 					        <li>
 					        	<a href="#tags" aria-controls="tags" aria-expanded="true" role="tab" data-toggle="tab">
 					        		<span class="icon-fontello-n5"></span>
-					        		{{ trans("$TR.T29-5") }}
+					        		{{ trans("$TR.T29") }}
 					        	</a>
 					        </li>
 					        <li>
@@ -101,7 +101,6 @@
 								<div class="well p-tags">
 									{!! Form::hidden("product_tags") !!}
 								</div>
-								<p class="loading-text" style="display: none">loading...</p>
 								<button type="button" class="btn btn-default back">
 									<span class="icomoon-arrow-10 flipped col-flip-180"></span> 
 									{{ trans("$TR.T13") }}

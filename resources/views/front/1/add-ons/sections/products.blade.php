@@ -5,7 +5,7 @@
 
 <div class="row">
 	@foreach($products as $product)
-		<div class="item">
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
 			<div class="panel" product-id="{{ $product->id }}" serial-number="{{ $product->serial_number }}">
 				@if($product->is_new)
 					<div class="edge-corner">
@@ -14,10 +14,11 @@
 				@endif
 				<div class="panel-body">
 					<a href='/products/{{ $product->serial_number }}/{{ $product_name = implode("-", explode(" ", $product->name)) }}'>
-						@if(!is_null($product->image_name))
-							<img src='{{ asset("uploaded/products/images/icon_size/$product->image_name") }}'>
+						@if($product->is_real)
+							<img src='./uploaded/products/images/$product->id/$product->image_name'>
 						@else
-							<img src='{{ asset("assets/images/no-image.png") }}'>
+							<?php $r_colors = ['F44336', 'E91E63', '9C27B0', '009688', 'EEEEEE', '2d2d2d'] ?>
+							<img src='http://placehold.it/200x200/{{ $r_colors[array_rand($r_colors)] }}/FFF'>
 						@endif
 					</a>
 				</div>

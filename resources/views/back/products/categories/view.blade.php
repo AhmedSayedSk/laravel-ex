@@ -18,36 +18,36 @@
 		            @foreach($p_cats[0] as $cat1)
 		            	<li>
 		            		<a href="#">{{ $cat1->name }}</a>
-		            		{!! Form::open(["url"=>"/admin/products/categories/1", "method"=>"DELETE"]) !!}
+		            		{!! Form::open(["url"=>"/admin/products/categories/1", "method"=>"DELETE", 'style'=>"display: inline-block"]) !!}
 								{!! Form::hidden('cat_id', $cat1->id) !!}
-								{!! Form::submit('delete', ['class' => 'delete btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
+								{!! Form::submit('delete', ['class' => 'delete-category btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
 							{!! Form::close() !!}
 		            		<ul>
 		            			@foreach($p_cats[1] as $cat2)
 		            				@if($cat1->id == $cat2->related_id)
 		            					<li>
 		            						<a href="#">{{ $cat2->name }}</a>
-		            						{!! Form::open(["url"=>"/admin/products/categories/2", "method"=>"DELETE"]) !!}
+		            						{!! Form::open(["url"=>"/admin/products/categories/2", "method"=>"DELETE", 'style'=>"display: inline-block"]) !!}
 		            							{!! Form::hidden('cat_id', $cat2->id) !!}
-												{!! Form::submit('delete', ['class' => 'delete btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
+												{!! Form::submit('delete', ['class' => 'delete-category btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
 											{!! Form::close() !!}
 		                					<ul>
 		                						@foreach($p_cats[2] as $cat3)
 		                							@if($cat2->id == $cat3->related_id)
 		                								<li>
 		                									<a href="#">{{ $cat3->name }}</a>
-		                									{!! Form::open(["url"=>"/admin/products/categories/3", "method"=>"DELETE"]) !!}
+		                									{!! Form::open(["url"=>"/admin/products/categories/3", "method"=>"DELETE", 'style'=>"display: inline-block"]) !!}
 					                							{!! Form::hidden('cat_id', $cat3->id) !!}
-																{!! Form::submit('delete', ['class' => 'delete btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
+																{!! Form::submit('delete', ['class' => 'delete-category btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
 															{!! Form::close() !!}
 		                									<ul>
 						                						@foreach($p_cats[3] as $cat4)
 						                							@if($cat3->id == $cat4->related_id)
 						                								<li>
 							                								<a href="#" onclick="return false">{{ $cat4->name }}</a>
-							                								{!! Form::open(["url"=>"/admin/products/categories/4", "method"=>"DELETE"]) !!}
+							                								{!! Form::open(["url"=>"/admin/products/categories/4", "method"=>"DELETE", 'style'=>"display: inline-block"]) !!}
 									                							{!! Form::hidden('cat_id', $cat4->id) !!}
-																				{!! Form::submit('delete', ['class' => 'delete btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
+																				{!! Form::submit('delete', ['class' => 'delete-category btn btn-danger btn-xs', 'style'=>"display: none"]) !!}
 																			{!! Form::close() !!}
 						                								</li>
 						                							@endif
@@ -120,14 +120,10 @@
 				], "{{ route('admin.products.categories..create') }}", 'GET', data);
 			});
 
-			/*$('.delete-category').click(function(e) {
+			$('.delete-category').click(function(e) {
 				if(!confirm('{{ trans("$TR.T6") }}'))
 					e.preventDefault();
-			});*/
-
-			$('#Modal').on('shown.bs.modal', function(){
-			    input.focus();
-			})
+			});
 		});
 	</script>
 @stop
