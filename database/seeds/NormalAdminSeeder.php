@@ -10,7 +10,7 @@ class NormalAdminSeeder extends Seeder
 {
     public function run()
     {
-        $normal_admin = config('seeds.normal_admin');
+        $normal_admin = config('sensorization.seeds.normal_admin');
         $user = User::where('email', $normal_admin['email_address'])->count();
 
         if(!$user) {

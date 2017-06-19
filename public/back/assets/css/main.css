@@ -262,6 +262,13 @@ body {
 
 #left-nav .list-group {
   font-size: 13px; }
+  #left-nav .list-group button.expanded {
+    margin-bottom: 5px;
+    width: 100%;
+    background-color: #2d2d2d;
+    color: #fff; }
+    #left-nav .list-group button.expanded:hover {
+      background-color: #3c3c3c; }
   #left-nav .list-group a.active {
     background-color: #EEE;
     color: #000;
@@ -270,26 +277,45 @@ body {
   #left-nav .list-group .panel {
     margin-bottom: 0;
     border: 0; }
+    #left-nav .list-group .panel .des {
+      display: none; }
+    #left-nav .list-group .panel span[class^="icomoon-"] {
+      font-size: 25px;
+      vertical-align: middle;
+      color: #2d2d2d;
+      margin-right: 10px; }
+      #left-nav .list-group .panel span[class^="icomoon-"].pending {
+        color: #EF6C00; }
+      #left-nav .list-group .panel span[class^="icomoon-"].accepted {
+        color: #43A047; }
     #left-nav .list-group .panel .panel-heading {
-      font-weight: bold;
       border-bottom: 0;
       background-color: #2d2d2d;
       color: #FFF;
       font-size: 14px; }
+      #left-nav .list-group .panel .panel-heading span[class^="icomoon-"] {
+        color: #FFF !important; }
     #left-nav .list-group .panel .panel-body {
       padding: 0; }
 
-#content .panel > .panel-heading {
-  color: #FFF;
-  font-size: 22px;
-  padding: 15px 20px;
-  background-color: #2d2d2d; }
-  #content .panel > .panel-heading a.pull-right,
-  #content .panel > .panel-heading button.pull-right {
-    margin-right: 5px; }
-#content .panel .panel-body .container-fluid {
-  margin: -15px; }
-  #content .panel .panel-body .container-fluid .empty-content {
-    padding: 15px; }
+#content {
+  margin-left: -1em;
+  padding-right: 0; }
+  @media (max-width: 767px) {
+    #content {
+      margin-left: 0;
+      padding-right: 1em; } }
+  #content .panel > .panel-heading {
+    color: #FFF;
+    font-size: 22px;
+    padding: 15px 20px;
+    background-color: #2d2d2d; }
+    #content .panel > .panel-heading a.pull-right,
+    #content .panel > .panel-heading button.pull-right {
+      margin-right: 5px; }
+  #content .panel .panel-body .container-fluid {
+    margin: -15px; }
+    #content .panel .panel-body .container-fluid .empty-content {
+      padding: 15px; }
 
 /*# sourceMappingURL=main.css.map */

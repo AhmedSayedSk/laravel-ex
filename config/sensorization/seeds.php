@@ -30,6 +30,9 @@ return [
     	"name" => "super admin account",
     	"email_address" => "super-admin@sen.com",
     	"password" => "123456",
+        "company_name" => "Demo Sensorization",
+        "secret_question" => "",
+        "secret_answer" => ""
     ],
 
     "normal_admin" => [

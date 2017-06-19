@@ -70,6 +70,7 @@
 										    	<a href="#" class="generate">generate</a>
 										    </span>
 										</div>
+										<span class="help-block opc-7">Help for identify and target the product in search engines</span>
 									</div>
 									<button class="btn btn-default continue" type="button">{{ trans("$TR.T10") }} <span class="icomoon-arrow-10"></span></button>
 						        </div>
@@ -319,8 +320,7 @@
 						}	
 					}
 				})
-			});
-			
+			});		
 		})
 	</script>
 

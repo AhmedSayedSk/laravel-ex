@@ -4,7 +4,6 @@ namespace App\Logic\Image;
 
 use Validator;
 use Response;
-use Config;
 use File;
 
 use Intervention\Image\ImageManager;
@@ -28,7 +27,7 @@ class ImageRepository
         $parent_id = $form_data['parent_id'];
 
         $currentCount = Image::where('parent_id', $parent_id)->count();
-        $max_uploads = Config::get('images.max_uploads');
+        $max_uploads = config('sensorization.images.max_uploads');
 
         if($currentCount >= $max_uploads){
             return Response::json([
@@ -70,7 +69,7 @@ class ImageRepository
     public function original($photo, $filename)
     {
         $manager = new ImageManager();
-        $image = $manager->make($photo)->save(Config::get('images.full_size') . $filename);
+        $image = $manager->make($photo)->save(config('sensorization.images.full_size') . $filename);
         return $image;
     }
 
@@ -82,7 +81,7 @@ class ImageRepository
         $manager = new ImageManager();
         $image = $manager->make( $photo )->resize(200, null, function ($constraint) {
             $constraint->aspectRatio();
-        })->save(Config::get('images.icon_size')  . $filename);
+        })->save(config('sensorization.images.icon_size')  . $filename);
 
         return $image;
     }
@@ -92,8 +91,8 @@ class ImageRepository
      */
     public function delete($filename)
     {
-        $full_size_dir = Config::get('images.full_size');
-        $icon_size_dir = Config::get('images.icon_size');
+        $full_size_dir = config('sensorization.images.full_size');
+        $icon_size_dir = config('sensorization.images.icon_size');
 
         $sessionImage = Image::where('image_name', $filename)->first();
 

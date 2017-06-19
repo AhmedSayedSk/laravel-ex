@@ -7,7 +7,7 @@ class CountriesSeeder extends Seeder
 {
     public function run()
     {
-    	$countries = config('seeds.countries');
+    	$countries = config('sensorization.seeds.countries');
 
         foreach ($countries as $country) {
             Countries::firstOrCreate([

@@ -38,6 +38,17 @@ body {
 	font-size: 13px;
 	//margin-top: -20px;
 
+	button.expanded {
+		margin-bottom: 5px;
+		width: 100%;
+		background-color: #2d2d2d;
+		color: #fff;
+
+		&:hover {
+			background-color: rgba(60,60,60,1);
+		} 
+	}
+
 	a.active {
 		background-color: #EEE;
 		color: #000;
@@ -47,8 +58,37 @@ body {
 
 	.panel {
 		margin-bottom: 0;
+
+		.des {
+			display: none;
+		}
+
+		span[class^="icomoon-"] {
+			//display: none;
+			font-size: 25px;
+			vertical-align: middle;
+			//border-right: 1px solid rgba(45,45,45,.4);
+			color: #2d2d2d;
+			margin-right: 10px;
+			//padding-right: 10px;
+
+			
+
+			&.pending {
+				color: #EF6C00;
+			}
+
+			&.accepted {
+				color: #43A047;
+			}
+		}
+
 		.panel-heading {
-			font-weight: bold;
+			span[class^="icomoon-"] {
+				color: #FFF !important;
+			}
+
+			//font-weight: bold;
 			border-bottom: 0;
 			background-color: #2d2d2d;
 			color: #FFF;
@@ -62,6 +102,16 @@ body {
 }
 
 #content {
+	margin-left: -1em;
+	padding-right: 0;
+
+	@media (max-width: 767px) {
+		& { 
+			margin-left: 0;
+			padding-right: 1em;
+		}
+	}
+
 	.panel {
 		> .panel-heading {
 			color: #FFF;

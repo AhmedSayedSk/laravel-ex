@@ -65,7 +65,7 @@
 									        {!! Form::close() !!}
 										</div>
 										@include('standers.dropzone.preview-template')
-										<p class="help-block">{{ trans("$TR.T42", ['max_images' => Config::get('images.max_uploads')]) }}</p>
+										<p class="help-block">{{ trans("$TR.T42", ['max_images' => config('sensorization.images.max_uploads')]) }}</p>
 									</div>
 								</div>
 								<div class="dropzone-image">
@@ -85,7 +85,7 @@
 									        {!! Form::close() !!}
 										</div>
 										@include('standers.dropzone.preview-template')
-										<p class="help-block">{{ trans("$TR.T43", ['max_carousel' => Config::get('carousel.max_uploads')]) }}</p>
+										<p class="help-block">{{ trans("$TR.T43", ['max_carousel' => config('sensorization.carousel.max_uploads')]) }}</p>
 									</div>
 								</div>	
 								<button class="btn btn-default continue" type="button">{{ trans("$TR.T10") }} <span class="icomoon-arrow-10"></span></button>	

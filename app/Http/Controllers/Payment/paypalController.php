@@ -22,7 +22,6 @@ use PayPal\Api\Transaction;
 
 use App\Models\CartItem;
 use Session;
-use Config;
 use Cart;
 use Auth;
 use URL;
@@ -34,7 +33,7 @@ class paypalController extends Controller
     public function __construct() 
     {
 	    // setup PayPal api context
-	    $paypal_conf = Config::get('paypal');
+	    $paypal_conf = config('paypal');
 	    $this->_api_context = new ApiContext(new OAuthTokenCredential(
             $paypal_conf['client_id'], 
             $paypal_conf['secret'])

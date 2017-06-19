@@ -12,14 +12,13 @@ use App\Models\Product\Image;
 use Response;
 use Auth;
 use Cart;
-use Config;
 
 class cartController extends Controller
 {
 	public function __construct()
     {
 		$this->middleware('auth');
-        $this->frontendNumber = Config::get('setting.frontendNumber');
+        $this->frontendNumber = config('sensorization.setting.frontendNumber');
 	}
 
     public function getIndex()

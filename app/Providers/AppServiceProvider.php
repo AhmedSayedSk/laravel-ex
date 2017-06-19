@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'global_setting' => $global_setting,
             	'main_currency' => $currencies[$global_setting->main_currency],
-        		'frontendNumber' => config('setting.frontendNumber'),
+        		'frontendNumber' => config('sensorization.setting.frontendNumber'),
             	'personType' => Admin::type(),
                 'cart_count' => Cart::getContent()->count(),
             	'publicProdcutsCats' => $p_cats,

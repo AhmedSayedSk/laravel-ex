@@ -9,7 +9,7 @@ class SuperAdminSeeder extends Seeder
 {
     public function run()
     {
-        $super_admin = config('seeds.super_admin');
+        $super_admin = config('sensorization.seeds.super_admin');
         $user = User::where('email', $super_admin['email_address'])->count();
 
         if(!$user) {

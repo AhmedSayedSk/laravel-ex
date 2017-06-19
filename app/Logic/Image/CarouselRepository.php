@@ -4,7 +4,6 @@ namespace App\Logic\Image;
 
 use Validator;
 use Response;
-use Config;
 use File;
 
 use Intervention\Image\ImageManager;
@@ -28,7 +27,7 @@ class CarouselRepository
         $parent_id = $form_data['parent_id'];
 
         $currentCount = Carousel::where('parent_id', $parent_id)->count();
-        $max_uploads = Config::get('carousel.max_uploads');
+        $max_uploads = config('sensorization.carousel.max_uploads');
 
         if($currentCount >= $max_uploads){
             return Response::json([
@@ -70,7 +69,7 @@ class CarouselRepository
     public function original($photo, $filename)
     {
         $manager = new ImageManager();
-        $image = $manager->make($photo)->save(Config::get('carousel.larg_size') . $filename);
+        $image = $manager->make($photo)->save(config('sensorization.carousel.larg_size') . $filename);
         return $image;
     }
 
@@ -83,7 +82,7 @@ class CarouselRepository
         $image = $manager->make( $photo )->resize(320, null, function ($constraint) {
             $constraint->aspectRatio();
             })
-            ->save(Config::get('carousel.small_size')  . $filename);
+            ->save(config('sensorization.carousel.small_size')  . $filename);
 
         return $image;
     }
@@ -93,8 +92,8 @@ class CarouselRepository
      */
     public function delete($filename)
     {
-        $larg_size_dir = Config::get('carousel.larg_size');
-        $small_size_dir = Config::get('carousel.small_size');
+        $larg_size_dir = config('sensorization.carousel.larg_size');
+        $small_size_dir = config('sensorization.carousel.small_size');
 
         $sessionCarousel = Carousel::where('carousel_name', $filename)->first();
 

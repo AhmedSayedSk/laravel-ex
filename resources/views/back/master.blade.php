@@ -13,6 +13,7 @@
     <title>@yield('title')</title>
 
 	<link rel="stylesheet" type="text/css" href="./packages/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/packages/icomoon/E-commerce1/style.css"> <!-- for icon set -->
 	<link rel="stylesheet" type="text/css" href="./assets/css/custom/bootstrap.css">
 	@yield('head-css')
 	<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
@@ -39,10 +40,26 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-3" id="left-nav">
+			<div class="
+				@if(Session::has('leftnav_resize_status'))
+					@if(Session::get('leftnav_resize_status') == "true")
+						col-md-1 @else col-md-3
+					@endif
+				@else
+					col-md-3
+				@endif
+			" id="left-nav">
 				@include('back.add-ons.left-nav')
 			</div>
-			<div class="col-md-9" id="content">
+			<div class="
+				@if(Session::has('leftnav_resize_status'))
+					@if(Session::get('leftnav_resize_status') == "true")
+						col-md-11 @else col-md-9
+					@endif
+				@else
+					col-md-9
+				@endif
+			" id="content">
 				@yield('content')
 			</div>
 		</div>

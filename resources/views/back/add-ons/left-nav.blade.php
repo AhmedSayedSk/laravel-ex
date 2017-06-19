@@ -8,39 +8,89 @@
 ?>
 
 <div class="list-group">
+	<button class="click btn expanded">resize</button>
+	
 	<div class="panel panel-default">
-		<div class="panel-heading">{{ trans("$TR.T6") }}</div>
+		<div class="panel-heading">
+			<span class="icomoon-gears"></span>
+			<span class="des">{{ trans("$TR.T6") }}</span> 
+		</div>
 		<div class="panel-body">
-			<a href="/admin" class="list-group-item">{{ trans("$TR.T3") }}</a>
-			<a href="/admin/products" class="list-group-item">{{ trans("$TR.T5") }}</a>
-			<a href="/admin/products/create/step/1" class="list-group-item">{{ trans("$TR.T7") }}</a>
-			<a href="/admin/products/categories" class="list-group-item">{{ trans("$TR.T8") }}</a>
-			<a href="/admin/products/carousel" class="list-group-item">{{ trans("$TR.T9") }}</a>
-			<a href="/admin/products/tags" class="list-group-item">{{ trans("$TR.T10") }}</a>
+			<a href="/admin" class="list-group-item"> 
+				<span class="icomoon-dashboard"></span> 
+				<span class="des">{{ trans("$TR.T3") }}</span>
+			</a>
+			<a href="/admin/products" class="list-group-item">
+				<span class="icomoon-items"></span>
+				<span class="des">{{ trans("$TR.T5") }}</span>
+			</a>
+			<a href="/admin/products/create/step/1" class="list-group-item">
+				<span class="icomoon-paper-add"></span>
+				<span class="des">{{ trans("$TR.T7") }}</span>
+			</a>
+			<a href="/admin/products/categories" class="list-group-item">
+				<span class="icomoon-branch"></span>
+				<span class="des">{{ trans("$TR.T8") }}</span>
+			</a>
+			<a href="/admin/products/carousel" class="list-group-item">
+				<span class="icomoon-gallery"></span>
+				<span class="des">{{ trans("$TR.T9") }}</span>
+			</a>
+			<a href="/admin/products/tags" class="list-group-item">
+				<span class="icomoon-tags"></span>
+				<span class="des">{{ trans("$TR.T10") }}</span>
+			</a>
 		</div>
 	</div>
 	<div class="panel panel-default">
-		<div class="panel-heading">{{ trans("$TR.T11") }}</div>
+		<div class="panel-heading">
+			<span class="icomoon-gears"></span>
+			<span class="des">{{ trans("$TR.T11") }}</span>
+		</div>
 		<div class="panel-body">
 			<a href="/admin/review-cart/pending-requests" class="list-group-item">
-				{{ trans("$TR.T12") }} ({{ trans("$TR.T13") }})
-				<span class="badge">{{ $pendingRequestsCount }}</span>
+				<span class="icomoon-cart pending"></span>
+				<span class="des">
+					{{ trans("$TR.T12") }} ({{ trans("$TR.T13") }})
+					<span class="badge pull-right">{{ $pendingRequestsCount }}</span>
+				</span>
 			</a>
 			<a href="/admin/review-cart/accepted-requests" class="list-group-item">
-				{{ trans("$TR.T12") }} ({{ trans("$TR.T14") }})
-				<span class="badge">{{ $acceptedRequestsCount }}</span>
+				<span class="icomoon-cart accepted"></span>
+				<span class="des">
+					{{ trans("$TR.T12") }} ({{ trans("$TR.T14") }})
+					<span class="badge pull-right">{{ $acceptedRequestsCount }}</span>
+				</span>
 			</a>
-			<a href="/admin/clients/users/accounts" class="list-group-item">{{ trans("$TR.T15") }}</a>
-			<a href="/admin/clients/admins/accounts" class="list-group-item">{{ trans("$TR.T16") }}</a>
+			<a href="/admin/clients/users/accounts" class="list-group-item">
+				<span class="icomoon-users-crowd"></span>
+				<span class="des">{{ trans("$TR.T15") }}</span>
+			</a>
+			<a href="/admin/clients/admins/accounts" class="list-group-item">
+				<span class="icomoon-admin"></span>
+				<span class="des">{{ trans("$TR.T16") }}</span>
+			</a>
 		</div>
 	</div>
 	@if($personType == "super_admin")
 		<div class="panel panel-default">
-			<div class="panel-heading">{{ trans("$TR.T17") }}</div>
+			<div class="panel-heading">
+				<span class="icomoon-gears"></span>
+				<span class="des">{{ trans("$TR.T17") }}</span>
+			</div>
 		  	<div class="panel-body">
-		  		<a href="/admin/edit-super-admin" class="list-group-item">{{ trans("$TR.T19") }}</a>
-		    	<a href="/admin/clients/admins/accounts/create" class="list-group-item">{{ trans("$TR.T20") }}</a>
-				<a href="/admin/site-setting" class="list-group-item">{{ trans("$TR.T21") }}</a>
+		  		<a href="/admin/edit-super-admin" class="list-group-item">
+		  			<span class="icomoon-paper-edit"></span>
+		  			<span class="des">{{ trans("$TR.T19") }}</span>
+		  		</a>
+		    	<a href="/admin/clients/admins/accounts/create" class="list-group-item">
+		    		<span class="icomoon-lock"></span>
+		    		<span class="des">{{ trans("$TR.T20") }}</span>
+		    	</a>
+				<a href="/admin/site-setting" class="list-group-item">
+					<span class="icomoon-gears"></span>
+					<span class="des">{{ trans("$TR.T21") }}</span>
+				</a>
 		  	</div>
 		</div>
 	@endif
@@ -49,5 +99,54 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		navLinkActivation('/{{Request::path()}}');
+
+		function leftnav_resize_status(_this){
+			var basic_status = {{ Session::has('leftnav_resize_status') ? Session::get('leftnav_resize_status') : 'false' }};
+			var leftNav = $("#left-nav");
+			var content = $("#content");
+
+			if(basic_status) {
+				leftNav.find(".des").hide();
+				leftNav.find(".list-group-item").css("text-align", "center");
+				leftNav.find(".panel-heading").css("text-align", "center");
+			} else {
+				leftNav.find(".des").fadeIn(200);
+				leftNav.find(".list-group-item").css("text-align", "left");
+				leftNav.find(".panel-heading").css("text-align", "left");
+			}
+		}
+
+		leftnav_resize_status($('.click'));
+
+		$('.click').click(function(){
+			var _this = $(this);
+			var leftNav = $("#left-nav");
+			var content = $("#content");
+			var status = leftNav.hasClass('col-md-3');
+
+			leftNav.toggleClass('col-md-3 col-md-1');
+			content.toggleClass('col-md-9 col-md-11');
+
+			if(status) {
+				leftNav.find(".des").hide();
+				leftNav.find(".list-group-item").css("text-align", "center");
+				leftNav.find(".panel-heading").css("text-align", "center");
+			} else {
+				leftNav.find(".des").fadeIn(200);
+				leftNav.find(".list-group-item").css("text-align", "left");
+				leftNav.find(".panel-heading").css("text-align", "left");
+			}
+
+			// send to controller to set new status ib session
+			$.ajax({
+				url: "/requesting/ajax/backend-leftnav-status",
+				type: "post",
+				data: { status: status },
+				success: function(data){
+					console.log(data);
+				}
+			})
+		});
+
 	});
 </script>

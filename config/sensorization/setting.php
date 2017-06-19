@@ -2,5 +2,5 @@
 
 return [
     'frontendNumber' => 1,
-    "env_status" => "demo",
+    "env_status" => "demo"
 ];

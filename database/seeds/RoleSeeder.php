@@ -7,7 +7,7 @@ class RoleSeeder extends Seeder
 {
     public function run()
     {
-        $admins_roles = config('seeds.admins_roles');
+        $admins_roles = config('sensorization.seeds.admins_roles');
 
         foreach ($admins_roles as $container) {
             Role::firstOrCreate([

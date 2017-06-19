@@ -11,7 +11,14 @@ Route::group(['prefix' => '/', 'namespace' => 'Auth'], function() {
 	Route::get('logout', 'AuthController@getLogout');
 	Route::get('register', 'AuthController@getRegister');
 	Route::post('register', 'AuthController@postRegister');
+
+	// Socialite auth
+	Route::get('socialauth/{provider}', 'SocialAuthController@redirectToProvider');
+	Route::get('socialauth/{provider}/callback', 'SocialAuthController@handleProviderCallback');
 });
+
+// For ajax rquesting
+Route::controller('/requesting/ajax', "ajaxRequestController");
 
 
 /**** BACKEND ****/
