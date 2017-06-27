@@ -21,7 +21,16 @@
 <script type="text/javascript">
 	var parent = $("#append-new-tag");
 
-	parent.find(".set-tagName").on("click", function(){
+	parent.keypress(function (e) {
+		var key = e.which;
+		
+		if(key == 13){
+			parent.find(".set-tagName").click();
+			return false;  
+		}
+	});  
+
+	parent.find(".set-tagName").on("click", function(e){
 
 		var data = {
 			tag_name: $('input[name="tag_name"]').val()
@@ -41,4 +50,8 @@
 			}
 		});
 	});
+
+	$('#txtSearchProdAssign').keypress(function (e) {
+	 
+	});  
 </script>

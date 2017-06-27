@@ -90,7 +90,9 @@
 
 	<!-- Default bootstrap modal example -->
 	@include('standers.modal')
+@stop
 
+@section('footer-js')
 	<script type="text/javascript">
 		$('#tree1').treed();
 

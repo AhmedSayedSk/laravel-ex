@@ -112,10 +112,12 @@
 			</div>
 		</div>
 	</div>
+@stop
 
+@section('footer-js')
     <script type="text/javascript">
-	    $(document).ready(function(){
-	        cartRemoveItem();
-	    });
-	</script>
+        $(document).ready(function(){
+            cartRemoveItem();
+        });
+    </script>
 @stop

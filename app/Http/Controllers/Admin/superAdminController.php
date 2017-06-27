@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Requests\AddAdminsRequest;
 use App\Http\Requests\RolesRequest;
 use App\Http\Requests\SiteSettingRequest;
+use App\Http\Requests\EditSuperAdminInfoRequest;
 use App\Http\Controllers\Controller;
 
 use App\User;
@@ -30,7 +31,7 @@ class superAdminController extends Controller
 
     public function getEditSuperAdmin(){
         $super_admin = User::find(Auth::user()->id);
-        return view('back.edit-super-admin')->withSuper_admin($super_admin);
+        return view('back.super-admin.edit')->withSuper_admin($super_admin);
     }
 
     public function postEditSuperAdmin(EditSuperAdminInfoRequest $request){
@@ -50,7 +51,7 @@ class superAdminController extends Controller
 
         $superAdmin->save();
 
-        Session::flash('message', [
+        Session::flash('flashMessage', [
             "type" => "success",
             "content" => "Information was Updated successfully."
         ]);

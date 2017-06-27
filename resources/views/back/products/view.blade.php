@@ -84,12 +84,6 @@
 			@endif
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function(){
-			search_status();
-		});
-	</script>
 @stop
 
 @section('head-css')
@@ -99,4 +93,10 @@
 @section('footer-js')
 	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
 	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/moment.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			search_status();
+		});
+	</script>
 @stop

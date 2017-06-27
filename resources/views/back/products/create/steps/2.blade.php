@@ -7,7 +7,6 @@
 @section('title', trans("admin_panel.APT.T3", ['number'=>2]))
 
 @section('content')
-
 	<div id="product-create-page">
 		@include('includes.flash-message')
 		@include('includes.back-error')
@@ -177,6 +176,27 @@
 		
 	<!-- Default bootstrap modal example -->
 	@include('standers.modal')
+@stop
+
+@section('head-css')
+	<link rel="stylesheet" type="text/css" href="./assets/css/packages/fontello/numbers/css/fontello.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/packages/icomoon/arrows/style.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/packages/draggable-taps/draggable-taps.css">
+	<link rel="stylesheet" type="text/css" href="./packages/dropzone/dropzone.css">
+@stop
+
+@section('footer-js')
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/widget.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/mouse.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/data.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/plugin.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/safe-active-element.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/safe-blur.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/scroll-parent.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/jquery-ui/widgets/draggable.min.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/draggable-taps.min.js"></script>
+	<script type="text/javascript" src="./packages/dropzone/dropzone.js"></script>	
+	<script type="text/javascript" src="./assets/js/dropzone-config.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -195,26 +215,4 @@
 			});
 		})
 	</script>
-
-@stop
-
-@section('head-css')
-	<link rel="stylesheet" type="text/css" href="./assets/css/packages/fontello/numbers/css/fontello.css">
-	<link rel="stylesheet" type="text/css" href="./assets/css/packages/icomoon/arrows/style.css">
-	<link rel="stylesheet" type="text/css" href="./assets/css/packages/draggable-taps/draggable-taps.css">
-	<link rel="stylesheet" type="text/css" href="./packages/dropzone/dropzone.css">
-@stop
-
-@section('footer-js')
-	<script type="text/javascript" src="./assets/js/jquery-ui/widget.js"></script>
-	<script type="text/javascript" src="./assets/js/jquery-ui/mouse.js"></script>
-	<script type="text/javascript" src="./assets/js/jquery-ui/data.js"></script>
-	<script type="text/javascript" src="./assets/js/jquery-ui/plugin.js"></script>
-	<script type="text/javascript" src="./assets/js/jquery-ui/safe-active-element.js"></script>
-	<script type="text/javascript" src="./assets/js/jquery-ui/safe-blur.js"></script>
-	<script type="text/javascript" src="./assets/js/jquery-ui/scroll-parent.js"></script>
-	<script type="text/javascript" src="./assets/js/jquery-ui/widgets/draggable.min.js"></script>
-	<script type="text/javascript" src="./assets/js/draggable-taps.min.js"></script>
-	<script type="text/javascript" src="./packages/dropzone/dropzone.js"></script>	
-	<script type="text/javascript" src="./assets/js/dropzone-config.js"></script>
 @stop

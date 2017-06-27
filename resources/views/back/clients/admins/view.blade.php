@@ -25,6 +25,7 @@
 									<tr>
 										<th>{{ trans("$TR.T2") }}</th>
 										<th>{{ trans("$TR.T3") }}</th>
+										<th>created at</th>
 										<th>{{ trans("$TR.T4") }}</th>
 									</tr>
 								</thead>
@@ -33,11 +34,12 @@
 										<tr>
 											<td data-title='{{ trans("$TR.T2") }}'>{{ $admin->name }}</td>
 											<td data-title='{{ trans("$TR.T3") }}'>{{ $admin->email }}</td>
+											<td data-title='created at'>{{ $admin->created_at }}</td>
 											<td data-title='{{ trans("$TR.T4") }}'>
 												@if($personType == "super_admin")
-													<a href="{{ route('admin.clients.admins.accounts.edit', $admin->id) }}" class="btn btn-default btn-sm">{{ trans("$TR.T8") }}</a>
+													<a href="{{ route('admin.clients.admins.accounts.edit', $admin->id) }}" class="btn btn-warning btn-xs">{{ trans("$TR.T8") }}</a>
 													{!! Form::open(["url"=> route('admin.clients.admins.accounts.destroy', $admin->id), "method"=>"DELETE"]) !!}
-														{!! Form::submit('Delete', ['class' => 'btn btn-default btn-sm']) !!}
+														{!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
 													{!! Form::close() !!}
 												@else 
 													-

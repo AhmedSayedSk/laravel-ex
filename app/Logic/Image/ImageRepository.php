@@ -99,7 +99,7 @@ class ImageRepository
         if(empty($sessionImage)) {
             return Response::json([
                 'error' => true,
-                'code'  => 400,
+                'code'  => 401,
                 'message' => $filename
             ], 400);
         }

@@ -22,4 +22,32 @@
 		float: right;
 		line-height: 34px;
 	}
+
+	.login-by-section {
+		// horizontal line
+		h2 { 
+			opacity: .7;
+			width: 100%; 
+			text-align: center; 
+			border-bottom: 1px solid rgba(45,45,45,.7); 
+			line-height: 0.3em; 
+			margin: 20px 0 30px; 
+		}
+
+		h2 span { 
+			font-size: 15px;
+			background: #fff; 
+			padding:0 10px; 
+		}
+
+		> a {
+			color: #FFF;
+
+			i {
+				vertical-align: middle
+			}
+		}
+	}
+
+		
 }

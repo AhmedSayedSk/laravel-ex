@@ -31,10 +31,12 @@
 			@endif
 		</div>
 	</div>
+@stop
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			search_status();
-		});
-	</script>
+@section('footer-js')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            search_status();
+        });
+    </script>
 @stop

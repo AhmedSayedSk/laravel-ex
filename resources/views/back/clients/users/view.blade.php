@@ -14,11 +14,12 @@
 				@if(count($users) > 0)
 					<div class="container-fluid">
 						<div id="response-table">
-							<table class="table table-condensed table-bordered ps-view">
+							<table class="table table-condensed sortable table-bordered ps-view">
 								<thead>
 									<tr>
 										<th>{{ trans("$TR.T2") }}</th>
 										<th>{{ trans("$TR.T3") }}</th>
+										<th>crated at</th>
 										<th>{{ trans("$TR.T4") }}</th>
 									</tr>
 								</thead>
@@ -27,9 +28,10 @@
 										<tr>
 											<td data-title='{{ trans("$TR.T2") }}'>{{ $user->name }}</td>
 											<td data-title='{{ trans("$TR.T3") }}'>{{ $user->email }}</td>
+											<td data-title='created_at'>{{ $user->created_at }}</td>
 											<td data-title='{{ trans("$TR.T4") }}'>
 												{!! Form::open(["url"=>"/admin/clients/users/accounts/$user->id", "method"=>"DELETE"]) !!}
-													{!! Form::submit('Delete', ['class' => 'btn btn-default btn-sm']) !!}
+													{!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
 												{!! Form::close() !!}
 											</td>
 										</tr>
@@ -55,4 +57,13 @@
 		</div>
 		*/?>	
 	</div>
+@stop
+
+@section('head-css')
+	<link rel="stylesheet" type="text/css" href="./packages/bootstrap-sortable/Contents/bootstrap-sortable.css">
+@stop
+
+@section('footer-js')
+	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
+	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/moment.min.js"></script>
 @stop

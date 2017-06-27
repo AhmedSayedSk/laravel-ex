@@ -1,7 +1,7 @@
 <?php
 
 Route::get('test', function(){
-	
+	echo trim(' ahmed sayed ahmed ');
 });
 
 // Auth routes
@@ -45,6 +45,7 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 
 			Route::group(['prefix' => 'tags'], function(){
 				Route::post('view-by-keyword', 'tagsController@viewByKeyword');
+				// APT: admin products tags
 				Route::post('view-append-modal', ['as' => 'APT.view-append-modal', 'uses' => 'tagsController@viewAppendModal']);
 				Route::resource('/', 'tagsController', ['parameters' => ['' => 'id']]);
 			});
@@ -76,6 +77,7 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 	Route::group(['namespace' => 'Uploads'], function(){
 		Route::group(['prefix' => 'image'], function(){
 			Route::post('upload', ['as' => 'image-upload', 'uses' => 'ImageController@upload']);
+			Route::post('update', ['as' => 'image-update-modal', 'uses' => 'ImageController@updateModal']);
 			Route::post('delete', ['as' => 'image-remove', 'uses' => 'ImageController@delete']);
 		});
 		Route::group(['prefix' => 'carousel'], function(){

@@ -89,15 +89,17 @@
 			</div>
 		</div>
 	</div>
+@stop
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			//toggle_edit_section();
-			product_addToCart([
-				'you need to login first, Login now?',
-				'The request was cancelled',
-				"Detect product quantity"
-			]);
-		})
-	</script>
+@section('footer-js')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //toggle_edit_section();
+            product_addToCart([
+                'you need to login first, Login now?',
+                'The request was cancelled',
+                "Detect product quantity"
+            ]);
+        })
+    </script>
 @stop

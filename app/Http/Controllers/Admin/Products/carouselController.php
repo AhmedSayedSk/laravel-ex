@@ -22,7 +22,7 @@ class carouselController extends Controller
         $products = Product::orderBy('id', 'DESC')->products_carousel()->paginate(10);
 
         $productRepository = new ProductRepository;
-        $products = $productRepository->optimizeCarouselController($products);
+        $products = $productRepository->optimizeCarouselController($products);     
 
         return view('back.products.carousel.view')->withProducts($products);
     }

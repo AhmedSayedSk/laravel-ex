@@ -22,6 +22,36 @@
 	}
 }
 
+%products-images-dropzone {
+	.droping {
+		position: relative;
+
+		form {
+			border: 2px dashed nth($tealColor, 5) !important;
+
+			&:hover {
+				background-color: #FAFAFA;
+			}
+		}
+
+		.dz-message {
+			color: nth($tealColor, 5);
+		}
+
+		.help1 {
+			position: absolute;
+			right: 10px;
+			bottom: 5px;
+			font-size: 18px;
+			//background-color: #BBB;
+		}
+
+		.dz-set-primary.active {
+			font-weight: bold;
+		}
+	}
+}
+
 body {
 	background-color: #F0F0F0;
 
@@ -37,6 +67,17 @@ body {
 #left-nav .list-group {
 	font-size: 13px;
 	//margin-top: -20px;
+
+	.tooltip {
+		width: 300px;
+		//background-color: #2196F3;
+
+		.tooltip-inner {
+			opacity: 0.9;
+			padding: 5px 8px !important;
+		}
+	}
+		
 
 	button.expanded {
 		margin-bottom: 5px;
@@ -64,15 +105,10 @@ body {
 		}
 
 		span[class^="icomoon-"] {
-			//display: none;
 			font-size: 25px;
 			vertical-align: middle;
-			//border-right: 1px solid rgba(45,45,45,.4);
 			color: #2d2d2d;
 			margin-right: 10px;
-			//padding-right: 10px;
-
-			
 
 			&.pending {
 				color: #EF6C00;
@@ -83,20 +119,28 @@ body {
 			}
 		}
 
+        .slide-toggle {
+            font-size: 100%;
+            vertical-align: middle;
+        }
+
 		.panel-heading {
 			span[class^="icomoon-"] {
 				color: #FFF !important;
 			}
 
 			//font-weight: bold;
-			border-bottom: 0;
+			//border-bottom: 0;
+            border-color: #FFF;
 			background-color: #2d2d2d;
 			color: #FFF;
 			font-size: 14px;
 		}
+
 		.panel-body {
 			padding: 0;
 		}
+
 		border: 0;
 	}
 }

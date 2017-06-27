@@ -41,13 +41,13 @@ class categoriesController extends Controller
 
     	if($input->table_number == 1){
     		$p_cat_id = DB::table("products_categories_1")->insertGetId([
-	    		"name" => $input->name,
+	    		"name" => trim($input->name),
                 "created_at" => $now,
                 "updated_at" => $now
 	    	]);
     	} else {
     		$p_cat_id = DB::table("products_categories_".$input->table_number)->insertGetId([
-	    		"name" => $input->name,
+	    		"name" => trim($input->name),
 	    		"related_id" => $input->related_id,
                 "created_at" => $now,
                 "updated_at" => $now
@@ -56,7 +56,7 @@ class categoriesController extends Controller
 
     	return [
     		'id' => $p_cat_id,
-            'name' => $input->name,
+            'name' => trim($input->name),
     		'table_number' => $input->table_number,
     		'related_id' => $input->related_id,
     	];

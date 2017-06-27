@@ -24,27 +24,27 @@
 			<div class="panel-body">
 				<div class="carousel">
 					<h3>{{ trans("$TR.T2") }}</h3>
-					@if(count($product->carousels) > 0)
-						@foreach($product->carousels as $carousel)
-							<img src='{{ asset("uploaded/products/carousel_gallery/small/$carousel") }}'>
-						@endforeach
-					@else
-						<img src='{{ asset("assets/images/no-image.png") }}'>
-					@endif
+					<div id="zoomwall1" class="zoomwall carousels">
+						@if(count($product->carousels) > 0)
+							@foreach($product->carousels as $carousel)
+								<img class="carousel-context" src='{{ asset("uploaded/products/carousel_gallery/small/$carousel") }}' data-name="{{ $carousel }}">
+							@endforeach
+						@else
+							<img src='{{ asset("assets/images/no-image.png") }}'>
+						@endif
+					</div>
 				</div>
 				<div class="images">
-					<h3>{{ trans("$TR.T3") }} 
-						<small>
-							<a href="/admin/products/{{ $product->id }}/edit">edit images</a>
-						</small>
-					</h3>
-					@if(count($product->images) > 0)
-						@foreach($product->images as $image)
-							<img src='{{ asset("uploaded/products/images/icon_size/$image") }}'>
-						@endforeach
-					@else
-						<img src='{{ asset("assets/images/no-image.png") }}'>
-					@endif
+					<h3>{{ trans("$TR.T3") }}</h3>
+					<div id="zoomwall2" class="zoomwall images">
+						@if(count($product->images) > 0)
+							@foreach($product->images as $image)
+								<img class="image-context" src='{{ asset("uploaded/products/images/full_size/$image") }}' data-name="{{ $image }}">
+							@endforeach
+						@else
+							<img src='{{ asset("assets/images/no-image.png") }}'>
+						@endif
+					</div>
 				</div>
 				<hr>
 				<div class="info">
@@ -74,4 +74,73 @@
 			</div>
 		</div>
 	</div>
+
+    <div id="images-context-menu">
+      	<ul class="dropdown-menu" role="menu">
+	        <li><a tabindex="-1" data-method="delete">
+	        	<span class="glyphicon glyphicon-remove"></span>
+	        	delete image
+	        </a></li>
+      	</ul>
+    </div>
+
+    <div id="carousels-context-menu">
+      	<ul class="dropdown-menu" role="menu">
+	        <li><a tabindex="-1" data-method="delete">
+	        	<span class="glyphicon glyphicon-remove"></span>
+	        	delete carousel
+	        </a></li>
+      	</ul>
+    </div>
+@stop
+
+
+@section('head-css')
+	<link rel="stylesheet" type="text/css" href="./packages/zoomwall.js/zoomwall.css">
+@stop
+
+@section('head-js')
+	<script type="text/javascript" src="./packages/zoomwall.js/zoomwall.js"></script>
+	<script>
+		window.onload = function() {
+			zoomwall.create(document.getElementById('zoomwall1'), true);
+			zoomwall.create(document.getElementById('zoomwall2'), true);
+		};
+	</script>
+@stop
+
+@section('footer-js')
+	<script type="text/javascript" src="./assets/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
+	<script type="text/javascript">
+		function contextmenu(selector, target, call_route){
+			$(selector).contextmenu({
+				target: target, 
+				onItem: function(context, e) {
+				    var method = $(e.target).attr('data-method');
+				    var filename = context.attr('data-name');
+
+				    switch(method){
+				    	case 'delete':
+				    		if(confirm('Are you sure to delete?')){
+				    			$.ajax({
+					    			url: call_route,
+					    			type: 'post',
+					    			data: {
+					    				id: filename
+					    			},
+					    			success: function(data){
+					    				console.log(data);
+					    			}
+					    		});
+					    		context.remove();
+				    		}
+				    	break;
+				    }
+				}
+			});
+		}
+
+		contextmenu('.image-context', '#images-context-menu', '{{ route("image-remove") }}');
+		contextmenu('.carousel-context', '#carousels-context-menu', '{{ route("carousel-remove") }}');
+	</script>
 @stop

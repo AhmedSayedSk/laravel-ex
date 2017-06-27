@@ -1,5 +1,11 @@
 #product-show-page {
 
+	#context-menu {
+		li {
+			cursor: pointer;
+		}
+	}
+
 	.panel {
 		.panel-heading {
 			.product-name {

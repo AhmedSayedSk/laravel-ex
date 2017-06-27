@@ -56,25 +56,34 @@ class ProductRepository
         }
     }
 
-    public function setImagesFormat($product){
-        $product->images = Image::where('parent_id', $product->id)->lists('image_name');
-        $product->$product = $product->images;
-    }
-
     public function setCarouselFormat($product){
         $order = $product->primary_carousel_id;
-        if(!$order == null) {
-            $product->carousel_name = Carousel::where('parent_id', $product->id)->lists('carousel_name')[$order - 1];
-            $product->$product = $product->carousel_name;
+        
+        if($order != null) {
+            $carousel_list = Carousel::where('parent_id', $product->id)->lists('carousel_name');
+
+            if(count($carousel_list) >= 1){
+                $product->carousel_name = $carousel_list[$order - 1];
+                $product->$product = $product->carousel_name;
+            } else {
+                $product->$product = null;
+            }
         } else {
             $product->$product = null;
         }
     }
 
+
+    public function setImagesFormat($product){
+        $product->images = Image::where('parent_id', $product->id)->lists('image_name', 'id');
+        $product->$product = $product->images;
+    }
+
     public function setCarouselsFormat($product){
-        $product->carousels = Carousel::where('parent_id', $product->id)->lists('carousel_name');
+        $product->carousels = Carousel::where('parent_id', $product->id)->lists('carousel_name', 'id');
         $product->$product = $product->carousels;
     }
+
 
     public function setLiveCarouselFormat($product){
         $product->carousel_status = LiveCarousel::where("product_id", $product->id)->count();

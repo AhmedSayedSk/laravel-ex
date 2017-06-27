@@ -20,6 +20,9 @@
 							<div class="form-group">
 								{!! Form::label("", trans("$TR.T2")) !!}
 								{!! Form::text("name", $super_admin->name, ["class"=>"form-control"]) !!}
+								<span class="help-block opc-7">
+									{{ trans("sub_validation.super-admin-edit.T1") }}
+								</span>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -34,7 +37,7 @@
 						<div class="checkbox">
 							<label>
 								{!! Form::hidden("change_password", 0) !!}
-								{!! Form::checkbox("change_password", 1, null, ["class"=>"checkbox"]) !!}
+								{!! Form::checkbox("change_password", 1, null, ["class"=>"checkbox checkbox-button"]) !!}
 								<b>{{ trans("$TR.T4") }}</b>
 							</label>
 						</div>
@@ -57,9 +60,19 @@
 							</div>
 						</div>
 					</div>	
-					{!! Form::submit(trans("$TR.T8"), ["class"=>"btn btn-default"]) !!}
+					{!! Form::submit(trans("$TR.T8"), ["class"=>"btn btn-success"]) !!}
 				{!! Form::close() !!}
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('left-nav')
+	<script type="text/javascript">
+		$(document).ready(function(){
+			enable_disable_input($(".checkbox-button"), $("input[name='old_password']"), 0);
+			enable_disable_input($(".checkbox-button"), $("input[name='new_password']"), 0);
+			enable_disable_input($(".checkbox-button"), $("input[name='new_password_confirmation']"), 0);
+		});
+	</script>
 @stop

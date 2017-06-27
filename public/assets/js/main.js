@@ -1,4 +1,4 @@
-Array.prototype.unique = function() {
+/*Array.prototype.unique = function() {
     var arr = [];
     for(var i = 0; i < this.length; i++) {
         if(!arr.contains(this[i])) {
@@ -6,7 +6,7 @@ Array.prototype.unique = function() {
         }
     }
     return arr;
-}
+}*/
 
 function navLinkActivation(path){
 	var corrector = "";
@@ -201,16 +201,16 @@ function response_footer(){
     }
 }
 
-function enable_disable_input(checkbox_button, text_input){
+function enable_disable_input(checkbox_button, text_input, reversibility = 1){
 	// by default when page start
-	if(checkbox_button.is(':checked')){
+	if(checkbox_button.is(':checked') == reversibility){
 		text_input.attr('disabled', 'disabled');
 	} else {
 		text_input.removeAttr('disabled');
 	}
 
 	checkbox_button.change(function(){
-		if(checkbox_button.is(':checked')){
+		if(checkbox_button.is(':checked') == reversibility){
 			text_input.attr('disabled', 'disabled');
 		} else {
 			text_input.removeAttr('disabled');
@@ -229,4 +229,10 @@ $(document).ready(function(){
 		if(!confirm('Are you sure?'))
 			e.preventDefault();
 	});
+
+    $('.slide-toggle').click(function(e){
+        e.preventDefault();
+        $(this).parents('.panel').find('.panel-body').slideToggle(200);
+        $(this).find('span').toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+    });
 });

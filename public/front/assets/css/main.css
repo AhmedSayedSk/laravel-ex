@@ -57,6 +57,21 @@ body {
   #login-form .right-text, #register-form .right-text {
     float: right;
     line-height: 34px; }
+  #login-form .login-by-section h2, #register-form .login-by-section h2 {
+    opacity: .7;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(45, 45, 45, 0.7);
+    line-height: 0.3em;
+    margin: 20px 0 30px; }
+  #login-form .login-by-section h2 span, #register-form .login-by-section h2 span {
+    font-size: 15px;
+    background: #fff;
+    padding: 0 10px; }
+  #login-form .login-by-section > a, #register-form .login-by-section > a {
+    color: #FFF; }
+    #login-form .login-by-section > a i, #register-form .login-by-section > a i {
+      vertical-align: middle; }
 
 #products-view .content {
   background-color: #F7F7F7;

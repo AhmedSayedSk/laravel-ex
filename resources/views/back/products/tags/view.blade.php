@@ -55,14 +55,14 @@
 												{!! App\Models\Product\Tag::find($inner->id)->products()->count() !!}
 											</td>
 											<td data-title='{{ trans("$TR.T7") }}'>
-												<a href="/admin/products/tags/{{ $inner->tag_name }}" class="btn btn-default btn-xs" {{ $products_count_live <= '0' ? 'disabled' : '' }}>
+												<a href="/admin/products/tags/{{ $inner->tag_name }}" class="btn btn-default btn-xs" {{ $products_count_live <= '0' ? 'disabled' : '' }} title="show product related with this tag" aria-hidden="true" data-toggle="tooltip" data-placement="top">
 													<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 												</a>
-												<a href="#" class="btn btn-success btn-xs edit-tag">
+												<a href="#" class="btn btn-success btn-xs edit-tag" title="edit tag" aria-hidden="true" data-toggle="tooltip" data-placement="top">
 													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 												</a>
 												{!! Form::open(["url"=>"/admin/products/tags/$inner->id", "method"=>"DELETE"]) !!}
-													<button type="submit" class="btn btn-danger btn-xs delete-tag" aria-label="Left Align">
+													<button type="submit" class="btn btn-danger btn-xs delete-tag" aria-label="Left Align" title="delete" aria-hidden="true" data-toggle="tooltip" data-placement="top">
 														<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 													</button>
 													{!! Form::hidden("delete_products", 0, ["class"=>"delete-products"]) !!}
@@ -84,7 +84,16 @@
 
 	<!-- Default bootstrap modal example -->
 	@include('standers.modal')
-	
+@stop
+
+@section('head-css')
+	<link rel="stylesheet" type="text/css" href="./packages/bootstrap-sortable/Contents/bootstrap-sortable.css">
+@stop
+
+@section('footer-js')
+	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
+	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/moment.min.js"></script>
+
 	<script type="text/javascript">
 		tagModal(['{{ trans("$TR.T12") }}'], null, null, null, null);
 
@@ -148,13 +157,4 @@
 			});	
 		});
 	</script>
-@stop
-
-@section('head-css')
-	<link rel="stylesheet" type="text/css" href="./packages/bootstrap-sortable/Contents/bootstrap-sortable.css">
-@stop
-
-@section('footer-js')
-	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/bootstrap-sortable.js"></script>
-	<script type="text/javascript" src="./packages/bootstrap-sortable/Scripts/moment.min.js"></script>
 @stop

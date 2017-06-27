@@ -7,7 +7,7 @@
 @section('title', trans('admin_panel.APT.T11'))
 
 @section('content')
-	<div id="">
+	<div id="admins-edit-page">
 		@include('includes.back-error')
 		@include('includes.flash-message')
 

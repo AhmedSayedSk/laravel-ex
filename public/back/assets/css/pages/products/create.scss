@@ -50,33 +50,7 @@
 					}
 
 					&#product-images {
-						.droping {
-							position: relative;
-
-							form {
-								border: 2px dashed nth($tealColor, 5) !important;
-
-								&:hover {
-									background-color: #FAFAFA;
-								}
-							}
-
-							.dz-message {
-								color: nth($tealColor, 5);
-							}
-
-							.help1 {
-								position: absolute;
-								right: 10px;
-								bottom: 5px;
-								font-size: 18px;
-								//background-color: #BBB;
-							}
-
-							.dz-set-primary.active {
-								font-weight: bold;
-							}
-						}
+						@extend %products-images-dropzone;
 					}
 
 					&#tags {

@@ -13,7 +13,12 @@
 
 <div id="filter-bar" class="container-fluid">
 	<div class="panel panel-default">
-		<div class="panel-heading">{{ trans("$TR.T1") }}</div>
+		<div class="panel-heading">
+            {{ trans("$TR.T1") }}
+            <a href="#" class="btn btn-default btn-sm pull-right slide-toggle" title="slide toggle" data-toggle="tooltip">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+        </div>
 		<div class="panel-body">
 			{!! Form::open(['url'=>'/admin/products/search', "method"=>"get", "target"=>"_blank"]) !!}
 				<div class="form-group" data-type="name" data-values="1" data-status="0">

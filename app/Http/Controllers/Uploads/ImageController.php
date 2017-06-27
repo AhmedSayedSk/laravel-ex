@@ -25,6 +25,10 @@ class ImageController extends Controller
         return $response;
     }
 
+    public function updateModal(){
+        return view('includes.dropzone-image-view-modal');
+    }
+
     public function delete()
     {
         $filename = Input::get('id');

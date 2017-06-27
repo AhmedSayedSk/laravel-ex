@@ -15,4 +15,7 @@ return [
 	'cart' => [
 		'max_quantity' => 'Warning: the current quantity is more than your detected chossen.',
 	],
+	'super-admin-edit' => [
+		'T1' => "name between 3, 255 and don't use many speical charachters"
+	]
 ];
