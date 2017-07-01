@@ -35,14 +35,14 @@
 						{!! Form::text("", "", ["class"=>"form-control price1 from", "placeholder" => 
 							trans("$TR.T8", [
 								'price' => $SF_price->min, 
-								'currency' => $main_currency
+								'currency' => ''
 							])
 						]) !!}
 						<span class="input-group-btn" style="width: 0px;"></span>
 						{!! Form::text("", "", ["class"=>"form-control price2 to", "placeholder" => 
 							trans("$TR.T9", [
 								'price' => $SF_price->max, 
-								'currency' => $main_currency
+								'currency' => ''
 							])
 						]) !!}
 					</div>

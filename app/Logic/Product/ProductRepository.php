@@ -27,25 +27,16 @@ class ProductRepository
         $product->categories_list = "<span>" . implode('</span> -> <span>', $categories_list) . "</span>";
     }
 
-    /*public function setImageFormat($product){
-        $order = $product->primary_image_id;
-
-        if($order != null) {
-            $product->image_name = Image::where('parent_id', $product->id)->lists('image_name')[$order - 1];
-            $product->$product = $product->image_name;
-        } else {
-            $product->$product = null;
-        }
-    }*/
 
     public function setImageFormat($product){
         $order = $product->primary_image_id;
 
         if($order != null) {
-            $image_list = Image::where('parent_id', $product->id)->lists('image_name');
+            $image_list = Image::where('parent_id', $product->id)->lists('image_name', 'id');
 
             if(count($image_list) >= 1) {
-                $product->image_name = $image_list[$order - 1];
+                // to check if order founded call it or get default image name (first name)
+                $product->image_name = isset($image_list[$order]) ? $image_list[$order] : current($image_list->toArray());
                 $product->$product = $product->image_name;
             } else {
                 $product->$product = null;
@@ -60,10 +51,10 @@ class ProductRepository
         $order = $product->primary_carousel_id;
         
         if($order != null) {
-            $carousel_list = Carousel::where('parent_id', $product->id)->lists('carousel_name');
+            $carousel_list = Carousel::where('parent_id', $product->id)->lists('carousel_name', 'id');
 
             if(count($carousel_list) >= 1){
-                $product->carousel_name = $carousel_list[$order - 1];
+                $product->carousel_name = isset($carousel_list[$order]) ? $carousel_list[$order] : current($carousel_list->toArray());
                 $product->$product = $product->carousel_name;
             } else {
                 $product->$product = null;
@@ -192,6 +183,14 @@ class ProductRepository
         $this->setImagesFormat($product);
         $this->setCarouselsFormat($product);
         $this->setLiveCarouselFormat($product);
+        
+        return $product;
+    }
+
+    public function optimizeEditProduct($product){
+        $this->setDiscountedPriceFormat($product);
+        $this->setImagesFormat($product);
+        $this->setCarouselsFormat($product);
         
         return $product;
     }

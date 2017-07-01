@@ -47,6 +47,7 @@
 		</div>
 	</footer>
 
+    @yield('footer-js')
 	<script type="text/javascript" src="./assets/js/token.js"></script>
 </body>
 </html>

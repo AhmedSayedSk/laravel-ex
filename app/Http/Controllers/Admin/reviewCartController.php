@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Logic\Product\ProductRepository;
+
 use App\Models\CartItem;
 use App\Models\Product\Product;
 
@@ -17,8 +19,11 @@ class reviewCartController extends Controller
     }
 
     public function getPendingRequests(){
-    	$cart_items = CartItem::where('is_accepted', 0)->updates_withPaginate(5);
-    	return view("back.cart.pending-requests")->withCart_items($cart_items);
+    	$cart_products = CartItem::where('is_accepted', 0)->updates_withPaginate(5);
+
+    	return view("back.cart.pending-requests")->with(compact(
+            'cart_products'
+        ));
     }
 
     public function getAcceptedRequests(){

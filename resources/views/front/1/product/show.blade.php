@@ -14,23 +14,23 @@
 @section('content')
 	<div id="product-show" class="container-fluid">
 		<div class="row">
-			<div class="col-md-7">
+			<div class="col-md-{{ count($product->images) > 0 ? '7' : '12'}}">
 				<div id="product-panel" class="panel panel-default">
 					<div class="panel-heading">
 						<div class="row">
-							<div class="col-md-10 vcenter">
+							<div class="col-md-12 vcenter">
 								<p class="p-name">
 									{{ $product->name }}
 								</p>
 								<span class="p-price">
-									<b class="text-success">{{ $product->discountPrice }} {{ $main_currency }}</b>
+									<b class="text-success">{{ $product->discountPrice }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</b>
 									@if($product->discount_percentage > 0)
 										<span class="text-danger">{{ trans("$TR.T1", ["discount"=>$product->discount_percentage]) }}</span>
 									@endif
 								</span>
-							</div>
-							<div class="col-md-0 vcenter" product-id="{{ $product->id }}" serial-number="{{ $product->serial_number }}">
-								<button class="btn btn-default add-to-cart pull-right">{{ trans("$TR.T2") }}</button>
+                                <div class="right-section" product-id="{{ $product->id }}" serial-number="{{ $product->serial_number }}">
+                                    <button class="btn btn-default add-to-cart">{{ trans("$TR.T2") }}</button>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -84,9 +84,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5 p-images">
-				@include("front.$frontendNumber.product.add-ons.carousel")
-			</div>
+            @if(count($product->images) > 0)
+    			<div class="col-md-5 p-images">
+    				@include("front.$frontendNumber.product.add-ons.carousel")
+    			</div>
+            @endif
 		</div>
 	</div>
 @stop

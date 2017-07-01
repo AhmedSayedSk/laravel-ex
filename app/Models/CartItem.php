@@ -21,16 +21,15 @@ class CartItem extends Model
 
 		foreach ($cart_items as $key => $value) {
     		$product = Product\Product::find($value->product_id);
-    		//$category = ProductCategory::find($product->category_id)->value("category_name");
 
-    		//$value->category = $category;
-    		//$cart_items->$value = $value->category;
-
-    		$value->current_amount = $product->amount;
-    		$cart_items->$value = $value->current_amount;
-
-    		$value->status = $product->status;
-    		$cart_items->$value = $value->status;
+            if(!is_null($product->amount)){
+                $value->current_amount = $product->amount;
+                $cart_items->$value = $value->current_amount;
+            } else {
+                $value->current_amount = 'unlimited';
+                $cart_items->$value = $value->current_amount;
+            }
+        		
     	}
 
     	return $cart_items;

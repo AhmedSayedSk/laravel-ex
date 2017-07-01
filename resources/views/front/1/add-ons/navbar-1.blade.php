@@ -25,7 +25,6 @@
             <ul class="nav navbar-nav">
                 <li><a href="/products">{{ trans("$TR.T1") }}</a></li>
                 @include("front.$frontendNumber.add-ons.nested-categories-navbar-section")
-                <li><a href="/documentations">{{ trans("$TR.T2") }}</a></li>
                 <li><a href="/contact-us">{{ trans("$TR.T3") }}</a></li>
                 <li><a href="/about-us">{{ trans("$TR.T4") }}</a></li>
             </ul>

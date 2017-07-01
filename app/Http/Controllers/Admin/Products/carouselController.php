@@ -11,6 +11,8 @@ use App\Logic\Product\ProductRepository;
 use App\Models\Product\Product;
 use App\Models\Product\LiveCarousel;
 
+use DB;
+
 class carouselController extends Controller
 {
     public function __construct()
@@ -42,5 +44,18 @@ class carouselController extends Controller
         }
 
         return json_encode($result);
+    }
+
+    public function setPrimary(Request $request){
+        $product_id = $request->input('product_id');
+        $filename = $request->input('filename');
+
+        $new_carousel_id = DB::table('products_carousel')->where('carousel_name', $filename)->first()->id;
+
+        $product = Product::find($product_id);
+        $product->primary_carousel_id = $new_carousel_id;
+        $product->save();
+
+        return 'true';
     }
 }

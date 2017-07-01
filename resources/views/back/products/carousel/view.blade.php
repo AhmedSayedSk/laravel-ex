@@ -32,15 +32,15 @@
 								<tbody>
 									@foreach($products as $product)
 										<tr>
-											<td data-title='{{ trans("$TR.T3") }}'>
+											<td data-title='{{ trans("$TR.T3") }}' class="image">
 												@include('includes.image-view')
 											</td>
-											<td data-title='{{ trans("$TR.T4") }}'>
+											<td data-title='{{ trans("$TR.T4") }}' class="carousel">
 												@include('includes.carousel-view')
 											</td>
 											<td data-title='{{ trans("$TR.T5") }}'>{{ $product->name }}</td>
 											<td data-title='{{ trans("$TR.T6") }}'>{{ $product->sales }}</td>
-											<td data-title='{{ trans("$TR.T7") }}'>{{ $product->price }} {{ $main_currency }}</td>
+											<td data-title='{{ trans("$TR.T7") }}'>{{ $product->price }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</td>
 											<td data-title='{{ trans("$TR.T8") }}' class="options">
 												@include('standers.products.basic-options')
 											</td>

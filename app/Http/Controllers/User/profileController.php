@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\EditUserProfileDataRequest;
+use App\Http\Requests\User\Profile\EditInformationRequest;
 use App\Http\Controllers\Controller;
 
 use App\User;
@@ -34,7 +34,7 @@ class profileController extends Controller
         ));
     }
 
-    public function postUpdateInformation(EditUserProfileDataRequest $request){
+    public function postUpdateInformation(EditInformationRequest $request){
     	$input = (object) $request->all();
 
     	$user = User::find(Auth::user()->id);

@@ -10,7 +10,9 @@ function product_addToCart(msg){
 				url: '/my-cart/add-item/'+product_id,
 				cache: false,
 				type: 'post',
-				data: {quantity: quantity},
+				data: {
+                    quantity: quantity
+                },
 				success: function(data){
 					alert(data.message + " - quantity: " + quantity);
 					$('#navbar-1 .cart-value').text(data.cart_count);
@@ -35,13 +37,16 @@ function product_addToCart(msg){
 function cartRemoveItem(){
     $('.remove-item').on('click', function(){
         var item_id = $(this).attr('item-id');
-        $.ajax({
-            url: '/my-cart/remove-item/' + item_id,
-            type: 'post',
-            success: function(data){
-                alert(data.message);
-                location.reload();
-            }
-        });
+
+        if(confirm('Are you sure to delete this item?')){
+            $.ajax({
+                url: '/my-cart/remove-item/' + item_id,
+                type: 'post',
+                success: function(data){
+                    alert(data.message);
+                    location.reload();
+                }
+            });
+        }
     });
 }

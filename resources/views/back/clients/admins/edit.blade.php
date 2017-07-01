@@ -22,13 +22,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								{!! Form::label("", trans("$TR.T11")) !!}
-								{!! Form::text("user_name", $admin->name, ["class"=>"form-control"]) !!}
+								{!! Form::text("name", $admin->name, ["class"=>"form-control"]) !!}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								{!! Form::label("", trans("$TR.T12")) !!}
-								{!! Form::email("user_email", $admin->email, ["class"=>"form-control", "disabled"=>"disabled"]) !!}
+								{!! Form::email("email", $admin->email, ["class"=>"form-control", "disabled"=>"disabled"]) !!}
 							</div>
 						</div>
 					</div>

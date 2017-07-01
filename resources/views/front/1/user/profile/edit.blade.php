@@ -32,7 +32,8 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label("country", trans("$TR.T4")) !!}
-									{!! Form::select("country_id", $countries, $user->country_id > 0 ? $user->country_id : 2, ["class"=>"form-control", "id"=>"country"]) !!}
+                                    <?php $countries = array_merge([0 => 'my country not founded'], (array) $countries->toArray()) ?>
+									{!! Form::select("country_id", $countries, $user->country_id > 0 ? $user->country_id : 0, ["class"=>"form-control", "id"=>"country"]) !!}
 								</div>
 							</div>
 							<div class="col-md-8">

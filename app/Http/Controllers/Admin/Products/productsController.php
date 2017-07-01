@@ -64,7 +64,8 @@ class productsController extends Controller {
         ));
     }
 
-    protected function checkForIssetCategories(){
+    protected function checkForIssetCategories()
+    {
         if(Category1::count() <= 0){
             Session::flash('flashMessage', [
                 "type" => "warning",
@@ -76,7 +77,8 @@ class productsController extends Controller {
         }
     }
 
-    public function generateUniqueSerialNumber(){
+    public function generateUniqueSerialNumber()
+    {
         $hashids = new Hashids('', 0, '0123456789AEOIUC');
         return $hashids->encode(time());
     }
@@ -118,6 +120,7 @@ class productsController extends Controller {
         $product->name = $input->product_name;
         $product->description = $input->product_description;
         $product->price = $input->product_price;
+        $product->currency_id = (integer) $input->currency_id + 1;
         $product->discount_percentage = $input->discount_percentage;
         $product->category_table_number = $input->category_table_number;
         $product->category_id = $input->category_id;
@@ -279,19 +282,19 @@ class productsController extends Controller {
     public function edit($id)
     {
         $product = Product::find($id);
-        $product_images = Image::where('parent_id', $product->id)->lists('image_name');
+
+        $productRepository = new ProductRepository;
+        $product = $productRepository->optimizeShowProduct($product);
+
         $product_categories_list = Product::categories_list($product->category_table_number, $product->category_id);
 
         $productCats = new Categories;
         $product_trueCats = $productCats->getCategories();
 
-        $product->discountedPrice = $product->price - $product->price * ($product->discount_percentage / 100);
-        $product->discountedPrice = number_format(round($product->discountedPrice, 2), 2);
-
         $products_tags = $product->tags()->select("products_tags.id", "products_tags.tag_name")->lists('tag_name', 'id');
 
         return view("back.products.edit")->with(compact(
-            'product', 'product_images', 'product_trueCats', 'product_categories_list',
+            'product', 'product_trueCats', 'product_categories_list',
             'products_tags'
         ));
     }

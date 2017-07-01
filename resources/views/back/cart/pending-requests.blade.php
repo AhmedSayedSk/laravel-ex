@@ -13,7 +13,7 @@
 				{{ trans("$TR.T1") }} - {!! trans("$TR.T4") !!}
 			</div>
 			<div class="panel-body">
-				@if(count($cart_items) == 0)
+				@if(count($cart_products) == 0)
 					<h3 class="text-center">
 						{{ trans("$TR.T2") }}
 						<a href="/admin/products">{{ trans("$TR.T3") }}</a>
@@ -25,43 +25,39 @@
 								<thead>
 									<tr>
 										<th>{{ trans("$TR.T5") }}</th>
-										<th>{{ trans("$TR.T6") }}</th>
+										<th width="20%">{{ trans("$TR.T6") }}</th>
 										<th>{{ trans("$TR.T7") }}</th>
-										<th>{{ trans("$TR.T8") }}</th>
+                                        <th>requested quantity</th>
+										<th>current amount</th>
 										<th>{{ trans("$TR.T9") }}</th>
 										<th>{{ trans("$TR.T10") }}</th>
-										<th>{{ trans("$TR.T11") }}</th>
 										<th>{{ trans("$TR.T12") }}</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($cart_items as $item)
+									@foreach($cart_products as $product)
 										<tr>
 											<td data-title='{{ trans("$TR.T5") }}'>
-												@if($item->is_real)
-													@if(!is_null($item->image_name))
-														<img src='{{ asset("uploaded/products/images/icon_size/$item->image_name") }}'>
-													@else
-														<img src='{{ asset("assets/images/no-image.png") }}'>
-													@endif
-												@else
-													<img src='http://placehold.it/120x120/2d2d2d/FFF'>
-												@endif
+                                                @if(!is_null($product->product_image))
+                                                    <img src='{{ asset("uploaded/products/images/icon_size/$product->product_image") }}' height="150px">
+                                                @else
+                                                    <img src='{{ asset("assets/images/no-image.png") }}' width="120px">
+                                                @endif
 											</td>
-											<td data-title='{{ trans("$TR.T6") }}' width="10%">{{ $item->product_name }}</td>
-											<td data-title='{{ trans("$TR.T7") }}'>{{ $item->product_price }} {{ $global_setting->main_currency }}</td>
-											<td data-title='{{ trans("$TR.T8") }}'>{{ $item->product_quantity }}</td>
-											<td data-title='{{ trans("$TR.T9") }}'>{{ $item->current_amount }}</td>
-											<td data-title='{{ trans("$TR.T10") }}'>{{ $item->payment_method }}</td>
-											<td data-title='{{ trans("$TR.T11") }}'>{{ $item->created_at }}</td>
+											<td data-title='{{ trans("$TR.T6") }}' width="10%">{{ $product->product_name }}</td>
+											<td data-title='{{ trans("$TR.T7") }}'>{{ $product->product_price }} {{ $global_setting->main_currency }}</td>
+											<td data-title='{{ trans("$TR.T8") }}'>{{ $product->product_quantity }}</td>
+											<td data-title='{{ trans("$TR.T9") }}'>{{ $product->current_amount }}</td>
+											<td data-title='{{ trans("$TR.T10") }}'>{{ $product->payment_method }}</td>
+                                            <td data-title='{{ trans("$TR.T11") }}'>{{ $product->created_at }}</td>
 											<td data-title='{{ trans("$TR.T12") }}' width="12%">
 												{!! Form::open(["url"=>route("admin.review-cart..store")]) !!}
-													{!! Form::hidden('item_id', $item->id) !!}
-													{!! Form::hidden('product_id', $item->product_id) !!}
-													{!! Form::hidden('needed_quantity', $item->product_quantity) !!}
+													{!! Form::hidden('item_id', $product->id) !!}
+													{!! Form::hidden('product_id', $product->product_id) !!}
+													{!! Form::hidden('needed_quantity', $product->product_quantity) !!}
 													<button type="submit" class="btn btn-primary btn-xs">{{ trans("$TR.T13") }}</button>
 												{!! Form::close() !!}
-												{!! Form::open(["url"=>"/admin/review-cart/$item->id", "method"=>"DELETE"]) !!}
+												{!! Form::open(["url"=>"/admin/review-cart/$product->id", "method"=>"DELETE"]) !!}
 													<button type="submit" class="btn btn-danger btn-xs" aria-label="Left Align">
 														<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 													</button>
@@ -76,7 +72,7 @@
 				@endif
 			</div>
 			<div class="text-center">
-				{!! $cart_items->render() !!}
+				{!! $cart_products->render() !!}
 			</div>
 		</div>
 	</div>		

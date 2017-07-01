@@ -87,7 +87,7 @@
                 </a>
 			</div>
 		  	<div class="panel-body">
-		  		<a href="/admin/edit-super-admin" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T19") }}">
+		  		<a href="/admin/super-admin/edit" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T19") }}">
 		  			<span class="icomoon-paper-edit"></span>
 		  			<span class="des">{{ trans("$TR.T19") }}</span>
 		  		</a>
@@ -122,12 +122,16 @@
 			if(basic_status) {
 				leftNav.find(".des").hide();
 				leftNav.find(".list-group-item").css("text-align", "center");
-				leftNav.find(".panel-heading").css("text-align", "center");
+				leftNav.find(".panel-heading")
+                    .css("text-align", "center").end()
+                    .find('.slide-toggle').hide();
 				tooltip_status('show');
 			} else {
 				leftNav.find(".des").fadeIn(200);
 				leftNav.find(".list-group-item").css("text-align", "left");
-				leftNav.find(".panel-heading").css("text-align", "left");
+				leftNav.find(".panel-heading")
+                    .css("text-align", "left").end()
+                    .find('.slide-toggle').show();
 				tooltip_status('hide');
 			}
 		}
@@ -146,12 +150,16 @@
 			if(status) {
 				leftNav.find(".des").hide();
 				leftNav.find(".list-group-item").css("text-align", "center");
-				leftNav.find(".panel-heading").css("text-align", "center");
+				leftNav.find(".panel-heading")
+                    .css("text-align", "center").end()
+                    .find('.slide-toggle').hide();
 				tooltip_status('show');
 			} else {
 				leftNav.find(".des").fadeIn(200);
 				leftNav.find(".list-group-item").css("text-align", "left");
-				leftNav.find(".panel-heading").css("text-align", "left");
+				leftNav.find(".panel-heading")
+                    .css("text-align", "left").end()
+                    .find('.slide-toggle').show();
 				tooltip_status('hide');
 			}
 

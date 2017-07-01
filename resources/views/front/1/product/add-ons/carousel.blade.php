@@ -1,30 +1,18 @@
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    @for($i = 0; $i < count($product->images); $i++)
+      <li data-target="#carousel-example-generic" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
+    @endfor
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    @if(!$product->is_real)
-      <div class="item active">
-        <img src="http://placehold.it/420x420/2d2d2d/FFF">
-      </div>
-      <div class="item">
-        <img src="http://placehold.it/420x420/2d2d2d/FFF">
-      </div>
-      <div class="item">
-        <img src="http://placehold.it/420x420/2d2d2d/FFF">
-      </div>
-    @else
-      @foreach($product_images as $image)
-        <div class="item {{ $product_images[0] == $image ? 'active' : ''}}">
-          <img src='{{ asset("uploaded/products/images/$product->id/$image") }}'>
+    @foreach($product->images as $image)
+        <div class="item {{ current($product->images->toArray()) == $image ? 'active' : ''}}">
+            <img src='{{ asset("uploaded/products/images/full_size/$image") }}'>
         </div>
-      @endforeach
-    @endif
+    @endforeach
   </div>
 
   <!-- Controls -->

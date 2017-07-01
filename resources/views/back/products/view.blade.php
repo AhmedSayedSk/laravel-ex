@@ -48,7 +48,7 @@
 											</td>
 											<td data-title='{{ trans("$TR.T7") }}'>{{ $product->name }}</td>
 											<td data-title='{{ trans("$TR.T8") }}'>
-												{{ number_format($product->discountPrice) }} {{ $main_currency }}
+												{{ number_format($product->discountPrice) }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}
 												@if($product->discount_percentage > 0)
 													<label class="label label-default">{{ trans("$TR.T13", ['number' => $product->discount_percentage]) }}</label>
 												@endif

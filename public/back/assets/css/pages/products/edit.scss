@@ -10,6 +10,15 @@
 				margin-bottom: -10px;
 			}
 		}
+
+        #zoomwall1 {
+            img {
+                cursor: pointer;
+                &:hover {
+                    opacity: .9;
+                }
+            }
+        }
 	}
 
 	#product-images {

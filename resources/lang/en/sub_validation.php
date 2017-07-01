@@ -13,7 +13,7 @@ return [
 		'max_uplaod' => 'max carousel upload is :number carousel',
 	],
 	'cart' => [
-		'max_quantity' => 'Warning: the current quantity is more than your detected chossen.',
+		'max_quantity' => 'Warning: the current quantity is less than your detected chossen.',
 	],
 	'super-admin-edit' => [
 		'T1' => "name between 3, 255 and don't use many speical charachters"

@@ -23,7 +23,7 @@ $TR = "admin_panel.AN";
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/products">{{ trans("$TR.T4") }}</a></li>
-        <li><a href="/documentations">{{ trans("$TR.T2") }}</a></li>
+        <li><a href="/admin/documentations">{{ trans("$TR.T2") }}</a></li>
       </ul>
       <div class="navbar-right">
         <ul class="nav navbar-nav">

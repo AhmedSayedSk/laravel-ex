@@ -311,8 +311,8 @@ return [
 	'ASSP'     => [
 		'T1'     => "modify site setting",
 		'T2'     => "site name",
-		'T3'     => "main category",
-		'T4'     => "main currency",
+		'T3'     => "category",
+		'T4'     => "currency",
 		'T5'     => "customer service number",
 		'T6'     => "update",
 		'T7'     => "main setting",

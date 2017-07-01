@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin\Clients;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\EditNormalAdminRequest;
-use App\Http\Requests\AddAdminsRequest;
+use App\Http\Requests\NormalAdmin\AddRequest as NA_AddRequest;
+use App\Http\Requests\NormalAdmin\EditRequest as NA_EditRequest;
 use App\Http\Requests\RolesRequest;
 use App\Http\Controllers\Controller;
 
@@ -36,7 +36,7 @@ class normalAdminsController extends Controller
         return view('back.clients.admins.create')->withRoles($roles);
     }
 
-    public function store(AddAdminsRequest $request, RolesRequest $request){
+    public function store(NA_AddRequest $request, RolesRequest $request){
         $input = (object) $request->all();
         $roles = Role::lists('id', 'name');
         $roles = (object) current($roles);
@@ -90,15 +90,13 @@ class normalAdminsController extends Controller
     		->withRoles($roles);
     }
 
-    public function update(EditNormalAdminRequest $request, RolesRequest $request, $id){
+    public function update(NA_EditRequest $request, RolesRequest $request, $id){
     	$input = (object) $request->all();
-        $roles = Role::lists('id', 'name');
-        $roles = (object) current($roles);
+        $roles = (object) Role::lists('id', 'name')->toArray();
 
-        // Admin record in users table
+        // Admin is be record in users table
     	$user = User::find($id);
-    	$user->name = $input->user_name;
-    	//$admin->email = $input->user_email;
+    	$user->name = $input->name;
     	$user->save();
 
         Permission::where('concessionaire_id', $id)->delete();

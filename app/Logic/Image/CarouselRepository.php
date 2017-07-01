@@ -81,8 +81,7 @@ class CarouselRepository
         $manager = new ImageManager();
         $image = $manager->make( $photo )->resize(320, null, function ($constraint) {
             $constraint->aspectRatio();
-            })
-            ->save(config('sensorization.carousel.small_size')  . $filename);
+        })->save(config('sensorization.carousel.small_size')  . $filename);
 
         return $image;
     }

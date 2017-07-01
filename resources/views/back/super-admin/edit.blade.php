@@ -14,7 +14,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">{{ trans("$TR.T1") }}</div>
 			<div class="panel-body">
-				{!! Form::open(["url"=>"/admin/edit-super-admin"]) !!}
+				{!! Form::open(["url"=>"/admin/super-admin/edit"]) !!}
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -67,7 +67,7 @@
 	</div>
 @stop
 
-@section('left-nav')
+@section('footer-js')
 	<script type="text/javascript">
 		$(document).ready(function(){
 			enable_disable_input($(".checkbox-button"), $("input[name='old_password']"), 0);

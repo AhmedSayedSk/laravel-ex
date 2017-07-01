@@ -14,6 +14,7 @@ class CreateProductsTable extends Migration {
             $table->string('serial_number')->nullable();
 
             $table->float('price');
+            $table->integer('currency_id');
             $table->float('discount_percentage');
 
             $table->integer('category_table_number');

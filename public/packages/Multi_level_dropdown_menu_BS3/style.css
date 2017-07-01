@@ -31,8 +31,12 @@
     margin-right: -10px;
 }
 
-.dropdown-submenu:hover>a:after {
+/*.dropdown-submenu:hover>a:after {
     border-left-color: #fff;
+}*/
+
+.display-dropdown-submenu-a:after {
+    display: none !important;
 }
 
 .dropdown-submenu.pull-left {

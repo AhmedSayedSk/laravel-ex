@@ -52,6 +52,19 @@
 							</div>
 						</div>
 					</div>	
+                    <hr>
+                    <p><u>Cart setting</u></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    {!! Form::hidden("clear_cart_when_logout", 0) !!}
+                                    {!! Form::checkbox("clear_cart_when_logout", 1, $global_setting->is_clear_cart_when_logout ? 'checked' : null) !!}
+                                    Make clear for cart when user logout?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 					{!! Form::submit(trans("$TR.T6"), ["class"=>"btn btn-default pull-right"]) !!}
 				{!! Form::close() !!}
 			</div>

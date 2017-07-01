@@ -1,7 +1,7 @@
 <?php
 
 Route::get('test', function(){
-	echo trim(' ahmed sayed ahmed ');
+	echo DB::table('products_carousel')->where('carousel_name', '1498604945-99090-5.jpg')->first()->id;
 });
 
 // Auth routes
@@ -38,9 +38,14 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 				Route::resource('/', 'categoriesController', ['parameters' => ['' => 'id']]);
 			});
 
+			Route::group(['prefix' => 'image'], function(){
+				Route::get('/set-primary', 'imageController@setPrimary');
+			});
+
 			Route::group(['prefix' => 'carousel'], function(){
 				Route::resource('/', 'carouselController');
 				Route::post('/live-status', 'carouselController@liveStatus');
+				Route::get('/set-primary', 'carouselController@setPrimary');
 			});
 
 			Route::group(['prefix' => 'tags'], function(){
@@ -69,7 +74,7 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 			Route::get('accepted-requests', "reviewCartController@getAcceptedRequests");
 		});
 
-		Route::controller('/', 'superAdminController', ['parameters' => ['' => 'id']]);
+		Route::controller('/super-admin', 'superAdminController', ['parameters' => ['' => 'id']]);
 		Route::controller('/', 'mainController', ['parameters' => ['' => 'id']]);
 	});
 

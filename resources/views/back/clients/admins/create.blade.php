@@ -16,7 +16,7 @@
 			<div class="panel-body">
 				{!! Form::open(["url" => route('admin.clients.admins.accounts.store')]) !!}
 					<div class="form-group">
-						{!! Form::label("", trans("$TR.T15")) !!}
+						{!! Form::label("", 'name') !!}
 						<span class="text-danger">*</span>
 						{!! Form::text("name", "", ["class"=>"form-control"]) !!}
 					</div>

@@ -1,4 +1,4 @@
-<li class="dropdown">
+<li id="categories-dropdown" class="dropdown">
   <a data-toggle="dropdown" data-target="#" href="/page.html">
     {{ trans("frontend.$frontendNumber.navbar.T12") }} <span class="caret"></span>
   </a>
@@ -54,3 +54,22 @@
     @endforeach
   </ul>
 </li>
+
+<script type="text/javascript">
+    function hideArrowOfEmptyCategory(_this){
+        var inner_categories_count = _this.find('> ul > li').length;
+
+        if(inner_categories_count <= 0) {
+            _this.find('> a').addClass('display-dropdown-submenu-a');
+            _this.find('> ul').remove();
+        }
+    }
+
+    $(document).ready(function(){
+        $('.dropdown-submenu').on('mouseenter', function() {
+            hideArrowOfEmptyCategory($(this));
+        }).each(function(){
+            hideArrowOfEmptyCategory($(this));
+        })
+    });
+</script>

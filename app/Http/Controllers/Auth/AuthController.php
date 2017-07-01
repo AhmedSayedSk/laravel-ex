@@ -13,6 +13,8 @@ use App\Models\Admin\Admin;
 
 use Auth;
 use Validator;
+use Storage;
+use Cart;
 
 class AuthController extends Controller
 {
@@ -38,6 +40,7 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
+    // applyed when make login
     protected function handleUserWasAuthenticated(Request $request, $throttles)
     {
         $redirectPath = $this->redirectPath();
@@ -89,12 +92,34 @@ class AuthController extends Controller
         return redirect("/login");
     }
 
+    /**
+     * Log the user out of the application.
+     *
+     * @return \Illuminate\Http\Response
+     *
+     * modification: add clear cart status when log out
+     * (note: can change it from main super admin setting)
+     */
+    public function getLogout()
+    {
+        $global_setting = json_decode(Storage::get('setting.json'));
+        $is_clear_cart_when_logout = $global_setting->is_clear_cart_when_logout;
+
+        if($is_clear_cart_when_logout){
+            Cart::clear();
+        }
+
+        return $this->logout();
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'country_id' => 'numeric',
+            'address' => 'string|min:6|max:255',
         ]);
     }
 
@@ -104,6 +129,8 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'country_id' => $data['country_id'],
+            'address' => $data['address'],
         ]);
     }
 }

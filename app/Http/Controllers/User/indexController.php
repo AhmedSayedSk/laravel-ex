@@ -13,10 +13,6 @@ class indexController extends Controller
 		return view("front.$this->frontendNumber.pages.index");
     }
 
-    public function getDocumentations(){
-    	return view("front.$this->frontendNumber.pages.documentations");
-    }
-
     public function getContactUs(){
     	return view("front.$this->frontendNumber.pages.contact-us");
     }

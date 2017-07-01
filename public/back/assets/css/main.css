@@ -120,6 +120,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: -10px; }
+#product-edit-page .panel #zoomwall1 img {
+  cursor: pointer; }
+  #product-edit-page .panel #zoomwall1 img:hover {
+    opacity: .9; }
 
 #products-categories-view-page .tree, #products-categories-view-page .tree ul {
   margin: 0;
@@ -200,6 +204,12 @@
     background-color: #FCFCFC;
     border-bottom: 2px solid rgba(45, 45, 45, 0.1);
     margin: 0; }
+    #carousel-view-page .container-fluid table.ps-view td.image, #carousel-view-page .container-fluid table.ps-view td.carousel {
+      padding: 5px;
+      vertical-align: middle; }
+      #carousel-view-page .container-fluid table.ps-view td.image img, #carousel-view-page .container-fluid table.ps-view td.carousel img {
+        max-width: 120px;
+        max-height: 120px; }
     #carousel-view-page .container-fluid table.ps-view td.options button, #carousel-view-page .container-fluid table.ps-view td.options a {
       margin-bottom: 5px; }
 

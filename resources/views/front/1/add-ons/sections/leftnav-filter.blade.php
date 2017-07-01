@@ -28,9 +28,9 @@
 				<div class="form-group" data-type="price" data-values="2">
 					<label>{{ trans("$TR.T6") }}</label>
 					<div class="input-group">
-						{!! Form::text("", "", ["class"=>"form-control price1 from", "placeholder" => trans("$TR.T8", ['price'=>$SF_price->min, 'currency'=>$main_currency])]) !!}
+						{!! Form::text("", "", ["class"=>"form-control price1 from", "placeholder" => trans("$TR.T8", ['price'=>$SF_price->min, 'currency'=>''])]) !!}
 						<span class="input-group-btn" style="width: 0px;"></span>
-						{!! Form::text("", "", ["class"=>"form-control price2 to", "placeholder" => trans("$TR.T9", ['price'=>$SF_price->max, 'currency'=>$main_currency]) ]) !!}
+						{!! Form::text("", "", ["class"=>"form-control price2 to", "placeholder" => trans("$TR.T9", ['price'=>$SF_price->max, 'currency'=>'']) ]) !!}
 					</div>
 					<span class="help-block opc-7">{{ trans("$TR.T7") }}</span>
 				</div>

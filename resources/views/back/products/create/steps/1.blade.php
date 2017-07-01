@@ -107,10 +107,9 @@
 												<span class="text-danger">*</span>
 												<div class="input-group">
 													{!! Form::text("product_price", "0.00", ["class"=>"form-control price input-xlg", "id"=>"productPrice", "aria-label"=>trans("$TR.T16"), "style"=>"color: green"]) !!}
-													<snap class="input-group-addon">
-														{{ $main_currency }} <br>
-														<a href="/admin/site-setting">(change)</a>
-													</snap>
+													<span class="input-group-btn" style="width: 28%">
+                                                        {!! Form::select('currency_id', trans("admin_setting.currencies"), array_flip(trans("admin_setting.currencies"))[$main_currency], ['class'=>'form-control input-xlg']) !!}
+													</span>
 												</div>				
 											</div>
 						        		</div>							        		

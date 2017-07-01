@@ -89,7 +89,7 @@ class Product extends Model
         return array_reverse($categories);
     }
 
-    // complex system to get products by nested categories calling
+    // complex system to get products (count or full data) by nested categories calling
     public function scopeNested_categories($query, $cat_table_number, $cat_id){
 
         switch($cat_table_number){

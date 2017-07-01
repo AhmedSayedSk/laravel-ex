@@ -24,33 +24,44 @@ class cartController extends Controller
     public function getIndex()
      {
         $cartCollection = Cart::getContent();
-    	$total_items = json_decode($cartCollection->toJson());
+        $itemsCount = $cartCollection->count();
+
+    	$cart_total_items = json_decode($cartCollection->toJson());
         $total_price = 0;
 
-        foreach ($total_items as $value) {
-            $price = $value->price;
-            $discount_percentage = $value->attributes->discount_percentage;
-            $quantity = $value->quantity;
-            $total_price += ($price - $price * ($discount_percentage/100)) * $quantity;
+        $total_prices = [];
+
+        foreach ($cart_total_items as $item) {
+            $price = $item->price;
+            $discount_percentage = $item->attributes->discount_percentage;
+            $quantity = $item->quantity;
+
+            $total_prices[$item->attributes->currency_id] = ($price - $price * ($discount_percentage/100)) * $quantity;
         }
 
-		return view("front.$this->frontendNumber.user.cart.view")
-            ->with("cart_total_items", $total_items)
-            ->with("totalPrice", $total_price)
-            ->with("itemsCount", $cartCollection->count());
+		return view("front.$this->frontendNumber.user.cart.view")->with(compact(
+            'cart_total_items', 'total_prices', 'itemsCount'
+        ));
     }
 
-    protected function checkCurrentQuantity($productId, $productAmount, $inputQuantity){
+    protected function checkCurrentQuantity($productId, $product, $inputQuantity)
+    {
+
         // check for direct value entered 
-        if($inputQuantity > $productAmount){
-            return false;
+        if($inputQuantity > $product->amount){
+            if($product->is_amount_unlimited == 0) {
+                return false;
+            }
         }
 
         // check for cumulative value entered
         if(Cart::get($productId) != null){
             $current_cart_quantity = Cart::get($productId)->quantity;
-            if(($current_cart_quantity + $inputQuantity) > $productAmount){
-                return false;
+
+            if(($current_cart_quantity + $inputQuantity) > $product->amount){
+                if($product->is_amount_unlimited == 0) {
+                    return false;
+                }
             }
         }
 
@@ -65,7 +76,7 @@ class cartController extends Controller
             $product = Product::users_roles()->find($product_id);
             $product_image = Image::where('parent_id', $product->id)->value("image_name");
 
-            $state = $this->checkCurrentQuantity($product_id, $product->amount, $input->quantity);
+            $state = $this->checkCurrentQuantity($product_id, $product, $input->quantity);
 
             if(!$state) {
                 return Response::json([
@@ -85,7 +96,7 @@ class cartController extends Controller
                     'image_name' => $product_image,
                     'discountPrice' => $product->price - (($product->price * $product->discount_percentage) / 100),
                     'discount_percentage' => $product->discount_percentage,
-                    'is_real' => $product->is_real
+                    'currency_id' => $product->currency_id,
                 ]
             ]);
 

@@ -88,7 +88,7 @@
 									<span class="text-danger">*</span>
 									<div class="input-group">
 										{!! Form::text("product_price", $product->price . ".00", ["class"=>"form-control price input-xlg", "id"=>"productPrice", "aria-label"=>trans("$TR.T16"), "style"=>"color: green"]) !!}
-										<snap class="input-group-addon">{{ $main_currency }}</snap>
+										<snap class="input-group-addon">{{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</snap>
 									</div>				
 								</div>
 			        		</div>							        		
@@ -104,7 +104,7 @@
 			        		<div class="col-md-4">
 			        			<div class="form-group">
 									{!! Form::label("discountedPrice", trans("$TR.T47")) !!}
-								    {!! Form::text("", $product->discountedPrice, ["class"=>"form-control discounted-price input-xlg", "id"=>"discountedPrice"]) !!}
+								    {!! Form::text("", number_format($product->discountPrice, 2), ["class"=>"form-control discounted-price input-xlg", "id"=>"discountedPrice"]) !!}
 								</div>
 			        		</div>					
 			        	</div>
@@ -190,17 +190,29 @@
 						</div>
 						<hr>
 						<div class="images">
-							<h3>images</h3>
+							<h3>images <small><a href="#" data-toggle="modal" data-target="#ImageModal" data-remote="false">edit</a></small></h3>
 							<div id="zoomwall1" class="zoomwall images">
-								@if(count($product_images) > 0)
-									@foreach($product_images as $image)
-										<img class="image-context" src='{{ asset("uploaded/products/images/icon_size/$image") }}' data-name="{{ $image }}">
+								@if(count($product->images) > 0)
+									@foreach($product->images as $image)
+										<img class="image-context" src='{{ asset("uploaded/products/images/full_size/$image") }}' data-name="{{ $image }}">
 									@endforeach
 								@else
 									<img src='{{ asset("assets/images/no-image.png") }}'>
 								@endif
 							</div>
 						</div>
+                        <div class="carousels">
+                            <h3>carousel <small><a href="#" data-toggle="modal" data-target="#CarouselModal" data-remote="false">edit</a></small></h3>
+                            <div id="zoomwall2" class="zoomwall carousels">
+                                @if(count($product->carousels) > 0)
+                                    @foreach($product->carousels as $carousel)
+                                        <img class="carousel-context" src='{{ asset("uploaded/products/carousel_gallery/small/$carousel") }}' data-name="{{ $carousel }}">
+                                    @endforeach
+                                @else
+                                    <img src='{{ asset("assets/images/no-image.png") }}'>
+                                @endif
+                            </div>
+                        </div>
 						<hr>
 						<div class="form-group">
 							<div class="checkbox">
@@ -223,24 +235,97 @@
 				</div>
 			</div>
 		</div>
+
+        <div id="product-images">
+            <div class="modal fade" id="ImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Manage your images</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="dropzone-image">
+                        <label>{{ trans("$TR.T31") }} <span id="photoCounter-1"></span></label>
+                        <div class="form-group">
+                            <div class="droping">
+                                {!! Form::open(['url' => route('image-upload'), 'class' => 'dropzone', 'files'=>true, 'id'=>'dropzone-1']) !!}
+                                    {!! Form::hidden('upload_type', 'image') !!}
+                                    {!! Form::hidden('parent_id', $product->id) !!}
+                                    <div class="dz-message">
+                                        <h3>{{ trans("$TR.T32") }}</h3>
+                                    </div>
+                                    <div class="fallback">
+                                        <input name="file" type="file" multiple>
+                                    </div>
+                                    <div class="dropzone-previews" id="dropzonePreview-1"></div>
+                                {!! Form::close() !!}
+                            </div>
+                            @include('standers.dropzone.preview-template')
+                            <p class="help-block">{{ trans("$TR.T42", ['max_images' => config('sensorization.images.max_uploads')]) }}</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="CarouselModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Manage your carousels</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="dropzone-image">
+                        <label>{{ trans("$TR.T40") }} <span id="photoCounter-2"></span></label>
+                        <div class="form-group">
+                            <div class="droping">
+                                {!! Form::open(['url' => route('carousel-upload'), 'class' => 'dropzone', 'files'=>true, 'id'=>'dropzone-2']) !!}
+                                    {!! Form::hidden('upload_type', 'carousel') !!}
+                                    {!! Form::hidden('parent_id', $product->id) !!}
+                                    <div class="dz-message">
+                                        <h3>{{ trans("$TR.T41") }}</h3>
+                                    </div>
+                                    <div class="fallback">
+                                        <input name="file" type="file" multiple>
+                                    </div>
+                                    <div class="dropzone-previews" id="dropzonePreview-2"></div>
+                                {!! Form::close() !!}
+                            </div>
+                            @include('standers.dropzone.preview-template')
+                            <p class="help-block">{{ trans("$TR.T43", ['max_carousel' => config('sensorization.carousel.max_uploads')]) }}</p>
+                        </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div id="images-context-menu">
+            <ul class="dropdown-menu" role="menu">
+                <li><a tabindex="-1" data-method="set_primary">set this image primary</a></li>
+                <li><a tabindex="-1" data-method="delete">delete image</a></li>
+            </ul>
+        </div>
+
+        <div id="carousels-context-menu">
+            <ul class="dropdown-menu" role="menu">
+                <li><a tabindex="-1" data-method="set_primary">set this carousel primary</a></li>
+                <li><a tabindex="-1" data-method="delete">delete carousel</a></li>
+            </ul>
+        </div>
 	</div>
 
 	<!-- Default bootstrap modal example -->
 	@include('standers.modal')
-
-	<div id="images-context-menu">
-      	<ul class="dropdown-menu" role="menu">
-	        <li><a tabindex="-1" data-method="delete">
-	        	<span class="glyphicon glyphicon-remove"></span>
-	        	delete image
-	        </a></li>
-      	</ul>
-    </div>
 @stop
 
 
 @section('head-css')
 	<link rel="stylesheet" type="text/css" href="./packages/zoomwall.js/zoomwall.css">
+    <link rel="stylesheet" type="text/css" href="./packages/dropzone/dropzone.css">
 @stop
 
 @section('head-js')
@@ -248,7 +333,7 @@
 	<script>
 		window.onload = function() {
 			zoomwall.create(document.getElementById('zoomwall1'), true);
-			//zoomwall.create(document.getElementById('zoomwall2'), true);
+			zoomwall.create(document.getElementById('zoomwall2'), true);
 		};
 	</script>
 @stop
@@ -345,37 +430,60 @@
 		})
 	</script>
 
-	<script type="text/javascript" src="./assets/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
-	<script type="text/javascript">
-		function contextmenu(selector, target, call_route){
-			$(selector).contextmenu({
-				target: target, 
-				onItem: function(context, e) {
-				    var method = $(e.target).attr('data-method');
-				    var filename = context.attr('data-name');
+    <script type="text/javascript" src="./packages/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
+    <script type="text/javascript">
+        function contextmenu(selector, target, deleteRoutePath, type){
+            $(selector).contextmenu({
+                target: target, 
+                onItem: function(context, e) {
+                    var method = $(e.target).attr('data-method');
+                    var filename = context.attr('data-name');
 
-				    switch(method){
-				    	case 'delete':
-				    		if(confirm('Are you sure to delete?')){
-				    			$.ajax({
-					    			url: call_route,
-					    			type: 'post',
-					    			data: {
-					    				id: filename
-					    			},
-					    			success: function(data){
-					    				console.log(data);
-					    			}
-					    		});
-					    		context.remove();
-				    		}
-				    	break;
-				    }
-				}
-			});
-		}
+                    switch(method){
+                        case 'delete':
+                            if(confirm('Are you sure to delete?')){
+                                $.ajax({
+                                    url: deleteRoutePath,
+                                    type: 'post',
+                                    data: {
+                                        id: filename
+                                    },
+                                    success: function(data){
+                                        context.remove();
+                                    }
+                                });
+                            }
+                        break;
+                        case 'set_primary':
+                            $.ajax({
+                                url: '/admin/products/'+type+'/set-primary',
+                                type: 'get',
+                                data: {
+                                    product_id: {{ $product->id }},
+                                    filename: filename
+                                },
+                                success: function(data){
+                                    console.log(data);
+                                }
+                            })
+                        break;
+                        default:
+                            return false;
+                    }
+                }
+            });
+        }
 
-		contextmenu('.image-context', '#images-context-menu', '{{ route("image-remove") }}');
-		//contextmenu('.carousel-context', '#carousels-context-menu', '{{ route("carousel-remove") }}');
-	</script>
+        contextmenu('.image-context', '#images-context-menu', '{{ route("image-remove") }}', 'image');
+        contextmenu('.carousel-context', '#carousels-context-menu', '{{ route("carousel-remove") }}', 'carousel');
+    </script>
+
+    <script type="text/javascript" src="./packages/dropzone/dropzone.js"></script>  
+    <script type="text/javascript" src="./assets/js/packages/dropzone-config.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            dropzone(1, 'image');
+            dropzone(2, 'carousel');
+        });
+    </script>
 @stop

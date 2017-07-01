@@ -195,8 +195,17 @@
 	<script type="text/javascript" src="./assets/js/packages/jquery-ui/scroll-parent.js"></script>
 	<script type="text/javascript" src="./assets/js/packages/jquery-ui/widgets/draggable.min.js"></script>
 	<script type="text/javascript" src="./assets/js/packages/draggable-taps.min.js"></script>
+    
 	<script type="text/javascript" src="./packages/dropzone/dropzone.js"></script>	
-	<script type="text/javascript" src="./assets/js/dropzone-config.js"></script>
+	<script type="text/javascript" src="./assets/js/packages/dropzone-config.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            dropzone(1, 'image');
+            dropzone(2, 'carousel'); 
+
+            setPrimaryTargetId('.dropzone-image');
+        });
+    </script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
