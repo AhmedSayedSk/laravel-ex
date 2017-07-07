@@ -234,6 +234,7 @@
 													$name = $user->name;
 											?>
 											<h2>Review from <b> {{ $name }} </b> </h2>  {{ $item->created_at }} <br / >
+											<div class="pull-right"> {{$item->review}} </div>
 											<h4>Good about this product : </h4>
 												{{ $item->like }} <br />
 											<h4>Bad about this product : </h4>
