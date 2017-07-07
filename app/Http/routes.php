@@ -1,5 +1,8 @@
 <?php
 
+// reviews routes 
+Route::get('review','User\Products\reviewController@review');
+
 Route::get('test', function(){
     echo time();
 });
