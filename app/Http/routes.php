@@ -1,7 +1,7 @@
 <?php
 
 Route::get('test', function(){
-	echo DB::table('products_carousel')->where('carousel_name', '1498604945-99090-5.jpg')->first()->id;
+    echo time();
 });
 
 // Auth routes
@@ -68,10 +68,12 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 			Route::resource('users/accounts', 'usersController', ['parameters' => ['' => 'id']]);
 		});
 
-		Route::group(['prefix' => 'review-cart'], function(){
-			Route::resource('/', "reviewCartController", ['only' => ['store', 'destroy'], 'parameters' => ['' => 'id']]);
-			Route::get('pending-requests', "reviewCartController@getPendingRequests");
-			Route::get('accepted-requests', "reviewCartController@getAcceptedRequests");
+		Route::group(['namespace' => 'Cart', 'prefix' => 'review-cart'], function(){
+			Route::resource('pending-requests', "pendingRequestsController", ['parameters' => ['' => 'id']]);
+			Route::post('pending-requests/accept', "pendingRequestsController@accept");
+			
+			Route::resource('accepting-requests', "acceptingRequestController", ['parameters' => ['' => 'id']]);
+			Route::post('accepting-requests/pay', "acceptingRequestController@pay");
 		});
 
 		Route::controller('/super-admin', 'superAdminController', ['parameters' => ['' => 'id']]);

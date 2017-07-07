@@ -29,7 +29,7 @@ class cartController extends Controller
     	$cart_total_items = json_decode($cartCollection->toJson());
         $total_price = 0;
 
-        $total_prices = [];
+        /*$total_prices = [];
 
         foreach ($cart_total_items as $item) {
             $price = $item->price;
@@ -37,10 +37,10 @@ class cartController extends Controller
             $quantity = $item->quantity;
 
             $total_prices[$item->attributes->currency_id] = ($price - $price * ($discount_percentage/100)) * $quantity;
-        }
+        }*/
 
 		return view("front.$this->frontendNumber.user.cart.view")->with(compact(
-            'cart_total_items', 'total_prices', 'itemsCount'
+            'cart_total_items', 'itemsCount'
         ));
     }
 
@@ -96,7 +96,8 @@ class cartController extends Controller
                     'image_name' => $product_image,
                     'discountPrice' => $product->price - (($product->price * $product->discount_percentage) / 100),
                     'discount_percentage' => $product->discount_percentage,
-                    'currency_id' => $product->currency_id,
+                    'is_payment_on_delivery' => $product->is_payment_on_delivery,
+                    'is_payment_by_paypal' => $product->is_payment_by_paypal,
                 ]
             ]);
 

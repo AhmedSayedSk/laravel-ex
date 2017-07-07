@@ -22,12 +22,12 @@
 								<p class="p-name">
 									{{ $product->name }}
 								</p>
-								<span class="p-price">
-									<b class="text-success">{{ $product->discountPrice }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</b>
-									@if($product->discount_percentage > 0)
-										<span class="text-danger">{{ trans("$TR.T1", ["discount"=>$product->discount_percentage]) }}</span>
-									@endif
-								</span>
+                                <span class="p-price">
+                                    <b class="text-success">{{ number_format($product->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</b>
+                                    @if($product->discount_percentage > 0)
+                                        <span class="text-danger">{{ trans("$TR.T1", ["discount"=>$product->discount_percentage]) }}</span>
+                                    @endif
+                                </span>
                                 <div class="right-section" product-id="{{ $product->id }}" serial-number="{{ $product->serial_number }}">
                                     <button class="btn btn-default add-to-cart">{{ trans("$TR.T2") }}</button>
                                 </div>

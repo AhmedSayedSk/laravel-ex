@@ -8,6 +8,9 @@
 
 @section("content")
 	<div id="cart-view-page">
+        @include('includes.flash-message')
+        @include('includes.back-error')
+        
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				{{ trans("$TR.T1") }} - {!! trans("$TR.T4") !!}
@@ -30,26 +33,33 @@
 										<th>{{ trans("$TR.T8") }}</th>
 										<th>{{ trans("$TR.T9") }}</th>
 										<th>{{ trans("$TR.T10") }}</th>
-										<th>{{ trans("$TR.T11") }}</th>
+                                        <th>{{ trans("$TR.T11") }}</th>
+										<th>options</th>
 									</tr>
 								</thead>
 								<tbody>
 									@foreach($cart_items as $item)
 										<tr>
 											<td data-title='{{ trans("$TR.T5") }}'>
-												@if($item->status == "real")
-													<img src='{{ asset("uploaded/products/images/$item->id/$item->image_name") }}' style="width: 100px">
-												@else
-													<img src='http://placehold.it/50x50/2d2d2d/FFF'>
-												@endif
+												@if(!is_null($item->product_image))
+                                                    <img src='{{ asset("uploaded/products/images/icon_size/$item->product_image") }}' height="150px">
+                                                @else
+                                                    <img src='{{ asset("assets/images/no-image.png") }}' width="120px">
+                                                @endif
 											</td>
 											<td data-title='{{ trans("$TR.T6") }}'>{{ $item->product_name }}</td>
-											<td data-title='{{ trans("$TR.T7") }}'>{{ $item->product_price }} {{ $global_setting->main_currency }}</td>
+											<td data-title='{{ trans("$TR.T7") }}'>{{ $item->product_price }} {{ trans("admin_setting.currencies")[$item->product_currency_id] }}</td>
 											<td data-title='{{ trans("$TR.T8") }}'>{{ $item->product_quantity }}</td>
 											<td data-title='{{ trans("$TR.T9") }}'>{{ $item->payment_method }}</td>
 											<td data-title='{{ trans("$TR.T10") }}'>{{ $item->created_at }}</td>
 											<td data-title='{{ trans("$TR.T11") }}'>{{ date("d/m/Y", $item->accepted_at_timestamps) }}</td>
-										</tr>
+										    <td>
+                                                {!! Form::open(["url"=>"/admin/review-cart/accepting-requests/pay"]) !!}
+                                                    {!! Form::hidden('item_id', $item->id) !!}
+                                                    <button type="submit" class="btn btn-{{ $item->is_payed ? 'success disabled' : 'default' }} btn-sm">payed</button>
+                                                {!! Form::close() !!}
+                                            </td>
+                                        </tr>
 									@endforeach				
 								</tbody>
 							</table>

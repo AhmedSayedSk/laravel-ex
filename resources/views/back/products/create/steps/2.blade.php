@@ -136,17 +136,22 @@
 									<div class="checkbox">
 										<label>
 											{!! Form::hidden("is_payment_on_delivery", 0) !!}
-											{!! Form::checkbox("is_payment_on_delivery", 1, "checked", ["class"=>"checkbox disabled"]) !!}
+											{!! Form::checkbox("is_payment_on_delivery", 1, null, ["class"=>"checkbox"]) !!}
 											<b>{{ trans("$TR.T36") }}</b>
 										</label>
 									</div>
-									<div class="checkbox">
-										<label>
-											{!! Form::hidden("is_payment_by_paypal", 0) !!}
-											{!! Form::checkbox("is_payment_by_paypal", 1, null, ["class"=>"checkbox"]) !!}
-											<b>{{ trans("$TR.T37") }}</b>
-										</label>
-									</div>
+                                    @if($global_setting->is_support_paypal_payment)
+    									<div class="checkbox">
+    										<label>
+    											{!! Form::hidden("is_payment_by_paypal", 0) !!}
+    											{!! Form::checkbox("is_payment_by_paypal", 1, "checked", ["class"=>"checkbox", "disabled"=>"disabled"]) !!}
+    											<b>{{ trans("$TR.T37") }}</b>
+    										</label>
+                                            <div class="help-block">you can change paypal status from <a href="/admin/site-setting">main setting</a> section</div>
+    									</div>
+                                    @else
+                                        {!! Form::hidden("is_payment_by_paypal", 0) !!}
+                                    @endif
 									<div class="checkbox">
 										<label>
 											{!! Form::hidden("create_again", 0) !!}

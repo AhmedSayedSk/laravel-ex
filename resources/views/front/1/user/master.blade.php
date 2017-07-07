@@ -13,6 +13,7 @@
     <title>@yield('title')</title>
 
 	<link rel="stylesheet" type="text/css" href="./packages/bootstrap/css/bootstrap.min.css">
+    @yield('head-css')
 	<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="./front/assets/css/main.css">
 
@@ -23,6 +24,7 @@
 
 	<script type="text/javascript" src="./assets/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="./packages/bootstrap/js/bootstrap.min.js"></script>
+    @yield('head-js')
 	<script type="text/javascript" src="./assets/js/main.js"></script>
 	<script type="text/javascript" src="./front/assets/js/main.js"></script>
 </head>

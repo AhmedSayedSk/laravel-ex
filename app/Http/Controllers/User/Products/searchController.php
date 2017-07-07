@@ -52,7 +52,7 @@ class searchController extends Controller
         $category_table_number = $category_code[0];
         $category_id = $category_code[1];
 
-        $products = Product::users_roles()->nested_categories($category_table_number, $category_id)->paginate(20);
+        $products = Product::orderBy('id', 'DESC')->users_roles()->nested_categories($category_table_number, $category_id)->paginate(20);
 
         $productRepository = new ProductRepository;
         $products = $productRepository->optimizeIndexProductContoller($products);

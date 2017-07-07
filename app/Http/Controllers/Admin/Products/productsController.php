@@ -119,8 +119,7 @@ class productsController extends Controller {
         $product->serial_number = $input->serial_number;
         $product->name = $input->product_name;
         $product->description = $input->product_description;
-        $product->price = $input->product_price;
-        $product->currency_id = (integer) $input->currency_id + 1;
+        $product->price = $input->product_price; // USD (by default)
         $product->discount_percentage = $input->discount_percentage;
         $product->category_table_number = $input->category_table_number;
         $product->category_id = $input->category_id;
@@ -148,37 +147,6 @@ class productsController extends Controller {
                 return back()->withErrors(['Some error in save tags.']);
         }
     }
-
-    protected function updateTags($input){
-        $tags_ids = explode(',', $input->product_tags_ids);
-
-        if(strlen($input->product_tags_ids) > 0) {
-            foreach ($tags_ids as $tag) {
-                $isFounded = TagRelationship::where([
-                    'product_id' => $input->product_id,
-                    'tag_id' => $tag
-                ])->count();
-
-                if(!$isFounded) {
-                    $isSavedTag = DB::table('products_tags_relationship')->insert([
-                        'product_id' => $input->product_id,
-                        'tag_id' => $tag
-                    ]);
-
-                    if(!$isSavedTag)
-                        return back()->withErrors(['Some error in save tags.']);
-                }
-            }
-
-            TagRelationship::whereNotIn('tag_id', $tags_ids)->delete();
-        } else {
-            $product = Product::find($input->product_id);
-            $tags_ids = $product->tags()->select("products_tags.id")->lists('id');
-
-            Tag::destroy($tags_ids);
-            TagRelationship::whereIn('tag_id', $tags_ids)->delete();
-        }
-    } 
     
 
     public function store($step_id, Request $request)
@@ -231,9 +199,9 @@ class productsController extends Controller {
                 $product->primary_image_id = isset($input->primary_image_id) ? $input->primary_image_id : null;
                 $product->primary_carousel_id = isset($input->primary_carousel_id) ? $input->primary_carousel_id : null;
 
-                if($input->is_payment_by_paypal == 0 && $input->is_payment_on_delivery == 0){
+                /*if($input->is_payment_by_paypal == 0 && $input->is_payment_on_delivery == 0){
                     return back()->withErrors(["Please choose 1 payment method at least."]);
-                }
+                }*/
 
                 $this->insertTags($input);
 
@@ -299,6 +267,39 @@ class productsController extends Controller {
         ));
     }
 
+    protected function updateTags($input){
+        $tags_ids = explode(',', $input->product_tags_ids);
+
+        if(strlen($input->product_tags_ids) > 0) {
+            foreach ($tags_ids as $tag) {
+                $isFounded = TagRelationship::where([
+                    'product_id' => $input->product_id,
+                    'tag_id' => $tag
+                ])->count();
+
+                if(!$isFounded) {
+                    $isSavedTag = DB::table('products_tags_relationship')->insert([
+                        'product_id' => $input->product_id,
+                        'tag_id' => $tag
+                    ]);
+
+                    if(!$isSavedTag)
+                        return back()->withErrors(['Some error in save tags.']);
+                }
+            }
+
+            TagRelationship::whereNotIn('tag_id', $tags_ids)->delete();
+        } else {
+            $product = Product::find($input->product_id);
+            $tags_ids = $product->tags()->select("products_tags.id")->lists('id');
+
+            if($tags_ids->count() > 0){
+                Tag::destroy($tags_ids);
+                TagRelationship::whereIn('tag_id', $tags_ids)->delete();
+            }   
+        }
+    } 
+
     public function update(Request $request, $id)
     {
         $input = (object) $request->all();
@@ -327,9 +328,9 @@ class productsController extends Controller {
         $insertConditions->isStartViewNow($input, $product);
         $insertConditions->expiresCondition($input, $product);
 
-        if($input->is_payment_by_paypal == 0 && $input->is_payment_on_delivery == 0){
+        /*if($input->is_payment_by_paypal == 0 && $input->is_payment_on_delivery == 0){
             return back()->withErrors(["Please choose 1 payment method at least."]);
-        }
+        }*/
 
         $this->updateTags($input);
 

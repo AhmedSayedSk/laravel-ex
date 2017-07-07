@@ -9,7 +9,12 @@ return [
         '3 weeks',
     ],
 
-    "currencies" => [
-		"USD", "RUB", "EUR", "SHP", "BRL",
-	],
+    // Warning: Don't change id of default currencies, this can lead to damage to currency settings
+    /*"currencies" => [
+		"1" => "AED", 
+        "2" => "RUB", 
+        "3" => "EUR", 
+        "4" => "EGP", 
+        "5" => "JPY",
+	],*/
 ];

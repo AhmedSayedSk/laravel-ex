@@ -60,7 +60,7 @@
 					<span class="badge pull-right">{{ $pendingRequestsCount }}</span>
 				</span>
 			</a>
-			<a href="/admin/review-cart/accepted-requests" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T14") }}">
+			<a href="/admin/review-cart/accepting-requests" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T14") }}">
 				<span class="icomoon-cart accepted"></span>
 				<span class="des">
 					{{ trans("$TR.T12") }} ({{ trans("$TR.T14") }})

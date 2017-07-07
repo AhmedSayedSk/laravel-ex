@@ -11,15 +11,22 @@ class CreateCartItemsTable extends Migration
         {
             $table->increments('id');
             $table->integer('user_id');
+            
             $table->integer('product_id');
             $table->string('product_image');
             $table->string('product_name')->nullable();
-            $table->float('product_price'); // + currency
+            $table->double('product_price', 10, 2);
+            $table->string('product_currency'); 
             $table->string('product_quantity');
+
             $table->enum('payment_method', ['paypal', 'delivery']);
+
             $table->boolean("is_payed")->default(0);
             $table->boolean("is_accepted")->default(0);
+
             $table->integer("accepted_at_timestamps")->nullable();
+            $table->integer("payed_at_timestamps")->nullable();
+
             $table->timestamps();
         });
     }

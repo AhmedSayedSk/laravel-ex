@@ -8,6 +8,18 @@
             .buttons {
                 button, input, form, a {
                     display: inline-block !important;
+
+                    i.fa {
+                        vertical-align: middle;
+                    }
+                }
+
+                .by-paypal-payment.color {
+                    color: #012169;
+                }
+
+                .on-delivery-payment.color {
+                    color: #009688;
                 }
             }
 		}

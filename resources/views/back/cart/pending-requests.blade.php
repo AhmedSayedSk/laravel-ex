@@ -39,25 +39,25 @@
 										<tr>
 											<td data-title='{{ trans("$TR.T5") }}'>
                                                 @if(!is_null($product->product_image))
-                                                    <img src='{{ asset("uploaded/products/images/icon_size/$product->product_image") }}' height="150px">
+                                                    <img src='{{ asset("uploaded/products/images/icon_size/$product->product_image") }}' width="80px">
                                                 @else
-                                                    <img src='{{ asset("assets/images/no-image.png") }}' width="120px">
+                                                    <img src='{{ asset("assets/images/no-image.png") }}' width="80px">
                                                 @endif
 											</td>
 											<td data-title='{{ trans("$TR.T6") }}' width="10%">{{ $product->product_name }}</td>
-											<td data-title='{{ trans("$TR.T7") }}'>{{ $product->product_price }} {{ $global_setting->main_currency }}</td>
+											<td data-title='{{ trans("$TR.T7") }}'>{{ number_format($product->product_price * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $product->product_currency }}</td>
 											<td data-title='{{ trans("$TR.T8") }}'>{{ $product->product_quantity }}</td>
 											<td data-title='{{ trans("$TR.T9") }}'>{{ $product->current_amount }}</td>
 											<td data-title='{{ trans("$TR.T10") }}'>{{ $product->payment_method }}</td>
                                             <td data-title='{{ trans("$TR.T11") }}'>{{ $product->created_at }}</td>
 											<td data-title='{{ trans("$TR.T12") }}' width="12%">
-												{!! Form::open(["url"=>route("admin.review-cart..store")]) !!}
+												{!! Form::open(["url"=>"/admin/review-cart/pending-requests/accept"]) !!}
 													{!! Form::hidden('item_id', $product->id) !!}
 													{!! Form::hidden('product_id', $product->product_id) !!}
 													{!! Form::hidden('needed_quantity', $product->product_quantity) !!}
 													<button type="submit" class="btn btn-primary btn-xs">{{ trans("$TR.T13") }}</button>
 												{!! Form::close() !!}
-												{!! Form::open(["url"=>"/admin/review-cart/$product->id", "method"=>"DELETE"]) !!}
+												{!! Form::open(["url"=>"/admin/review-cart/pending-requests/$product->id", "method"=>"DELETE"]) !!}
 													<button type="submit" class="btn btn-danger btn-xs" aria-label="Left Align">
 														<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 													</button>

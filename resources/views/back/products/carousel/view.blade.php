@@ -25,7 +25,7 @@
 										<th>{{ trans("$TR.T4") }}</th>
 										<th>{{ trans("$TR.T5") }}</th>
 										<th>{{ trans("$TR.T6") }}</th>
-										<th>{{ trans("$TR.T7") }}</th>
+										<th>{{ trans("$TR.T7") }} without discount</th>
 										<th width="15.1%">{{ trans("$TR.T8") }}</th>
 									</tr>
 								</thead>
@@ -40,7 +40,7 @@
 											</td>
 											<td data-title='{{ trans("$TR.T5") }}'>{{ $product->name }}</td>
 											<td data-title='{{ trans("$TR.T6") }}'>{{ $product->sales }}</td>
-											<td data-title='{{ trans("$TR.T7") }}'>{{ $product->price }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</td>
+											<td data-title='{{ trans("$TR.T7") }} without discount'>{{ number_format($product->price * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</td>
 											<td data-title='{{ trans("$TR.T8") }}' class="options">
 												@include('standers.products.basic-options')
 											</td>

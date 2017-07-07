@@ -27,14 +27,15 @@ class mainController extends Controller
     	$products_carousel_count = Product::users_roles()->products_carousel()->count();
         $visitor_count = Visitor::count();
         $visitor_count_lastWeek = Visitor::range(date("d-m-Y", time() - 7 * 24 * 60 * 60), date("d-m-Y", time()));
-
+        $tags_count = DB::table('products_tags')->count();
+        
         for ($i=1; $i <= 4; $i++) { 
             $products_categories[] = DB::table("products_categories_$i")->get();
         }
 
         return view("back.dashboard")->with(compact(
             'products_count', 'live_products_count', 'products_carousel_count',
-            'products_categories', 'visitor_count', 'visitor_count_lastWeek'
+            'products_categories', 'visitor_count', 'visitor_count_lastWeek', 'tags_count'
         ));
     }
 
@@ -46,7 +47,7 @@ class mainController extends Controller
         $site_setting = json_decode(Storage::get("setting.json"));
 
         $newStatusTimeOff = trans('admin_setting.timeOff');
-        $currencies = trans('admin_setting.currencies');
+        $currencies = DB::table('currencies')->lists('title_en', "id");
 
         return view('back.site-setting')->with(compact(
             'site_setting', 'currencies', 'newStatusTimeOff'
@@ -61,9 +62,15 @@ class mainController extends Controller
         $data1->site_name = $inputs->site_name;
         $data1->site_category = $inputs->site_category;
         $data1->customer_service_number = $inputs->customer_service_number;
-        $data1->main_currency = $inputs->main_currency;
+        $data1->main_currency = (integer) $inputs->main_currency;
         $data1->newStatusTimeOff = $inputs->newStatusTimeOff;
-        $data1->is_clear_cart_when_logout = $inputs->clear_cart_when_logout;
+
+        $data1->is_clear_cart_when_logout = (integer) $inputs->clear_cart_when_logout;
+        $data1->is_auto_generage_product_serial_number = (integer) $inputs->auto_generage_serial_number;
+        $data1->is_support_paypal_payment = (integer) $inputs->is_support_paypal_payment;
+
+        $data1->currencies_auto_update->detector_timestamp = time();
+        $data1->currencies_auto_update->duration = (integer) $inputs->currencies_auto_update_duration;
 
         $data2 = json_encode($data1);
         Storage::put("setting.json", $data2);

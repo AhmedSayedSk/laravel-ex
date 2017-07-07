@@ -13,14 +13,33 @@
 				<b>{{ trans("$TR.T8") }}</b>
 			</div>
 			<div class="panel-body">
-				<p>{{ trans("$TR.T1") }}: <b>{{ $products_count }}</b></p>
-				<p>{{ trans("$TR.T2") }}: <b>{{ $live_products_count }}</b></p>
-				<p>
-					{{ trans("$TR.T3", ['number' => $products_carousel_count]) }}
-					<i class="help-block">{{ trans("$TR.T5") }}</i>
-				</p>
-				<p>{{ trans("$TR.T6", ['number' => $visitor_count]) }}</p>
-				<p>{{ trans("$TR.T7", ['number' => $visitor_count_lastWeek]) }}</p>		
+                <div class="row">
+                    <div class="item">
+                        <div class="title">{{ trans("$TR.T1") }}</div>
+                        <div class="content">{{ number_format($products_count) }}</div>
+                    </div>
+                    <div class="item">
+                        <div class="title">{{ trans("$TR.T2") }}</div>
+                        <div class="content">{{ number_format($live_products_count) }}</div>
+                    </div>
+                    <div class="item">
+                        <div class="title">{{ trans("$TR.T6") }}</div>
+                        <div class="content">{{ number_format($visitor_count) }}</div>
+                    </div> 
+                    <div class="item">
+                        <div class="title">{{ trans("$TR.T7") }}</div>
+                        <div class="content">{{ number_format($visitor_count_lastWeek) }}</div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Tags count</div>
+                        <div class="content">{{ number_format($tags_count) }}</div>
+                    </div>
+                    <div class="item">
+                        <div class="title">{{ trans("$TR.T3") }}</div>
+                        <div class="content">{{ number_format($products_carousel_count) }}</div>
+                        <i class="text-warning">{{ trans("$TR.T5") }}</i>
+                    </div>
+				</div>
 			</div>
 		</div>
 	</div>

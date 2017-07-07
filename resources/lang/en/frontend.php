@@ -114,7 +114,7 @@ return [
 				'T2' => 'Shopping now',
 				'T3' => 'image',
 				'T4' => 'name',
-				'T5' => 'discount (%)',
+				'T5' => 'discount',
 				'T6' => 'quantity (piece)',
 				'T7' => 'price (1 piece)',
 				'T8' => 'price (all pieces)',

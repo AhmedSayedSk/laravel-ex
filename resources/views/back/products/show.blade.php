@@ -51,7 +51,7 @@
 					<h3>{{ trans("$TR.T4") }}</h3>
 					<p><b>{{ trans("$TR.T5") }}</b>: {{ $product->name }}</p>
 					<p><b>{{ trans("$TR.T6") }}</b>: {{ $product->description }}</p>
-					<p><b>{{ trans("$TR.T7") }}</b>: {{ number_format($product->discountPrice) }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</p>
+					<p><b>{{ trans("$TR.T7") }}</b>: {{ number_format($product->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</p>
 					<p><b>{{ trans("$TR.T8") }}</b>: {{ $product->amount }}</p>
 					<p><b>{{ trans("$TR.T9") }}</b>: {{ $product->sales }}</p>
 					<p><b>{{ trans("$TR.T10") }}</b>: <br>{!! $product->categories_list !!}</p>

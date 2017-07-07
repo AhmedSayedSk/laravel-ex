@@ -107,8 +107,9 @@
 												<span class="text-danger">*</span>
 												<div class="input-group">
 													{!! Form::text("product_price", "0.00", ["class"=>"form-control price input-xlg", "id"=>"productPrice", "aria-label"=>trans("$TR.T16"), "style"=>"color: green"]) !!}
-													<span class="input-group-btn" style="width: 28%">
-                                                        {!! Form::select('currency_id', trans("admin_setting.currencies"), array_flip(trans("admin_setting.currencies"))[$main_currency], ['class'=>'form-control input-xlg']) !!}
+													<span class="input-group-addon">
+                                                        <?php // {!! Form::select('currency_id', trans("admin_setting.currencies"), array_flip(trans("admin_setting.currencies"))[$main_currency], ['class'=>'form-control input-xlg']) !!} ?>
+                                                        USD
 													</span>
 												</div>				
 											</div>
@@ -211,7 +212,30 @@
 	<script type="text/javascript" src="./assets/js/packages/draggable-taps.min.js"></script>
 	<script type="text/javascript" src="./packages/Jquery-Price-Format/jquery.priceformat.min.js"></script>
 
-	<script type="text/javascript">
+	<script type="text/javascript" data-description="serial-number">
+        $(document).ready(function(){
+            function generateSerialNumber(_this){
+                $.ajax({
+                    url: "/admin/products/create/generate-serial-number",
+                    type: "post",
+                    success: function(result){
+                        _this.parents('.form-group.serial-number').find("input.serial-number").val(result);
+                    }
+                })
+            }
+
+            @if($global_setting->is_auto_generage_product_serial_number == 1)
+                generateSerialNumber($('#create-product .serial-number a.generate'));
+            @endif
+            
+            $('#create-product .serial-number a.generate').on("click", function(e){
+                e.preventDefault();
+                generateSerialNumber($(this));
+            });
+        })
+    </script>
+
+    <script type="text/javascript">
 		$(document).ready(function(){
 			var categories_id = [];
 
@@ -236,18 +260,7 @@
 						return false;
 				}
 			});
-			
-			$('#create-product .serial-number a.generate').on("click", function(e){
-				var _this = $(this);
-				e.preventDefault();
-				$.ajax({
-					url: "/admin/products/create/generate-serial-number",
-					type: "post",
-					success: function(result){
-						_this.parents('.form-group.serial-number').find("input.serial-number").val(result);
-					}
-				})
-			});
+
 
 			$('#create-product input.price').priceFormat({
 				prefix: ""

@@ -25,10 +25,10 @@
 					<p class="p-name">{{ $product->name }}</p>
 					<p class="p-price">
 						@if($product->discount_percentage > 0)
-							<del>{{ $product->price }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</del>
+							<del>{{ number_format($product->price * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</del>
 							&nbsp;
 						@endif
-						<b class="text-success">{{ $product->discountPrice }} {{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</b>
+						<b class="text-success">{{ number_format($product->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</b>
 					</p>
 					<p class="p-sales">{{ trans("$TR.T1") }} {{ $product->sales }}</p>
 					<p class="p-amount">{{ trans("$TR.T4") }} {{ $product->amount }}</p>

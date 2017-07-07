@@ -66,10 +66,10 @@ return [
 	'ADP'      => [
 		'T1'     => "all $SN count",
 		'T2'     => "all live $SN count",
-		'T3'     => "$SN live carousel count: :number",
+		'T3'     => "$SN live carousel count",
 		'T5'     => "recommended to don't add above 12 product in ($SN carousel)",
-		'T6'     => "all visitor count: :number",
-		'T7'     => "visitor count last week: :number",
+		'T6'     => "all visitor count",
+		'T7'     => "visitor count last week",
 		'T8'     => 'dashboard',
 	],
 

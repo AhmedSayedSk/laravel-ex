@@ -13,9 +13,8 @@ class CreateProductsTable extends Migration {
             $table->string('description');
             $table->string('serial_number')->nullable();
 
-            $table->float('price');
-            $table->integer('currency_id');
-            $table->float('discount_percentage');
+            $table->double('price', 10, 2); // USD (by default)
+            $table->double('discount_percentage', 4, 2);
 
             $table->integer('category_table_number');
             $table->integer('category_id');
@@ -25,7 +24,7 @@ class CreateProductsTable extends Migration {
 
             $table->integer('sales')->default(0);
             $table->integer('view_counter')->default(0);
-            $table->float('stars');
+            $table->double('stars', 2, 1);
 
             $table->string('start_at');
             $table->boolean('is_forever')->default(0);

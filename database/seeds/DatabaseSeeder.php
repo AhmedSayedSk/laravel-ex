@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NormalAdminSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(CountriesSeeder::class);
+        $this->call(CurrenciesSeeder::class);
         
         // $this->call(UsersSeeder::class);
         // $this->call(ProductsCategoriesSeeder::class);

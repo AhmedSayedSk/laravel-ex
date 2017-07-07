@@ -88,7 +88,7 @@
 									<span class="text-danger">*</span>
 									<div class="input-group">
 										{!! Form::text("product_price", $product->price . ".00", ["class"=>"form-control price input-xlg", "id"=>"productPrice", "aria-label"=>trans("$TR.T16"), "style"=>"color: green"]) !!}
-										<snap class="input-group-addon">{{ trans("admin_setting.currencies")[$product->currency_id - 1] }}</snap>
+										<snap class="input-group-addon">USD</snap>
 									</div>				
 								</div>
 			        		</div>							        		

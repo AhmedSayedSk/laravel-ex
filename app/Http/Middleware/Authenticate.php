@@ -13,10 +13,12 @@ class Authenticate
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                $request->session()->flash('flashMessage', [
-                    "type" => $params[0],
-                    "content" => $params[1]
-                ]);
+                if(!empty($params)){
+                    $request->session()->flash('flashMessage', [
+                        "type" => $params[0],
+                        "content" => $params[1]
+                    ]);
+                }
                 return redirect()->guest('/login');
             }
         }
