@@ -1,5 +1,8 @@
 <?php
 
+// reviews routes 
+Route::get('review','User\Products\reviewController@review');
+
 Route::get('test', function(){
 	$x = Cart::get(78);
 	dd($x);
@@ -108,5 +111,6 @@ Route::group(['prefix' => '/', 'namespace' => 'Auth'], function() {
 
 	// Interface user pages
 	Route::controller('/', "User\indexController");
+
 
 /****************/
