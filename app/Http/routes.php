@@ -1,8 +1,5 @@
 <?php
 
-// reviews routes 
-Route::get('review','User\Products\reviewController@review');
-
 Route::get('test', function(){
     echo time();
 });
@@ -109,6 +106,9 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 	// Products routes
 	Route::group(['namespace' => 'User'], function() {
 		Route::group(['prefix' => 'products', 'namespace' => 'Products'], function() {
+            // reviews routes 
+            Route::get('review', 'reviewController@review');
+
 			Route::controller('search', 'searchController');
 			Route::get('category/{category_code}/{category_name}', 'searchController@byCategoryName');
 

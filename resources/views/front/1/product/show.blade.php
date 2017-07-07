@@ -130,7 +130,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<h3> Reviews : </h3>
-								<form method="get" action="review">
+								<form method="get" action="/products/review">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<input type="hidden" name="product_id" value="{{ $product->id  }}">
 								<fieldset class="rating">
