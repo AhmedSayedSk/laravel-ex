@@ -227,9 +227,6 @@
   											<div class="progress-bar" role="progressbar" aria-valuenow="{{$star1}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$star1}}%;">{{$star1}}%
   											</div>
 										</div>
-										
-										<div class="col-md-4">total reviews</div>
-										<div class="col-md-8 pull-right">{{ $total }}</div>
 										@foreach($get_product as $item)
 											<?php
 												$get_user = DB::table('users')->where('id','=',$item->user_id)->get();
