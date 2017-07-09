@@ -12,6 +12,8 @@ use App\Logic\Product\ProductRepository;
 use App\Models\CartItem;
 use App\Models\Product\Product;
 
+use DB;
+
 class pendingRequestsController extends Controller
 {
     public function __construct(){
@@ -34,10 +36,14 @@ class pendingRequestsController extends Controller
         $cart_item->accepted_at_timestamps = time();
         $cart_item->save();
 
-        Product::find($input->product_id)->update([
-            'amount' => DB::raw("amount + $input->needed_quantity"),
-            'sales' => DB::raw("sales - $input->needed_quantity"),
-        ]);
+        $target = Product::find($input->product_id);
+        $needed_quantity = $input->needed_quantity;
+
+        if($target->first()->amount != null){
+            $target->decremental('amount', $needed_quantity);
+        }
+
+        $target->increment('sales', $needed_quantity);
 
         return back();
     }

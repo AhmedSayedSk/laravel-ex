@@ -8,6 +8,9 @@
 
 @section('content')
 	<div id="cart-view-page">
+        @include('includes.flash-message')
+        @include('includes.back-error')
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<b>{{ trans("$TR.T1") }}</b>
@@ -43,9 +46,9 @@
 								</thead>
 								<tbody>
 									@foreach($cart_total_items as $item)
-										<tr>
+										<tr data-item-id="{{ $item->id }}">
                                             <td>
-                                                <input type="checkbox" name="select-item">
+                                                {!! Form::checkbox("checked_item_$i", 1, null, ["class"=>"select-item"]) !!}
                                             </td>
 											<td data-title='{{ trans("$TR.T3") }}'>
 												@if(!is_null($item->attributes->image_name))
@@ -63,16 +66,24 @@
 											</td>
 											<td data-title='{{ trans("$TR.T7") }}'>
                                                 @if($item->attributes->discount_percentage > 0)
-												    <del>{{ number_format($item->price * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</del><br>
+												    <del>
+                                                        {{ number_format($item->price * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} 
+                                                        {{ $main_currency }}
+                                                    </del><br>
                                                 @endif
 												<span>
-													{{ number_format($item->attributes->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}
-                                                    {{ Form::hidden("item_price_$i", $item->attributes->discountPrice) }}
+													{{ number_format($item->attributes->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} 
+                                                    &nbsp; {{ $item->attributes->discountPrice }}
+                                                    {{ $main_currency }}
+                                                    {{ Form::hidden("item_price_$i", (integer) $item->attributes->discountPrice) }}
 												</span>
 											</td>
 											<td data-title='{{ trans("$TR.T8") }}' class="price-all-pieces" data-price="{{ $item->attributes->discountPrice * $item->quantity }}">
                                                 @if($item->attributes->discount_percentage > 0)
-												    <del>{{ number_format($item->price * $item->quantity * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</del><br>
+												    <del>
+                                                        {{ number_format($item->price * $item->quantity * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} 
+                                                        {{ $main_currency }}
+                                                    </del><br>
                                                 @endif
 												<span>{{ number_format($item->attributes->discountPrice * $item->quantity * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</span>
 											</td>
@@ -94,37 +105,31 @@
                                                     <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                                                 </span>
 											</td>
+
+                                            <?php $i++ ?>
 										</tr>
 									@endforeach
 								</tbody>
 							</table>
 						</div>
 						<div class="extra">
-                            <?php /*
-                            <div class="total-prices">
-                                <label>total prices</label>
-                                <p>
-                                    @foreach($total_prices as $currency_id => $price) 
-                                        <b>{{ number_format($price) }} {{ trans("admin_setting.currencies")[$currency_id] }}</b><br>
-                                        <?php // {{ Form::hidden("total_price", $totalPrice) }} ?>
-                                    @endforeach
-                                </p>
-                            </div>
-                            */ ?>
                             <div class="total-prices" style="display: none;">
                                 <label><b>total prices:</b></label>
                                 <p></p>
                                 <hr>
                             </div>
                             <div class="buttons">
+                                {!! Form::hidden("selected_ids", "") !!}
                                 {!! Form::hidden("items_number", $itemsCount) !!}
-                                <button type="submit" class="btn btn-default by-paypal-payment color">
+                                {!! Form::hidden("main_currency", $main_currency) !!}
+                                <button type="submit" class="btn btn-default by-paypal-payment disabled">
                                     <i class="fa fa-paypal fa-2x" aria-hidden="true"></i>
                                     &nbsp; {{ trans("$TR.T12") }}
                                 </button>
                                 {!! Form::close() !!}
 
                                 {!! Form::open(["url"=>"/on-delivery-payment", 'class'=>"on-delivery"]) !!}
+                                    {!! Form::hidden("selected_ids", "") !!}
                                     <button type="submit" class="btn btn-default on-delivery-payment disabled">
                                         <i class="fa fa-truck fa-2x" aria-hidden="true"></i>
                                         &nbsp; {{ trans("$TR.T13") }}
@@ -151,7 +156,7 @@
 @stop
 
 @section('footer-js')
-    <script type="text/javascript">
+    <script type="text/javascript" data-des="clear cart">
         $(document).ready(function(){
             cartRemoveItem();
 
@@ -167,38 +172,29 @@
     <script type="text/javascript" data-des="payment checkbox">
         $(document).ready(function(){
             function getPaymentStatus1(_this){
-                var delivery_status = _this.parents('tr').find('.delivery-status').attr('data-status');
-                //var paypal_status = _this.parents('tr').find('.paypal-status').attr('data-status');
+                var delivery_status;
 
+                delivery_status = _this.parents('tr').find('.delivery-status').attr('data-status');
                 delivery_status = $.parseJSON(delivery_status);
-                //paypal_status = $.parseJSON(paypal_status);
 
                 if(delivery_status) {
                     $('.on-delivery-payment').removeClass('disabled').addClass('color');
                 }
-
-                /*if(paypal_status) {
-                    $('.by-paypal-payment').removeClass('disabled').addClass('color');
-                }*/
+                
+                $('.by-paypal-payment').removeClass('disabled').addClass('color');
             }
 
             function getPaymentStatus2(_this){
-                var delivery_status = _this.parents('tr').find('.delivery-status').attr('data-status');
-                //var paypal_status = _this.parents('tr').find('.paypal-status').attr('data-status');
-
+                var delivery_status;
+                delivery_status = _this.parents('tr').find('.delivery-status').attr('data-status');
                 delivery_status = $.parseJSON(delivery_status);
-                //paypal_status = $.parseJSON(paypal_status);
 
                 if(delivery_status != true) {
                     $('.on-delivery-payment').addClass('disabled').removeClass('color');
                 }
-
-                /*if(paypal_status != true) {
-                    $('.by-paypal-payment').addClass('disabled').removeClass('color');
-                }*/
             }
 
-            $('input[name="select-item"]').change(function(){
+            $('input.select-item').change(function(){
                 var _this = $(this);
 
                 // parseJSON to change string to boolean value
@@ -208,10 +204,10 @@
                 if(item_checked_status) {
                     getPaymentStatus1(_this);
                 } else {
-                    $('.on-delivery-payment').addClass('disabled').removeClass('color');
+                    $('.on-delivery-payment, .by-paypal-payment').addClass('disabled').removeClass('color');
 
                     // loop on all checkboxes at else state to check for checked box and applay same function
-                    $('input[name="select-item"]').each(function(){
+                    $('input.select-item').each(function(){
                         var _this = $(this);
 
                         if(_this.is(':checked')){
@@ -220,11 +216,12 @@
                     });
                 }
 
+
                 var selectItem = [];
 
-                $('input[name="select-item"]').each(function(index){
+                $('input.select-item').each(function(index){
                     var _this = $(this);
-
+                    
                     if(_this.is(':checked')){
                         getPaymentStatus2(_this);
                         selectItem[index] = 1;
@@ -233,6 +230,7 @@
                     }
                 });
 
+                //console.log(selectIds);
 
 
                 if(jQuery.inArray(1, selectItem) !== -1){
@@ -240,7 +238,7 @@
                    
                     var itemsPricesAndCurrency = [];
 
-                    $('input[name="select-item"]').each(function(index){
+                    $('input.select-item').each(function(index){
                         var _this = $(this);
                         
                         if(_this.is(':checked')){
@@ -282,5 +280,29 @@
 
             })
         });
+    </script>
+
+    <script type="text/javascript" data-des="toggle hidden input values">
+        $(document).ready(function(){
+            var selectIds = [];
+
+            $('input.select-item').change(function(){
+                var _this = $(this);
+                var selected_ids = _this.parents('[data-item-id]').attr('data-item-id');
+                
+                if($.parseJSON(_this.is(':checked'))) {
+                    // add id to selectIds
+                    selectIds.push(selected_ids);
+                } else {
+                    // remove id from selectIds
+                    selectIds = jQuery.grep(selectIds, function(value) {
+                      return value != selected_ids;
+                    });
+                }
+
+                var selectedIds_string = selectIds.join(',');
+                $('input:hidden[name="selected_ids"]').val(selectedIds_string);
+            });
+        })
     </script>
 @stop

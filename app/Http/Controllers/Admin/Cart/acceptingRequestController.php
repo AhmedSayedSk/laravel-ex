@@ -43,4 +43,9 @@ class acceptingRequestController extends Controller
 
         return back();
     }
+
+    public function destroy($id){
+        CartItem::destroy($id);
+        return back();
+    }
 }

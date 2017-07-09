@@ -1,7 +1,7 @@
 <?php
 
 Route::get('test', function(){
-    echo time();
+    // Cart::clear();
 });
 
 // Auth routes

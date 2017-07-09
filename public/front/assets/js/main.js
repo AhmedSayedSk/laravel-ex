@@ -15,7 +15,7 @@ function product_addToCart(msg){
                 },
 				success: function(data){
 					alert(data.message + " - quantity: " + quantity);
-					$('#navbar-1 .cart-value').text(data.cart_count);
+					$('#navbar-1 .cart-value').text("(" + data.cart_count + ")");
 				},
 				statusCode: {
 					401: function() {

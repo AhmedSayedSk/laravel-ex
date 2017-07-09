@@ -94,10 +94,11 @@ class cartController extends Controller
                 'attributes' => [
                     'product_serial_number' => $product->serial_number,
                     'image_name' => $product_image,
-                    'discountPrice' => $product->price - (($product->price * $product->discount_percentage) / 100),
+                    'discountPrice' => (integer) $product->price - (($product->price * $product->discount_percentage) / 100),
                     'discount_percentage' => $product->discount_percentage,
                     'is_payment_on_delivery' => $product->is_payment_on_delivery,
                     'is_payment_by_paypal' => $product->is_payment_by_paypal,
+                    'approved' => 0, // approved from user is false by default (for paypal controller)
                 ]
             ]);
 
