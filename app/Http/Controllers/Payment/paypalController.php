@@ -74,7 +74,6 @@ class paypalController extends Controller
             return back()->withErrors(['Your choosen is empty.']);
         }
 
-
         // add item to list
         $item_list = new ItemList();
         $item_list->setItems($items);
