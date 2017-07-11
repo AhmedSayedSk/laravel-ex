@@ -158,7 +158,7 @@
 										</div>
 										<div class="col-md-7">
 											<div class="form-group expires-condition">
-												<label>expires_condition</label>
+												<label>expires condition</label>
 												<div class="radio">
 													<label>
 														{!! Form::radio("expires_condition", "expires_at", null, ["class"=>"checkbox"]) !!}

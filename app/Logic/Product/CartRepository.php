@@ -29,6 +29,13 @@ class CartRepository
         $cart_item->product_quantity = $item->quantity;
         $cart_item->payment_method = $payment_method;
         $cart_item->is_payed = $is_payed;
+
+        if($payment_method == 'paypal') {
+            $cart_item->is_accepted = 1;
+            $cart_item->accepted_at_timestamps = time();
+            $cart_item->payed_at_timestamps = time();
+        }
+
         $cart_item->save();
     }
 }
