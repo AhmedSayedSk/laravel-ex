@@ -31,7 +31,7 @@ class CartRepository
         $cart_item->is_payed = $is_payed;
 
         if($payment_method == 'paypal') {
-            $cart_item->is_accepted = 1;
+            $cart_item->status = 2;
             $cart_item->accepted_at_timestamps = time();
             $cart_item->payed_at_timestamps = time();
         }

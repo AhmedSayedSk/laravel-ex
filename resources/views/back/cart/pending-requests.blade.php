@@ -57,9 +57,9 @@
 													{!! Form::hidden('needed_quantity', $product->product_quantity) !!}
 													<button type="submit" class="btn btn-primary btn-xs">{{ trans("$TR.T13") }}</button>
 												{!! Form::close() !!}
-												{!! Form::open(["url"=>"/admin/review-cart/pending-requests/$product->id", "method"=>"DELETE"]) !!}
+												{!! Form::open(["url"=>"/admin/review-cart/pending-requests/reject/$product->id"]) !!}
 													<button type="submit" class="btn btn-danger btn-xs" aria-label="Left Align">
-														<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+														<span class="glyphicon glyphicon-pause" aria-hidden="true"></span> rejected
 													</button>
 												{!! Form::close() !!}
 											</td>

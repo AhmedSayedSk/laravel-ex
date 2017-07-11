@@ -18,11 +18,18 @@ class CreateCartItemsTable extends Migration
             $table->double('product_price', 10, 2);
             $table->string('product_currency'); 
             $table->string('product_quantity');
-
             $table->enum('payment_method', ['paypal', 'delivery']);
 
+            /* 
+                status:
+                0: pending
+                1: rejected
+                2: accepted
+            */
+            $table->boolean("status")->default(0);
+            
             $table->boolean("is_payed")->default(0);
-            $table->boolean("is_accepted")->default(0);
+            $table->boolean("canceled_from_owner")->default(0);
 
             $table->integer("accepted_at_timestamps")->nullable();
             $table->integer("payed_at_timestamps")->nullable();

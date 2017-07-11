@@ -21,7 +21,7 @@ class acceptingRequestController extends Controller
     }
 
     public function index(){
-        $cart_items = CartItem::where('is_accepted', 1)->paginate(5);
+        $cart_items = CartItem::where('status', 2)->paginate(5);
 
         return view("back.cart.accepted-requests")->with(compact(
             'cart_items'

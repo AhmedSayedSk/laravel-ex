@@ -1,6 +1,6 @@
 <?php
-	$pendingRequestsCount = App\Models\CartItem::where('is_accepted', 0)->count();
-	$acceptedRequestsCount = App\Models\CartItem::where('is_accepted', 1)->count();
+	$pendingRequestsCount = App\Models\CartItem::where('status', 0)->count();
+	$acceptedRequestsCount = App\Models\CartItem::where('status', 2)->count();
 
 	/* Translation */
 	$TR = "admin_panel.AN";

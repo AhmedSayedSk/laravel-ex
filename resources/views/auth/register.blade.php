@@ -15,7 +15,7 @@
 			<div class="form-group">
 				{!! Form::label("userName", trans("$TR.T1")) !!}
                 <span class="text-danger">*</span>
-				{!! Form::text("name", "", ["class"=>"form-control", "id"=>"userName"]) !!}
+				{!! Form::text("name", "", ["class"=>"form-control", "id"=>"userName", "dir"=>"auto"]) !!}
 				<p class="help-block opc-7">{{ trans("sub_validation.register.T1") }}</p>
 			</div>
 			<div class="form-group">

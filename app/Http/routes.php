@@ -70,7 +70,8 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 
 		Route::group(['namespace' => 'Cart', 'prefix' => 'review-cart'], function(){
 			Route::resource('pending-requests', "pendingRequestsController", ['parameters' => ['' => 'id']]);
-			Route::post('pending-requests/accept', "pendingRequestsController@accept");
+            Route::post('pending-requests/accept', "pendingRequestsController@accept");
+			Route::post('pending-requests/reject', "pendingRequestsController@reject");
 			
 			Route::resource('accepting-requests', "acceptingRequestController", ['parameters' => ['' => 'id']]);
 			Route::post('accepting-requests/pay', "acceptingRequestController@pay");
@@ -98,13 +99,11 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 
 /*** FRONTEND ****/
 
-	// User profile routes
-	Route::group(['prefix' => 'profile', 'namespace' => 'User'], function(){
-		Route::controller('/', 'profileController');
-	});
-
-	// Products routes
 	Route::group(['namespace' => 'User'], function() {
+        Route::controller('/profile', 'profileController'); // User profile routes
+        Route::resource('/pay-requests', 'payRequestsController');
+
+        // Products routes
 		Route::group(['prefix' => 'products', 'namespace' => 'Products'], function() {
             // reviews routes 
             Route::get('review', 'reviewController@review');

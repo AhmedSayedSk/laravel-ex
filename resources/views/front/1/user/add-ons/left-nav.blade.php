@@ -9,7 +9,8 @@
 		<div class="panel-body">
 			<a href="/profile" class="list-group-item">{{ trans("$TR.T2") }}</a>
 			<a href="/my-cart" class="list-group-item">{{ trans("$TR.T3") }}</a>
-			<a href="/profile/edit-my-information" class="list-group-item">{{ trans("$TR.T4") }}</a>
+            <a href="/profile/edit-my-information" class="list-group-item">{{ trans("$TR.T4") }}</a>
+			<a href="/pay-requests" class="list-group-item">Pay requests</a>
 		</div>
 	</div>
 </div>

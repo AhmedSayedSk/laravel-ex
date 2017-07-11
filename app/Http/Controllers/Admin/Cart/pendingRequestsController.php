@@ -21,7 +21,7 @@ class pendingRequestsController extends Controller
     }
 
     public function index(){
-    	$cart_products = CartItem::where('is_accepted', 0)->updates_withPaginate(5);
+    	$cart_products = CartItem::where('status', 0)->updates_withPaginate(5);
 
     	return view("back.cart.pending-requests")->with(compact(
             'cart_products'
@@ -32,7 +32,7 @@ class pendingRequestsController extends Controller
         $input = (object) $request->all();
 
         $cart_item = CartItem::find($input->item_id);
-        $cart_item->is_accepted = 1;
+        $cart_item->status = 2;
         $cart_item->accepted_at_timestamps = time();
         $cart_item->save();
 
@@ -48,8 +48,16 @@ class pendingRequestsController extends Controller
         return back();
     }
 
-    public function destroy($id){
+    public function reject($id){
+        CartItem::find($id)->update([
+            'status' => 1
+        ]);
+
+        return back();
+    }
+
+    /*public function destroy($id){
     	CartItem::destroy($id);
     	return back();
-    }
+    }*/
 }

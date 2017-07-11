@@ -29,16 +29,6 @@ class cartController extends Controller
     	$cart_total_items = json_decode($cartCollection->toJson());
         $total_price = 0;
 
-        /*$total_prices = [];
-
-        foreach ($cart_total_items as $item) {
-            $price = $item->price;
-            $discount_percentage = $item->attributes->discount_percentage;
-            $quantity = $item->quantity;
-
-            $total_prices[$item->attributes->currency_id] = ($price - $price * ($discount_percentage/100)) * $quantity;
-        }*/
-
 		return view("front.$this->frontendNumber.user.cart.view")->with(compact(
             'cart_total_items', 'itemsCount'
         ));
