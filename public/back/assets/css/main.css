@@ -360,6 +360,14 @@
         #admins-view-page .panel .panel-body .container-fluid table.ps-view td {
           padding: 8px; }
 
+#translations-view-page table tbody tr td a {
+  border-bottom: 2px dotted #2196F3; }
+  #translations-view-page table tbody tr td a:hover {
+    text-decoration: none;
+    border-bottom: 2px solid #2196F3; }
+  #translations-view-page table tbody tr td a:focus {
+    text-decoration: none; }
+
 #product-create-page .tabs-wrap #create-product .tab-content .tab-pane#product-images .droping, #product-edit-page #product-images .droping {
   position: relative; }
   #product-create-page .tabs-wrap #create-product .tab-content .tab-pane#product-images .droping form, #product-edit-page #product-images .droping form {

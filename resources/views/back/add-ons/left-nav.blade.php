@@ -77,6 +77,21 @@
 			</a>
 		</div>
 	</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="icomoon-gears"></span>
+            <span class="des">Multiple control</span>
+            <a href="#" class="btn btn-default btn-xs pull-right slide-toggle" title="slide toggle">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+        </div>
+        <div class="panel-body">
+            <a href="/admin/translations" class="list-group-item" data-toggle="tooltip" data-placement="right" title='Translations (CRUD)'>
+                <span class="icomoon-translation"></span>
+                <span class="des">Translations (CRUD)</span>
+            </a>
+        </div>
+    </div>
 	@if($personType == "super_admin")
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -87,11 +102,11 @@
                 </a>
 			</div>
 		  	<div class="panel-body">
-		  		<a href="/admin/super-admin/edit" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T19") }}">
+		  		<a href="/admin/super-admin/edit" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans("$TR.T19") }}'>
 		  			<span class="icomoon-paper-edit"></span>
 		  			<span class="des">{{ trans("$TR.T19") }}</span>
 		  		</a>
-		    	<a href="/admin/clients/admins/accounts/create" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T20") }}">
+		    	<a href="/admin/clients/admins/accounts/create" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans("$TR.T20") }}'>
 		    		<span class="icomoon-lock"></span>
 		    		<span class="des">{{ trans("$TR.T20") }}</span>
 		    	</a>

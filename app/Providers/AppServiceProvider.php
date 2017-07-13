@@ -16,36 +16,8 @@ use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
-
-    protected function updateCurrenciesTable(){
-        if (Schema::hasTable('currencies')) {
-            $get = file_get_contents('https://spreadsheets.google.com/feeds/list/0Av2v4lMxiJ1AdE9laEZJdzhmMzdmcW90VWNfUTYtM2c/2/public/basic');
-            $xml = simplexml_load_string($get);
-          
-            foreach($xml->entry as $element){
-                Currency::where('title_en', $element->title)->update([
-                    'content_refresh_to_USD' => substr($element->content, 7)
-                ]);
-            }
-        }
-    }
-
-    protected function optimizeCurrencyCollection($global_setting){
-        $currency_collection = $global_setting->currencies_auto_update;
-        $duration = $currency_collection->duration; // by minutes
-        $detector_timestamp = $currency_collection->detector_timestamp;
-
-        if($detector_timestamp < time()){
-            $this->updateCurrenciesTable();
-
-            // new_detector_timestamp
-            $currency_collection->detector_timestamp = time() + ($duration * 60);
-
-            Storage::put("setting.json", json_encode($global_setting));
-        }
-    }
-
     public function boot() {
+
         $global_setting = json_decode(Storage::get('setting.json'));
 
         if (Schema::hasTable('visitor_registry')) {
@@ -73,6 +45,33 @@ class AppServiceProvider extends ServiceProvider
     }
 
     public function register() {
+    }
 
+    protected function updateCurrenciesTable(){
+        if (Schema::hasTable('currencies')) {
+            $get = file_get_contents('https://spreadsheets.google.com/feeds/list/0Av2v4lMxiJ1AdE9laEZJdzhmMzdmcW90VWNfUTYtM2c/2/public/basic');
+            $xml = simplexml_load_string($get);
+          
+            foreach($xml->entry as $element){
+                Currency::where('title_en', $element->title)->update([
+                    'content_refresh_to_USD' => substr($element->content, 7)
+                ]);
+            }
+        }
+    }
+
+    protected function optimizeCurrencyCollection($global_setting){
+        $currency_collection = $global_setting->currencies_auto_update;
+        $duration = $currency_collection->duration; // by minutes
+        $detector_timestamp = $currency_collection->detector_timestamp;
+
+        if($detector_timestamp < time()){
+            $this->updateCurrenciesTable();
+
+            // new_detector_timestamp
+            $currency_collection->detector_timestamp = time() + ($duration * 60);
+
+            Storage::put("setting.json", json_encode($global_setting));
+        }
     }
 }

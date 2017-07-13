@@ -1,7 +1,7 @@
 <base href='<?= URL::to('./'); ?>'>
 <script>var base = '<?= URL::to('./'); ?>';</script>
 <meta charset="utf-8">
-<link rel="shortcut icon" href="./front/icons/logo-icon.png">
+<link rel="shortcut icon" href="./assets/icons/logo-icon.png">
 <meta name="author" content="Development: Ahmed Sayed Omar">
 <meta name="keywords" content="">
 <meta name="description" content="">

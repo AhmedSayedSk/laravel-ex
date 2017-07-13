@@ -162,6 +162,8 @@ return [
         Weboap\Visitor\VisitorServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+
+        App\Providers\HelperServiceProvider::class,
     ],
 
     /*

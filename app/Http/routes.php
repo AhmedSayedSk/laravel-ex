@@ -1,7 +1,23 @@
 <?php
 
 Route::get('test', function(){
-    // Cart::clear();
+    //dd ( count(DB::table('translation')->get()) );
+    //echo trans2(4, ['name'=>'Ahmed']);
+
+    //function translate($from_lan, $to_lan, $text){
+        //$from_lan = "en";
+        //$to_lan = "ar";
+        //$text = "What do you do?";
+
+        //$json = json_decode(file_get_contents('https://ajax.googleapis.com/ajax/services/language/translate?v=2.0&q=' . urlencode($text) . '&langpair=' . $from_lan . '|' . $to_lan));
+        //$translated_text = $json->responseData->translatedText;
+
+        //dd($json);
+
+        //return $translated_text;
+    //}
+
+    //translate('English', 'Arabic', 'What do you do?');
 });
 
 // Auth routes
@@ -77,7 +93,12 @@ Route::controller('/requesting/ajax', "ajaxRequestController");
 			Route::post('accepting-requests/pay', "acceptingRequestController@pay");
 		});
 
-		Route::controller('/super-admin', 'superAdminController', ['parameters' => ['' => 'id']]);
+        Route::group(['prefix' => 'translations'], function(){
+            Route::get('take-backup', 'translationController@takeBackup');
+            Route::resource('/', 'translationController', ['parameters' => ['' => 'id']]);
+        });
+
+        Route::controller('/super-admin', 'superAdminController', ['parameters' => ['' => 'id']]);
 		Route::controller('/', 'mainController', ['parameters' => ['' => 'id']]);
 	});
 

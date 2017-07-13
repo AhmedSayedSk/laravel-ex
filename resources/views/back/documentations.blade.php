@@ -464,10 +464,10 @@ $TR = "admin_panel.AN";
 
 <script type="text/javascript" src="./assets/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./packages/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./assets/js/links-optimization.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function(){
-        $('html base').remove();
-
         $('#nav').affix({
             offset: {     
               top: $('#nav').offset().top        
