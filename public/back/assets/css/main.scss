@@ -149,7 +149,7 @@ body {
 
 #content {
 	margin-left: -1em;
-	padding-right: 0;
+	padding-right: 2px;
 
 	@media (max-width: 767px) {
 		& { 
@@ -170,7 +170,7 @@ body {
 				margin-right: 5px;
 			}
 		}
-		.panel-body {
+		> .panel-body {
 			.container-fluid {
 				margin: -15px;
 

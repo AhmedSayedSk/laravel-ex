@@ -93,6 +93,9 @@ $TR = "admin_panel.AN";
                 memory_limit = 512MB
 
                 can't run more than 1 seed in 1 shoot, only first seed will runs cuz not do interpoletion
+              
+                * remove translation by super admin only
+                * in translation section: set id as unique value because don't make confilect with another translations
               </p-->
               <ol type="1">
                   <li>

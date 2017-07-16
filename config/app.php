@@ -66,7 +66,6 @@ return [
     */
 
     'locale' => 'en',
-    'locales' => ['en' => 'English', 'ar' => 'العربية'],
 
     /*
     |--------------------------------------------------------------------------
@@ -163,7 +162,7 @@ return [
         Darryldecode\Cart\CartServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
 
-        App\Providers\HelperServiceProvider::class,
+        App\Providers\HelperServiceProvider::class
     ],
 
     /*

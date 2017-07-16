@@ -31,12 +31,12 @@ $TR = "admin_panel.AN";
           <li><a href="/logout">{{ trans("$TR.T22") }}</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              {{ trans("$TR.T24") }} ({{ config('app.locales')[config('app.locale')] }})
+              {{ trans("$TR.T24") }} ({{ $supported_trans->$main_lang->content }})
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              @foreach(config('app.locales') as $key => $value)
-                <li><a href="/locale/{{$key}}">{{$value}}</a></li>
+              @foreach($supported_trans as $key => $value)
+                <li><a href="/locale/set-locale/{{ $key }}">{{ $value->content }}</a></li>
               @endforeach
             </ul>
           </li>

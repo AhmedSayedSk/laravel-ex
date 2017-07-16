@@ -1,23 +1,7 @@
 <?php
 
 Route::get('test', function(){
-    //dd ( count(DB::table('translation')->get()) );
-    //echo trans2(4, ['name'=>'Ahmed']);
-
-    //function translate($from_lan, $to_lan, $text){
-        //$from_lan = "en";
-        //$to_lan = "ar";
-        //$text = "What do you do?";
-
-        //$json = json_decode(file_get_contents('https://ajax.googleapis.com/ajax/services/language/translate?v=2.0&q=' . urlencode($text) . '&langpair=' . $from_lan . '|' . $to_lan));
-        //$translated_text = $json->responseData->translatedText;
-
-        //dd($json);
-
-        //return $translated_text;
-    //}
-
-    //translate('English', 'Arabic', 'What do you do?');
+    
 });
 
 // Auth routes
@@ -36,11 +20,11 @@ Route::group(['prefix' => '/', 'namespace' => 'Auth'], function() {
 // For ajax rquesting
 Route::controller('/requesting/ajax', "ajaxRequestController");
 
+// Localization (langs)
+Route::controller('/locale', 'localeController');
+
 
 /**** BACKEND ****/
-
-	// Localization (lang)
-	Route::get('/locale/{locale?}', ['as' => 'set-locale', 'uses' => 'appController@setLocale']);
 
 	// Super admin & admins routes
 	Route::group(['middleware' => 'authenticated:super_admin,admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function() {

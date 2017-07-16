@@ -28,6 +28,7 @@ class mainController extends Controller
         $visitor_count = Visitor::count();
         $visitor_count_lastWeek = Visitor::range(date("d-m-Y", time() - 7 * 24 * 60 * 60), date("d-m-Y", time()));
         $tags_count = DB::table('products_tags')->count();
+        $trans_count = DB::table('translation')->count();
         
         for ($i=1; $i <= 4; $i++) { 
             $products_categories[] = DB::table("products_categories_$i")->get();
@@ -35,7 +36,8 @@ class mainController extends Controller
 
         return view("back.dashboard")->with(compact(
             'products_count', 'live_products_count', 'products_carousel_count',
-            'products_categories', 'visitor_count', 'visitor_count_lastWeek', 'tags_count'
+            'products_categories', 'visitor_count', 'visitor_count_lastWeek', 'tags_count',
+            'trans_count'
         ));
     }
 

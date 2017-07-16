@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $main_lang }}">
 <head>
 	@include('includes.sub-header')
     <title>@yield('title')</title>

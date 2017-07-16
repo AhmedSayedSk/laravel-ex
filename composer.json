@@ -14,7 +14,8 @@
         "darryldecode/cart": "dev-master",
         "paypal/rest-api-sdk-php": "*",
         "hashids/hashids": "^1.0",
-        "laravel/socialite": "~2.0"
+        "laravel/socialite": "~2.0",
+        "stichoza/google-translate-php": "^3.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

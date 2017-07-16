@@ -35,6 +35,11 @@
                         <div class="content">{{ number_format($tags_count) }}</div>
                     </div>
                     <div class="item">
+                        <div class="title">Translations count</div>
+                        <div class="content">{{ number_format($trans_count) }}</div>
+                        <i class="text-warning">When set new translation define id grater than: {{ number_format($trans_count) }}</i>
+                    </div>
+                    <div class="item">
                         <div class="title">{{ trans("$TR.T3") }}</div>
                         <div class="content">{{ number_format($products_carousel_count) }}</div>
                         <i class="text-warning">{{ trans("$TR.T5") }}</i>

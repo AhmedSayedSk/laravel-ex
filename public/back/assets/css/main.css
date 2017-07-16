@@ -360,12 +360,12 @@
         #admins-view-page .panel .panel-body .container-fluid table.ps-view td {
           padding: 8px; }
 
-#translations-view-page table tbody tr td a {
+#translations-view-page table tbody tr td a.title {
   border-bottom: 2px dotted #2196F3; }
-  #translations-view-page table tbody tr td a:hover {
+  #translations-view-page table tbody tr td a.title:hover {
     text-decoration: none;
     border-bottom: 2px solid #2196F3; }
-  #translations-view-page table tbody tr td a:focus {
+  #translations-view-page table tbody tr td a.title:focus {
     text-decoration: none; }
 
 #product-create-page .tabs-wrap #create-product .tab-content .tab-pane#product-images .droping, #product-edit-page #product-images .droping {
@@ -440,7 +440,7 @@ body {
 
 #content {
   margin-left: -1em;
-  padding-right: 0; }
+  padding-right: 2px; }
   @media (max-width: 767px) {
     #content {
       margin-left: 0;
@@ -453,9 +453,9 @@ body {
     #content .panel > .panel-heading a.pull-right,
     #content .panel > .panel-heading button.pull-right {
       margin-right: 5px; }
-  #content .panel .panel-body .container-fluid {
+  #content .panel > .panel-body .container-fluid {
     margin: -15px; }
-    #content .panel .panel-body .container-fluid .empty-content {
+    #content .panel > .panel-body .container-fluid .empty-content {
       padding: 15px; }
 
 /*# sourceMappingURL=main.css.map */

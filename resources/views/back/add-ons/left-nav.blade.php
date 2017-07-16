@@ -119,45 +119,20 @@
 	@endif
 </div>
 
+{{ Session::get('leftnav_resize_status') }}
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		navLinkActivation('/{{Request::path()}}');
-
-		function tooltip_status(status){
-			$('#left-nav [data-toggle="tooltip"]').unbind('mouseenter').bind('mouseenter', function(e){
-				$(this).tooltip(status);
-			});
-		}
-			
-		function leftnav_resize_status(_this){
-			var basic_status = {{ Session::has('leftnav_resize_status') ? Session::get('leftnav_resize_status') : 'false' }};
-			var leftNav = $("#left-nav");
-			var content = $("#content");
-
-			if(basic_status) {
-				leftNav.find(".des").hide();
-				leftNav.find(".list-group-item").css("text-align", "center");
-				leftNav.find(".panel-heading")
-                    .css("text-align", "center").end()
-                    .find('.slide-toggle').hide();
-				tooltip_status('show');
-			} else {
-				leftNav.find(".des").fadeIn(200);
-				leftNav.find(".list-group-item").css("text-align", "left");
-				leftNav.find(".panel-heading")
-                    .css("text-align", "left").end()
-                    .find('.slide-toggle').show();
-				tooltip_status('hide');
-			}
-		}
-
-		leftnav_resize_status($('.resize-btn'));
+		leftnav_resize_status($('.resize-btn'), "{{ Session::has('leftnav_resize_status') }}", "{{ Session::get('leftnav_resize_status') }}");
 
 		$('.resize-btn').click(function(){
 			var _this = $(this);
 			var leftNav = $("#left-nav");
 			var content = $("#content");
 			var status = leftNav.hasClass('col-md-3');
+
+            console.log(status);
 
 			leftNav.toggleClass('col-md-3 col-md-1');
 			content.toggleClass('col-md-9 col-md-11');
@@ -182,10 +157,7 @@
 			$.ajax({
 				url: "/requesting/ajax/backend-leftnav-status",
 				type: "post",
-				data: { status: status },
-				success: function(data){
-					//console.log(data);
-				}
+				data: { status: status }
 			})
 		});
 	});

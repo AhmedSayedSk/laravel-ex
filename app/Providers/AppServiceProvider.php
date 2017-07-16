@@ -40,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
             	'personType' => Admin::type(),
                 'cart_count' => Cart::getContent()->count(),
             	'publicProdcutsCats' => $p_cats,
+                'main_lang' => config('app.locale'),
+                'supported_trans' => json_decode(Storage::get('supported_translations.json')),
             ]);
         });
     }

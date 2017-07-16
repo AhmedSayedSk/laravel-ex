@@ -232,6 +232,46 @@ function addCommas(nStr)
     return x1 + x2;
 }
 
+
+function tooltip_status(status){
+    $('#left-nav [data-toggle="tooltip"]').unbind('mouseenter').bind('mouseenter', function(e){
+        $(this).tooltip(status);
+    });
+}
+
+function leftnav_resize_status(_this, has_resize_status, get_resize_status){
+    var basic_status = has_resize_status ? get_resize_status : 'false';
+    var leftNav = $("#left-nav");
+    var content = $("#content");
+
+    // default apply resize
+    var default_accepted_resize_pages = [
+        '/admin/translations'
+    ]
+
+    if(jQuery.inArray(window.location.pathname, default_accepted_resize_pages) !== -1) {
+        basic_status = "true";
+        leftNav.removeClass('col-md-3').addClass('col-md-1');
+        content.removeClass('col-md-9').addClass('col-md-11');
+    }
+
+    if(basic_status == "true") {
+        leftNav.find(".des").hide();
+        leftNav.find(".list-group-item").css("text-align", "center");
+        leftNav.find(".panel-heading")
+            .css("text-align", "center").end()
+            .find('.slide-toggle').hide();
+        tooltip_status('show');
+    } else {
+        leftNav.find(".des").fadeIn(200);
+        leftNav.find(".list-group-item").css("text-align", "left");
+        leftNav.find(".panel-heading")
+            .css("text-align", "left").end()
+            .find('.slide-toggle').show();
+        tooltip_status('hide');
+    }
+}
+
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
 
