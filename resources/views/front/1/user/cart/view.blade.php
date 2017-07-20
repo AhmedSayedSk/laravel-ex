@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "frontend.$frontendNumber.UP.CVP";
-?>
-
 @extends("front.$frontendNumber.user.master")
-@section('title', trans("frontend.$frontendNumber.PT.T5"))
+@section('title', trans2("A109", "My cart"))
 
 @section('content')
 	<div id="cart-view-page">
@@ -13,7 +8,7 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<b>{{ trans("$TR.T1") }}</b>
+				<b>{{ trans2("A110", "cart items") }}</b>
 			</div>
 			<div class="panel-body">
 				@if(Cart::isEmpty())
@@ -21,7 +16,7 @@
     					<div class="text-center">
     						<img src="./front/helper_images/empty-cart.png">
     						<h3 class="text-center">
-    							<a href="/products">{{ trans("$TR.T2") }}</a>
+    							<a href="/products">{{ trans2("A111", "Shopping now") }}</a>
     						</h3>
     					</div>
     				</div>
@@ -34,14 +29,14 @@
 								<thead>
 									<tr>
                                         <th></th>
-										<th>{{ trans("$TR.T3") }}</th>
-										<th width="20%">{{ trans("$TR.T4") }}</th>
-										<th>{{ trans("$TR.T5") }}</th>
-										<th>{{ trans("$TR.T6") }}</th>
-										<th>{{ trans("$TR.T7") }}</th>
-										<th>{{ trans("$TR.T8") }}</th>
-                                        <th>delivery status</th>
-										<th width="8%">{{ trans("$TR.T10") }}</th>
+										<th>{{ trans2("A112", "image") }}</th>
+										<th width="20%">{{ trans2("A113", "name") }}</th>
+										<th>{{ trans2("A114", "discount") }}</th>
+										<th>{{ trans2("A115", "quantity (piece)") }}</th>
+										<th>{{ trans2("A116", "price (1 piece)") }}</th>
+										<th>{{ trans2("A117", "price (all pieces)") }}</th>
+                                        <th>{{ trans2("A118", "delivery status") }}</th>
+										<th width="8%">{{ trans2("A119", "options") }}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -50,21 +45,21 @@
                                             <td>
                                                 {!! Form::checkbox("checked_item_$i", 1, null, ["class"=>"select-item"]) !!}
                                             </td>
-											<td data-title='{{ trans("$TR.T3") }}'>
+											<td data-title='{{ trans2("A112") }}'>
 												@if(!is_null($item->attributes->image_name))
 													<img src='{{ asset("uploaded/products/images/icon_size/".$item->attributes->image_name) }}' style="width: 80px;">
 												@else
 													<img src='{{ asset("assets/images/no-image.png") }}' width="80px">
 												@endif
 											</td>
-											<td data-title='{{ trans("$TR.T4") }}'>{{ $item->name }} {{ Form::hidden("item_name_$i", $item->name) }}</td>
-											<td data-title='{{ trans("$TR.T5") }}'>{{ $item->attributes->discount_percentage }}%</td>
-											<td data-title='{{ trans("$TR.T6") }}'>
+											<td data-title='{{ trans2("A113") }}'>{{ $item->name }} {{ Form::hidden("item_name_$i", $item->name) }}</td>
+											<td data-title='{{ trans2("A114") }}'>{{ $item->attributes->discount_percentage }}%</td>
+											<td data-title='{{ trans2("A115") }}'>
 												{{ $item->quantity }}
 												{{ Form::hidden("item_quantity_$i", $item->quantity) }}
 											</span>
 											</td>
-											<td data-title='{{ trans("$TR.T7") }}'>
+											<td data-title='{{ trans2("A116") }}'>
                                                 @if($item->attributes->discount_percentage > 0)
 												    <del>
                                                         {{ number_format($item->price * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} 
@@ -78,7 +73,7 @@
                                                     {{ Form::hidden("item_price_$i", (integer) $item->attributes->discountPrice) }}
 												</span>
 											</td>
-											<td data-title='{{ trans("$TR.T8") }}' class="price-all-pieces" data-price="{{ $item->attributes->discountPrice * $item->quantity }}">
+											<td data-title='{{ trans2("A117") }}' class="price-all-pieces" data-price="{{ $item->attributes->discountPrice * $item->quantity }}">
                                                 @if($item->attributes->discount_percentage > 0)
 												    <del>
                                                         {{ number_format($item->price * $item->quantity * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} 
@@ -87,14 +82,14 @@
                                                 @endif
 												<span>{{ number_format($item->attributes->discountPrice * $item->quantity * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</span>
 											</td>
-                                            <td data-title='delivery service' class="delivery-status" data-status="{{ $item->attributes->is_payment_on_delivery ? 'true' : 'false' }}">
+                                            <td data-title='{{ trans2("A118") }}' class="delivery-status" data-status="{{ $item->attributes->is_payment_on_delivery ? 'true' : 'false' }}">
                                                 @if($item->attributes->is_payment_on_delivery)
                                                     yes
                                                 @else
                                                     no
                                                 @endif
                                             </td>
-											<td class="options" data-title='{{ trans("$TR.T10") }}'>
+											<td class="options" data-title='{{ trans2("A119") }}'>
 												<?php $product_name = implode("-", explode(" ", $item->name)); ?>
 												<a href="/products/{{ $item->attributes->product_serial_number }}/{{ $product_name }}">
 													<span class="btn btn-default btn-xs" aria-label="Left Align" item-id="{{ $item->id }}">
@@ -114,7 +109,7 @@
 						</div>
 						<div class="extra">
                             <div class="total-prices" style="display: none;">
-                                <label><b>total prices:</b></label>
+                                <label><b>{{ trans2("A120", "total price:") }}</b></label>
                                 <p></p>
                                 <hr>
                             </div>
@@ -124,7 +119,7 @@
                                 {!! Form::hidden("main_currency", $main_currency) !!}
                                 <button type="submit" class="btn btn-default by-paypal-payment disabled">
                                     <i class="fa fa-paypal fa-2x" aria-hidden="true"></i>
-                                    &nbsp; {{ trans("$TR.T12") }}
+                                    &nbsp; {{ trans2("A121", "pay by paypal") }}
                                 </button>
                                 {!! Form::close() !!}
 
@@ -132,17 +127,17 @@
                                     {!! Form::hidden("selected_ids", "") !!}
                                     <button type="submit" class="btn btn-default on-delivery-payment disabled">
                                         <i class="fa fa-truck fa-2x" aria-hidden="true"></i>
-                                        &nbsp; {{ trans("$TR.T13") }}
+                                        &nbsp; {{ trans2("A122", "pay on delivery") }}
                                     </button>
                                 {!! Form::close() !!}
 
                                 <a href="/my-cart/clear-cart" class="btn btn-default clear-cart" style="color: #D32F2F">
                                     <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-                                    &nbsp; {{ trans("$TR.T14") }}
+                                    &nbsp; {{ trans2("A123", "Clear cart") }}
                                 </a>
                             </div>
     						<br>
-							<a href="/products">{{ trans("$TR.T15") }}</a>
+							<a href="/products">{{ trans2("A124", "Back to products") }}</a>
 						</div>
 					</div>
 				@endif

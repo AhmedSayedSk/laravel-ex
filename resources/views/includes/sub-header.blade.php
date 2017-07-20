@@ -2,7 +2,7 @@
 <script>var base = '<?= URL::to('./'); ?>';</script>
 <meta charset="utf-8">
 <link rel="shortcut icon" href="./assets/icons/logo-icon.png">
-<meta name="author" content="Development: Ahmed Sayed Omar">
+<meta name="author" content="Developments: Ahmed Sayed Omar & Mohamed Medhat">
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="csrf-token" content="{!! csrf_token() !!}">

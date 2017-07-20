@@ -1,12 +1,7 @@
-<?php
-	/* Translation */
-	$TR = "errors.PNF";
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ trans("$TR.T1") }}</title>
+	<title>{{ trans2("A166", "Product not founded") }}</title>
 	<style type="text/css">
 		body {
 			padding-top: 80px;
@@ -20,9 +15,9 @@
 </head>
 <body>
 	<center>
-		<h1>{{ trans("$TR.T1") }}</h1>
+		<h1>{{ trans2("A167", "Product not founded") }}</h1>
 		<img src="{{ asset('icons/404.png') }}">
-		<h3><a href="/admin">{{ trans("$TR.T2") }}</a></h3>
+		<h3><a href="/admin">{{ trans2("A168", "Back to admin home") }}</a></h3>
 	</center>
 </body>
 </html>

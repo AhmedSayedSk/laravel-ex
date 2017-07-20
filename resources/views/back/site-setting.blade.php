@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.ASSP";
-?>
-
 @extends('back.master')
-@section('title', trans('admin_panel.APT.T14'))
+@section('title', trans2('A481', "Admin c.p - amain setting (by superadmin)"))
 
 @section('content')
 	<div id="site-setting-page">
@@ -12,36 +7,36 @@
 		@include('includes.flash-message')
 
 		<div class="panel panel-default">
-			<div class="panel-heading">{{ trans("$TR.T1") }}</div>
+			<div class="panel-heading">{{ trans2("A482", "modify site setting") }}</div>
 			<div class="panel-body">
 				{!! Form::open(["url"=>"/admin/site-setting"]) !!}
                     <div class="main-setting">
-    					<p class="base-title"><u>{{ trans("$TR.T7") }}</u></p>
+    					<p class="base-title"><u>{{ trans2("A483", "main setting") }}</u></p>
                         <div class="primary">
         					<div class="row">
         						<div class="item">
         							<div class="form-group">
-        								{!! Form::label("", trans("$TR.T2")) !!}
+        								{!! Form::label("", trans2("A484", "site name")) !!}
         								{!! Form::text("site_name", $site_setting->site_name, ["class"=>"form-control"]) !!}
         							</div>
         						</div>
         						<div class="item">
         							<div class="form-group">
-        								{!! Form::label("", trans("$TR.T3")) !!}
+        								{!! Form::label("", trans2("A485", "category")) !!}
         								{!! Form::text("site_category", $site_setting->site_category, ["class"=>"form-control"]) !!}
         							</div>
         						</div>
         						<div class="item">
         							<div class="form-group">
-        								{!! Form::label("", trans("$TR.T5")) !!}
+        								{!! Form::label("", trans2("A486", "customer service number")) !!}
         								{!! Form::text("customer_service_number", $site_setting->customer_service_number, ["class"=>"form-control"]) !!}
         							</div>
         						</div>
                                 <div class="item">
                                     <div class="form-group">
-                                        {!! Form::label("", trans("$TR.T5")) !!}
+                                        {!! Form::label("", trans2("A487", "currency auto update after")) !!}
                                         {!! Form::number("currencies_auto_update_duration", $site_setting->currencies_auto_update->duration, ["class"=>"form-control"]) !!}
-                                        <div class="help-block">by minutes</div>
+                                        <div class="help-block">{{ trans2("A488", "by minutes") }}</div>
                                     </div>
                                 </div>
         					</div>
@@ -49,19 +44,20 @@
                     </div>
 					
                     <div class="product-setting">
-                        <p class="base-title"><u>{{ trans("$TR.T8") }}</u></p>
+                        <p class="base-title"><u>{{ trans2("A489", "product setting") }}</u></p>
                         <div class="primary">
                             <div class="row">
                                 <div class="item">
                                     <div class="form-group">
-                                        {!! Form::label("", trans("$TR.T4")) !!}
+                                        {!! Form::label("", trans2("A490", "currency")) !!}
                                         {!! Form::select("main_currency", $currencies, $site_setting->main_currency, ["class"=>"form-control"]) !!}
                                     </div>
                                 </div>
                                 <div class="item">
                                     <div class="form-group">
-                                        {!! Form::label("", trans("$TR.T9")) !!}
+                                        {!! Form::label("", trans2("A491", "product 'new status' will turn off after")) !!}
                                         {!! Form::select("newStatusTimeOff", $newStatusTimeOff, $site_setting->newStatusTimeOff, ["class"=>"form-control"]) !!}
+                                        <div class="help-block">{{ trans2("A511", "from creation product date") }}</div>
                                     </div>
                                 </div>
                             </div>     
@@ -73,7 +69,7 @@
                                         <label>
                                             {!! Form::hidden("auto_generage_serial_number", 0) !!}
                                             {!! Form::checkbox("auto_generage_serial_number", 1, $global_setting->is_auto_generage_product_serial_number ? 'checked' : null) !!}
-                                            Make auto generage for serial number of product?
+                                            {{ trans2("A492", "Make auto generage for serial number of product?") }}
                                         </label>
                                     </div>
                                 </div>
@@ -82,7 +78,7 @@
                                         <label>
                                             {!! Form::hidden("is_support_paypal_payment", 0) !!}
                                             {!! Form::checkbox("is_support_paypal_payment", 1, $global_setting->is_support_paypal_payment ? 'checked' : null) !!}
-                                            support paypal payment?
+                                            {{ trans2("A493", "support paypal payment?") }}
                                         </label>
                                     </div>
                                 </div>
@@ -91,7 +87,7 @@
                     </div>
 
                     <div class="cart-setting">
-                        <p class="base-title"><u>Cart setting</u></p>
+                        <p class="base-title"><u>{{ trans2("A495", "MCart setting") }}</u></p>
                         <div class="primary">
                             <div class="row">
                                 <div class="item">
@@ -99,16 +95,14 @@
                                         <label>
                                             {!! Form::hidden("clear_cart_when_logout", 0) !!}
                                             {!! Form::checkbox("clear_cart_when_logout", 1, $global_setting->is_clear_cart_when_logout ? 'checked' : null) !!}
-                                            Make clear for cart when user logout?
+                                            {{ trans2("A494", "Make clear for cart when user logout?") }}
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-    					
-                        
-					{!! Form::submit(trans("$TR.T6"), ["class"=>"btn btn-default pull-right"]) !!}
+					{!! Form::submit(trans2("A496", "update setting"), ["class"=>"btn btn-default pull-right"]) !!}
 				{!! Form::close() !!}
 			</div>
 		</div>

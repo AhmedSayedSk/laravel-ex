@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.ACPP";
-?>
-
 @extends('back.master')
-@section('title', trans("admin_panel.APT.T3", ['number'=>1]))
+@section('title', trans2("A303", "Admin c.p - Create ::product step 1", ["product"=>"product"]))
 
 @section('content')
 	<div id="product-create-page">
@@ -19,7 +14,7 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<b>{{ trans("$TR.T1", ['number'=>'I']) }}</b>
+				<b>{{ trans2("A304", "create a new ::product (step I)", ['product'=>'product']) }}</b>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid tabs-wrap">
@@ -28,19 +23,19 @@
 					        <li class="active">
 					        	<a href="#literal-data" aria-controls="literal-data" aria-expanded="true" role="tab" data-toggle="tab">
 					        		<span class="icon-fontello-n1"></span>
-					        		{{ trans("$TR.T2") }}
+					        		{{ trans2("A305", "literal data") }}
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="#categories" aria-controls="categories" aria-expanded="true" role="tab" data-toggle="tab">
 					        		<span class="icon-fontello-n2"></span>
-					        		{{ trans("$TR.T3") }}
+					        		{{ trans2("A306", "categories") }}
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="#numerical-data" aria-controls="numerical-data" aria-expanded="true" role="tab" data-toggle="tab">
 					        		<span class="icon-fontello-n3"></span>
-					        		{{ trans("$TR.T4") }}
+					        		{{ trans2("A307", "numerical data") }}
 					        	</a>
 					        </li>
 					    </ul>
@@ -50,35 +45,38 @@
 						    <div class="tab-content">
 						        <div class="tab-pane active" id="literal-data">
 						        	<div class="form-group">
-										{!! Form::label("productName", trans("$TR.T5")) !!}
+										{!! Form::label("productName", trans2("A308", "::product name", ["product"=>"product"])) !!}
 										<span class="text-danger">*</span>
 										{!! Form::text("product_name", "", ["class"=>"form-control input-xlg", "id"=>"productName", "dir"=>"auto"]) !!}
-										<span class="help-block opc-7">{{ trans("sub_validation.register.T4") }}</span>
+										<span class="help-block opc-7">{{ trans2("A309", "enter a name between 5, 255 chars and permit to use english alphabet letters, underscore and full stop.") }}</span>
 									</div>
 									<div class="form-group">
-										{!! Form::label("productDetails", trans("$TR.T7")) !!}
+										{!! Form::label("productDescription", trans2("A310", "::product description", ["product"=>"product"])) !!}
 										<span class="text-danger">*</span>
-										{!! Form::textarea("product_description", "", ["class"=>"form-control input-lg", "id"=>"productDetails", "dir"=>"auto"]) !!}
-										<span class="help-block opc-7">{{ trans("sub_validation.register.T1") }}</span>
+										{!! Form::textarea("product_description", "", ["class"=>"form-control input-lg", "id"=>"productDescription", "dir"=>"auto"]) !!}
+										<span class="help-block opc-7">{{ trans2("A311", "Use English alphabet letters, underscore and full stop") }}</span>
 									</div>
 									<div class="form-group serial-number">
-										{!! Form::label("serialNumber", trans("$TR.T9")) !!}										
+										{!! Form::label("serialNumber", trans2("A312", "serial number")) !!}										
 										<div class="input-group">
 											{!! Form::text("serial_number", "", ["class"=>"form-control serial-number", "id"=>"serialNumber"]) !!}
 										    <span class="input-group-addon">
-										    	<a href="#" class="generate">generate</a>
+										    	<a href="#" class="generate">{{ trans2("A313", "generate") }}</a>
 										    </span>
 										</div>
-										<span class="help-block opc-7">Help for identify and target the product in search engines</span>
+										<span class="help-block opc-7">{{ trans2("A314", "Help for identify and target the product in search engines") }}</span>
 									</div>
-									<button class="btn btn-default continue" type="button">{{ trans("$TR.T10") }} <span class="icomoon-arrow-10"></span></button>
+									<button class="btn btn-default continue" type="button">
+                                        {{ trans2("A315", "next") }} 
+                                        <span class="icomoon-arrow-10"></span>
+                                    </button>
 						        </div>
 						        <div class="tab-pane categories" id="categories" data-max-categories="4">
 						        	<div class="form-group categories">
-						        		<label>[<a href="/admin/products/categories" target="_blank">{{ trans("$TR.T11") }}</a>]</label>
+						        		<label>[<a href="/admin/products/categories" target="_blank">{{ trans2("A316", "add new category") }}</a>]</label>
 										<span class="text-danger">*</span>
 										<select name="p_cat1" class="form-control p-cat" data-table-num="1">
-											<option value="0" selected>{{ trans("$TR.T12") }}</option>
+											<option value="0" selected>{{ trans2("A317", "choose something...") }}</option>
 											@foreach($p_cat1 as $key=>$cat)
 												<option value="{{$key}}">{{$cat}}</option>
 											@endforeach
@@ -92,10 +90,10 @@
 						        	</div>
 						        	<button type="button" class="btn btn-default back">
 						        		<span class="icomoon-arrow-10 flipped col-flip-180"></span> 
-						        		{{ trans("$TR.T13") }}
+						        		{{ trans2("A318", "back") }}
 						        	</button>
 					    			<button type="button" class="btn btn-default continue">
-					    				{{ trans("$TR.T14") }} 
+					    				{{ trans2("A319", "continue") }} 
 					    				<span class="icomoon-arrow-10"></span>
 					    			</button>
 						        </div>
@@ -103,12 +101,12 @@
 						        	<div class="row">
 						        		<div class="col-md-5">
 						        			<div class="form-group">
-												{!! Form::label("productPrice", trans("$TR.T15")) !!}
+												{!! Form::label("productPrice", trans2("A320", "Price")) !!}
 												<span class="text-danger">*</span>
 												<div class="input-group">
-													{!! Form::text("product_price", "0.00", ["class"=>"form-control price input-xlg", "id"=>"productPrice", "aria-label"=>trans("$TR.T16"), "style"=>"color: green"]) !!}
+													{!! Form::text("product_price", "0.00", ["class"=>"form-control price input-xlg", "id"=>"productPrice", "style"=>"color: green"]) !!}
 													<span class="input-group-addon">
-                                                        <?php // {!! Form::select('currency_id', trans("admin_setting.currencies"), array_flip(trans("admin_setting.currencies"))[$main_currency], ['class'=>'form-control input-xlg']) !!} ?>
+                                                        <?php // {!! Form::select('currency_id', trans2("admin_setting.currencies"), array_flip(trans2("admin_setting.currencies"))[$main_currency], ['class'=>'form-control input-xlg']) !!} ?>
                                                         USD
 													</span>
 												</div>				
@@ -116,7 +114,7 @@
 						        		</div>							        		
 						        		<div class="col-md-3">
 						        			<div class="form-group">
-												{!! Form::label("priceDiscount", trans("$TR.T17")) !!}
+												{!! Form::label("priceDiscount", trans2("A321", "discount percenage of price")) !!}
 												<div class="input-group">
 											      {!! Form::text("discount_percentage", "", ["class"=>"form-control discount-percentage input-xlg", "id"=>"priceDiscount", "maxlength"=>"3", "style"=>"color: #EF6C00"]) !!}
 											      <snap class="input-group-addon">%</snap>
@@ -125,19 +123,19 @@
 						        		</div>
 						        		<div class="col-md-4">
 						        			<div class="form-group">
-												{!! Form::label("discountedPrice", trans("$TR.T47")) !!}
+												{!! Form::label("discountedPrice", trans2("A322", "discounted price")) !!}
 											    {!! Form::text("", "0.00", ["class"=>"form-control discounted-price input-xlg", "id"=>"discountedPrice"]) !!}
 											</div>
 						        		</div>					
 						        	</div>							        	
 									<div class="form-group product-amount">
-										{!! Form::label("productAmount", trans("$TR.T18")) !!}
+										{!! Form::label("productAmount", trans2("A323", "amount")) !!}
 										{!! Form::number("product_amount", "", ["class"=>"form-control", "id"=>"productAmountText"]) !!}
 										<div class="checkbox">
 											<label>
 												{!! Form::hidden("is_amount_unlimited", 0) !!}
 												{!! Form::checkbox("is_amount_unlimited", 1, "checked", ["class"=>"checkbox", "id"=>"productAmountStatus"]) !!}
-												<span>{{ trans("$TR.T19") }}</span>
+												<span>{{ trans2("A324", "is unlimited amount?") }}</span>
 											</label>
 										</div>
 									</div>
@@ -145,45 +143,52 @@
 									<div class="row">
 										<div class="col-md-5">
 											<div class="form-group start-at">
-												{!! Form::label("startAtData", trans("$TR.T20")) !!}
+												{!! Form::label("startAtData", trans2("A325", "start viewing at")) !!}
 												{!! Form::date("start_at", "", ["class"=>"form-control", "id"=>"startAtData"]) !!}
 												<div class="checkbox">
 													<label>
 														{!! Form::hidden("is_start_view_now", 0) !!}
 														{!! Form::checkbox("is_start_view_now", 1, "checked", ["class"=>"checkbox", "id"=>"startAtStatus"]) !!}
-														<span>{{ trans("$TR.T21") }}</span>
+														<span>{{ trans2("A326", "or start now") }}</span>
 													</label>
 												</div>				
 											</div>	
 										</div>
 										<div class="col-md-7">
 											<div class="form-group expires-condition">
-												<label>expires condition</label>
+												<label>{{ trans2("A327", "expires condition") }}</label>
 												<div class="radio">
 													<label>
 														{!! Form::radio("expires_condition", "expires_at", null, ["class"=>"checkbox"]) !!}
-														<span>expire viewing at</span>
+														<span>{{ trans2("A327", "expire viewing at") }}</span>
 													</label>
 												</div>
 												{!! Form::date("expires_at", "", ["class"=>"form-control expires-at", "disabled"=>"disabled"]) !!}
 												<div class="radio">
 													<label>
 														{!! Form::radio("expires_condition", "by_days", null, ["class"=>"checkbox"]) !!}
-														<span>{!! trans("$TR.H23", ['inputClass'=>'wid-100 expires-days', 'inputName'=>'expires_days', 'today' => date("d/m/Y", time()), "disabled"=>"disabled"]) !!}</span>
-													</label>
+													    <span>
+                                                            {{ trans2("A328", "or expires after") }}
+                                                            <input class='wid-100 expires-days' name='expires_days' type='text' disabled>
+                                                            {{ trans2("A329", "days from today ::today", ["today"=>date("d/m/Y", time())]) }}
+                                                        </span>
+                                                    </label>
 												</div>
 												<div class="radio">
 													<label>
 														{!! Form::radio("expires_condition", "unlimited_expires", "checked", ["class"=>"checkbox"]) !!}
-														<span>{{ trans("$TR.T24") }}</span>
+														<span>{{ trans2("A330", "or unlimited expires?") }}</span>
 													</label>
 												</div>
 											</div>
 										</div>
 									</div>
 											
-									<button type="button" class="btn btn-default back"><span class="icomoon-arrow-10 flipped col-flip-180"></span> {{ trans("$TR.T13") }}</button>
-					    			<button type="submit" class="btn btn-default continue">{{ trans("$TR.T25") }} <span class="icomoon-arrow-10"></span></button>
+									<button type="button" class="btn btn-default back"><span class="icomoon-arrow-10 flipped col-flip-180"></span> {{ trans2("A318") }}</button>
+					    			<button type="submit" class="btn btn-default continue">
+                                        {{ trans2("A331", "Next step") }} 
+                                        <span class="icomoon-arrow-10"></span>
+                                    </button>
 						        </div>
 						    </div>
 						{!! Form::close() !!}
@@ -342,7 +347,7 @@
 								.remove();
 
 							$select
-								.append('<option value="0">{{ trans("$TR.T12") }}</option>');
+								.append('<option value="0">{{ trans2("A317") }}</option>');
 
 							$.each(new_parameters, function(key, value){
 							    $select.append('<option value=' + key + '>' + value + '</option>');

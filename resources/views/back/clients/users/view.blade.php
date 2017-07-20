@@ -1,19 +1,14 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.ACPS";
-?>
-
 @extends('back.master')
-@section('title', trans('admin_panel.APT.T9'))
+@section('title', trans2("A264", 'Admin c.p - users'))
 
 @section('content')
 	<div id="users-view-page">
 		<div class="panel panel-default">
-			<div class="panel-heading">{{ trans("$TR.T1") }}</div>
+			<div class="panel-heading">{{ trans2("A265", "users accounts") }}</div>
 			<div class="panel-body">
 				@if(count($users) <= 0)
                     <div class="empty-status">
-                        <h3 class="text-center">{{ trans("$TR.T5") }}</h3>
+                        <h3 class="text-center">{{ trans2("A266", "there is no users yet") }}</h3>
                     </div>
 				@else
 					<div class="container-fluid">
@@ -21,21 +16,21 @@
                             <table class="table table-condensed sortable table-bordered ps-view">
                                 <thead>
                                     <tr>
-                                        <th>{{ trans("$TR.T2") }}</th>
-                                        <th>{{ trans("$TR.T3") }}</th>
-                                        <th>crated at</th>
-                                        <th>{{ trans("$TR.T4") }}</th>
+                                        <th>{{ trans2("A267", "name") }}</th>
+                                        <th>{{ trans2("A268", "email") }}</th>
+                                        <th>{{ trans2("A269", "crated at") }}</th>
+                                        <th>{{ trans2("A270", "options") }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($users as $user)
                                         <tr>
-                                            <td data-title='{{ trans("$TR.T2") }}'>{{ $user->name }}</td>
-                                            <td data-title='{{ trans("$TR.T3") }}'>{{ $user->email }}</td>
-                                            <td data-title='created_at'>{{ $user->created_at }}</td>
-                                            <td data-title='{{ trans("$TR.T4") }}'>
+                                            <td data-title='{{ trans2("A267") }}'>{{ $user->name }}</td>
+                                            <td data-title='{{ trans2("A268") }}'>{{ $user->email }}</td>
+                                            <td data-title='{{ trans2("A269") }}'>{{ $user->created_at }}</td>
+                                            <td data-title='{{ trans2("A270") }}'>
                                                 {!! Form::open(["url"=>"/admin/clients/users/accounts/$user->id", "method"=>"DELETE"]) !!}
-                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                                    {!! Form::submit(trans2("A271", "delete"), ['class' => 'btn btn-danger btn-xs']) !!}
                                                 {!! Form::close() !!}
                                             </td>
                                         </tr>

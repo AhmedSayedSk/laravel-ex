@@ -1,12 +1,7 @@
-<?php
-	/* Translation */
-	$TR = "errors.404";
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ trans("$TR.T1") }}</title>
+	<title>{{ trans2("A161", "Page not found") }}</title>
 	<style type="text/css">
 		body {
 			padding-top: 80px;
@@ -19,9 +14,9 @@
 </head>
 <body>
 	<center>
-		<h1>{{ trans("$TR.T2") }}</h1>
+		<h1>{{ trans2("A162", "404 Error - Page not found") }}</h1>
 		<img src="{{ asset('assets/icons/404.png') }}">
-		<h3><a href="/">{{ trans("$TR.T3") }}</a></h3>
+		<h3><a href="/">{{ trans2("A163", "Back to home") }}</a></h3>
 	</center>
 </body>
 </html>

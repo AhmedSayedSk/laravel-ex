@@ -13,7 +13,7 @@ class ProductRepository
 {
     public function amountFormat($product){
         if($product->is_amount_unlimited){              
-            $product->amount = trans('admin_panel.A1');
+            $product->amount = trans2("A64", "unlimited");
         }
     }
 
@@ -87,7 +87,7 @@ class ProductRepository
 
     public function expiresAtFormat($product){
         if($product->is_forever) {
-            $product->expires_at = trans('admin_panel.A2');
+            $product->expires_at = trans2('A65', 'forever');
         } else {
             $product->expires_at = date("g:i a - d M y", $product->expires_at);
         }
@@ -95,15 +95,15 @@ class ProductRepository
 
     public function paymentsFormat($product){
         if($product->is_payment_on_delivery){
-            $product->payment_on_delivery = trans('admin_panel.A6');
+            $product->payment_on_delivery = trans2('A66', 'active');
         } else {
-            $product->payment_on_delivery = trans('admin_panel.A7');
+            $product->payment_on_delivery = trans2('A67', 'disactive');
         }
 
         if($product->is_payment_by_paypal){
-            $product->payment_by_paypal = trans('admin_panel.A6');
+            $product->payment_by_paypal = trans2('A68', 'active');
         } else {
-            $product->payment_by_paypal = trans('admin_panel.A7');
+            $product->payment_by_paypal = trans2('A69', 'disactive');
         }
     }
 

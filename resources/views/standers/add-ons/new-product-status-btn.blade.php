@@ -1,4 +1,4 @@
-<button class="is-new-status btn-{{ $product->is_new == 1 ? 'success' : 'danger'}} btn btn-sm pull-right" product-id="{{ $product->id }}" data-status="{{ $product->is_new }}" title="{{ trans('admin_panel.APVP.T18') }}" aria-hidden="true" data-toggle="tooltip" data-placement="top">
+<button class="is-new-status btn-{{ $product->is_new == 1 ? 'success' : 'danger'}} btn btn-sm pull-right" product-id="{{ $product->id }}" data-status="{{ $product->is_new }}" title='{{ trans2("A173", "::products new status", ["products"=>"products"]) }}' aria-hidden="true" data-toggle="tooltip" data-placement="top">
 	<span class="glyphicon glyphicon-star"></span>
 	&nbsp;
 	@if($product->is_new == 1)

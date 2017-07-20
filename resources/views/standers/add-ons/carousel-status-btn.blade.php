@@ -1,4 +1,4 @@
-<button class="carousel-status btn-{{ $product->carousel_status == 1 ? 'success' : 'danger'}} btn btn-sm pull-right" product-id="{{ $product->id }}" data-status="{{ $product->carousel_status }}" title="{{ trans('admin_panel.APVP.T17') }}" aria-hidden="true" data-toggle="tooltip" data-placement="top">
+<button class="carousel-status btn-{{ $product->carousel_status == 1 ? 'success' : 'danger'}} btn btn-sm pull-right" product-id="{{ $product->id }}" data-status="{{ $product->carousel_status }}" title="{{ trans2('A171', 'carousel live status') }}" aria-hidden="true" data-toggle="tooltip" data-placement="top">
 	<span class="glyphicon glyphicon-picture"></span>
 	&nbsp;
 	@if($product->carousel_status == 1)

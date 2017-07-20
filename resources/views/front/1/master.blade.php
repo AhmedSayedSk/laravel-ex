@@ -29,8 +29,8 @@
 
 	<footer id="footer">
 		<div class="container">
-			<span>© 2016 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></span> ·
-			<span>Sensorization demo project</span>
+			<span>{{ trans2("A21", "© 2016 Company, Inc.") }} · <a href="#">{{ trans2("A22", "Privacy") }}</a> · <a href="#">{{ trans2("A23", "Terms") }}</a></span> ·
+			<span>{{ trans2("A24", "Sensorization demo project") }}</span>
 		</div>
 	</footer>
 

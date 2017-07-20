@@ -2,8 +2,8 @@
 
 $TR_brand = "keywords.brand";
 
-$PN = trans("$TR_brand.one");
-$SN = trans("$TR_brand.much");
+$PN = trans2("$TR_brand.one");
+$SN = trans2("$TR_brand.much");
 
 return [
 	// frontend number
@@ -20,7 +20,7 @@ return [
 			'T7' => 'Edit my information',
 		],
 
-		'navbar' => [
+		/*'navbar' => [
 			'T1' => "all $SN",
 			'T2' => "documentations",
 			'T3' => "contact us",
@@ -34,7 +34,7 @@ return [
 			'T11' => "language",
 			'T12' => "categories",
 			'T13' => "Home page",
-		],
+		],*/
 
 		'add-ons' => [
 			// Liftnav filter 1
@@ -59,11 +59,6 @@ return [
 				'T3' => "add to cart",
 				'T4' => "amount: ",
 			],
-		],
-
-		// main index 1
-		'I1' => [
-			'T1' => 'Hello world !!',
 		],
 
 		// All products categories view page

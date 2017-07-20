@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.APSP";
-?>
-
 @extends('back.master')
-@section('title', trans("admin_panel.APT.T14", ['name' => $product->name]))
+@section('title', trans2("A425", "Admin c.p - ::name", ['name' => $product->name]))
 
 @section('content')
 	<div id="product-show-page">
@@ -13,8 +8,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<span class="product-name">{{ $product->name }}</span>
-				<a href="{{ route('admin.products..edit', $product->id) }}" class="btn btn-default btn-sm pull-right" title='{{ trans("$TR.T1") }}'>
-					edit &nbsp;
+				<a href="{{ route('admin.products..edit', $product->id) }}" class="btn btn-default btn-sm pull-right">
+					{{ trans2("A426", "edit") }} &nbsp;
 					<span class="glyphicon glyphicon-pencil"></span>
 				</a>
 				@include('standers.add-ons.live-status-btn')
@@ -23,7 +18,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="images">
-					<h3>{{ trans("$TR.T3") }}</h3>
+					<h3>{{ trans2("A427", "images") }}</h3>
 					<div id="zoomwall1" class="zoomwall images">
 						@if(count($product->images) > 0)
 							@foreach($product->images as $image)
@@ -35,7 +30,7 @@
 					</div>
 				</div>
                 <div class="carousel">
-                    <h3>{{ trans("$TR.T2") }}</h3>
+                    <h3>{{ trans2("A428", "carousel") }}</h3>
                     <div id="zoomwall2" class="zoomwall carousels">
                         @if(count($product->carousels) > 0)
                             @foreach($product->carousels as $carousel)
@@ -48,26 +43,26 @@
                 </div>
 				<hr>
 				<div class="info">
-					<h3>{{ trans("$TR.T4") }}</h3>
-					<p><b>{{ trans("$TR.T5") }}</b>: {{ $product->name }}</p>
-					<p><b>{{ trans("$TR.T6") }}</b>: {{ $product->description }}</p>
-					<p><b>{{ trans("$TR.T7") }}</b>: {{ number_format($product->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</p>
-					<p><b>{{ trans("$TR.T8") }}</b>: {{ $product->amount }}</p>
-					<p><b>{{ trans("$TR.T9") }}</b>: {{ $product->sales }}</p>
-					<p><b>{{ trans("$TR.T10") }}</b>: <br>{!! $product->categories_list !!}</p>
-					<p><b>{{ trans("$TR.T11") }}</b>: {{ $product->created_at }} <span class="rent-time">({{ $product->created_at->diffForHumans() }})</span></p>
-					<p><b>{{ trans("$TR.T11_5") }}</b>: {{ $product->updated_at }} <span class="rent-time">({{ $product->updated_at->diffForHumans() }})</span></p>
-					<p><b>{{ trans("$TR.T12") }}</b>: {{ $product->payment_on_delivery }}</p>
-					<p><b>{{ trans("$TR.T13") }}</b>: {{ $product->payment_by_paypal }}</p>
-					<p><b>{{ trans("$TR.T14") }}</b>: {{ $product->view_counter }}</p>
+					<h3>{{ trans2("A429", "::product information", ["product"=>"product"]) }}</h3>
+					<p><b>{{ trans2("A430", "::product name", ["product"=>"product"]) }}</b>: {{ $product->name }}</p>
+					<p><b>{{ trans2("A431", "description") }}</b>: {{ $product->description }}</p>
+					<p><b>{{ trans2("A432", "price (discounted)") }}</b>: {{ number_format($product->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</p>
+					<p><b>{{ trans2("A433", "amount") }}</b>: {{ $product->amount }}</p>
+					<p><b>{{ trans2("A434", "sales") }}</b>: {{ $product->sales }}</p>
+					<p><b>{{ trans2("A435", "categories") }}</b>: <br>{!! $product->categories_list !!}</p>
+					<p><b>{{ trans2("A436", "created at") }}</b>: {{ $product->created_at }} <span class="rent-time">({{ $product->created_at->diffForHumans() }})</span></p>
+					<p><b>{{ trans2("A437", "updated at") }}</b>: {{ $product->updated_at }} <span class="rent-time">({{ $product->updated_at->diffForHumans() }})</span></p>
+					<p><b>{{ trans2("A438", "pay by delivery") }}</b>: {{ $product->payment_on_delivery }}</p>
+					<p><b>{{ trans2("A439", "pay by paypal") }}</b>: {{ $product->payment_by_paypal }}</p>
+					<p><b>{{ trans2("A440", "views") }}</b>: {{ $product->view_counter }}</p>
 					<p class="tags">
-						<b>{{ trans("$TR.T15") }}</b>:
+						<b>{{ trans2("A441", "tags") }}</b>:
 						@if(count($products_tags) > 0) 
 							@foreach($products_tags as $tag)
 								<a href="/admin/products/tags/{{ $tag }}">{{ $tag }}</a>
 							@endforeach
 						@else
-							{{ trans("$TR.T16") }}
+							{{ trans2("A442", "no tags with this ::product", ["product"=>"product"]) }}
 						@endif
 					</p>
 				</div>

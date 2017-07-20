@@ -1,6 +1,6 @@
 <li id="categories-dropdown" class="dropdown">
   <a data-toggle="dropdown" data-target="#" href="/page.html">
-    {{ trans("frontend.$frontendNumber.navbar.T12") }} <span class="caret"></span>
+    {{ trans2("A25", "categories") }} <span class="caret"></span>
   </a>
   <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
     @foreach($publicProdcutsCats[0] as $cat1)

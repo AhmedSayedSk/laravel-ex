@@ -29,14 +29,14 @@ $TR = "admin_panel.AN";
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/">
-            <img alt="Brand" src="./assets/icons/logo-icon.png" width="24px" title='{{ trans("$TR.T23") }}'>
+            <img alt="Brand" src="./assets/icons/logo-icon.png" width="24px" title='{{ trans2("A479", "Home page (frontend)") }}'>
             <b>{{ $global_setting->site_name }}</b>
           </a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="/products">{{ trans("$TR.T4") }}</a></li>
+            <li><a href="/products">{{ trans2("A480", "all ::products (frontend)", ["products"=>"products"]) }}</a></li>
             <li><a href="/admin">dashboard</a></li>
           </ul>
         </div>

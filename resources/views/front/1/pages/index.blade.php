@@ -1,8 +1,8 @@
 @extends("front.$frontendNumber.master")
-@section('title', trans("frontend.$frontendNumber.PT.T1"))
+@section('title', trans2("A42", "Home"))
 
 @section('content')
 	<div id="index">
-		<center><h1>{{ trans("frontend.$frontendNumber.I1.T1") }}</h1></center>
+		<center><h1>{{ trans2("A43", "Hello world !!") }}</h1></center>
 	</div>
 @stop

@@ -1,20 +1,15 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.APCVP";
-?>
-
 <div id="create-category" class="content">
 	<div class="alert alert-danger errors-section" role="alert"></div>
 	{!! Form::open(["url"=>"/admin/products/categories"]) !!}
 		<div class="form-group">
-	    	{!! Form::label("", trans("$TR.T4"), ["class"=>"text-primary"]) !!}
+	    	{!! Form::label("", trans2("A293", "category name"), ["class"=>"text-primary"]) !!}
 	    	{!! Form::text('name', '', ['class'=>"form-control cat-name input-xlg", "dir"=>"auto"]) !!}
 		</div>
 		{!! Form::hidden('table_number', $_GET['table_number']) !!}
 		{!! Form::hidden('related_id', $_GET['related_id']) !!}
-		<button type="submit" class="btn btn-primary">{{ trans("$TR.T7") }}</button>
+		<button type="submit" class="btn btn-primary">{{ trans2("A294", "Save changes") }}</button>
 	{!! Form::close() !!}
-	<p class="success-message text-success">{{ trans("$TR.T3") }}</p>
+	<p class="success-message text-success">{{ trans2("A295", "category was created successfuly") }}</p>
 </div>
 
 <script type="text/javascript">
@@ -44,7 +39,7 @@
 						<a href="#" onclick="return false">' + data.name + '</a>\
 						<ul>\
 							<a class="btn btn-default btn-xs" data-toggle="modal" data-target="#Modal" data-remote="false" data-cat-num="' + data.table_number + '" data-related-id="' + data.id + '">\
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ trans("$TR.T1") }}\
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ trans2("A296", "append new") }}\
 							</a>\
 						</ul>\
 					').insertBefore(window.current_append_btn);

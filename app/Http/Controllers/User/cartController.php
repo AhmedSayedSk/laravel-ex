@@ -71,7 +71,7 @@ class cartController extends Controller
             if(!$state) {
                 return Response::json([
                     'error' => true,
-                    'message' => trans('sub_validation.cart.max_quantity'),
+                    'message' => trans2('A501', "Warning: the current quantity is less than your detected chossen."),
                     'code' => 400
                 ], 400);
             }

@@ -6,13 +6,10 @@
 			'value' => "/products/".$_GET['ref_to']
 		]);
 	}
-
-	/* Translation */
-	$TR = "auth.login";
 ?>
 
 @extends("front.$frontendNumber.master")
-@section('title', trans("$TR.T0"))
+@section('title', trans2("A8", "Login"))
 
 @section('content')
 	<div id="login-form" class="container">
@@ -22,7 +19,7 @@
 		{!! Form::open(["url"=>"/login"]) !!}
 			<div class="form-group">
 				<span>
-					{!! Form::label("emailAddress", trans("$TR.T1")) !!}
+					{!! Form::label("emailAddress", trans2("A1", "Email address")) !!}
 				</span>
 				{!! Form::email("email", "", ["class"=>"form-control input-lg", "id"=>"emailAddress", "required"=>"required"]) !!}
 				<span class="help-block access-accounts opc-7">
@@ -33,23 +30,23 @@
 			</div>
 			<div class="form-group">
 				<span>
-					{!! Form::label("userPassword", trans("$TR.T2")) !!}
+					{!! Form::label("userPassword", trans2("A2", "Password")) !!}
 				</span>
 				<input type="password" name="password" value="123456" class="form-control input-lg" id="userPassword" required>
-				<span class="help-block opc-7">{{ trans("$TR.T2") }}: 123456</span>
+				<span class="help-block opc-7">{{ trans2("A3", "Password") }}: 123456</span>
 			</div>
 			@if(Session::has('referedToProduct'))
 				{!! Form::hidden('isReferedToProduct', Session::get('referedToProduct')['is']) !!}
 				{!! Form::hidden('refToProduct_value', Session::get('referedToProduct')['value']) !!}
 			@endif
-			{!! Form::submit(trans("$TR.T5"), ["class"=>"btn btn-success"]) !!}
+			{!! Form::submit(trans2("A4", "Login"), ["class"=>"btn btn-success"]) !!}
 			<span class="message right-text">
-				{{ trans("$TR.T3") }} <a href="/register">{{ trans("$TR.T4") }}</a>
+				{{ trans2("A5", "Don't have an account?") }} <a href="/register">{{ trans2("A6", "create one") }}</a>
 			</span>
 		{!! Form::close() !!}
 
 		<div class="login-by-section">
-			<h2><span>Or login by</span></h2>
+			<h2><span>{{ trans2("A7", "Or login by") }}</span></h2>
 			<a href="{{ url('socialauth/github') }}" class="btn" style="background: #333;">
 				<i class="fa fa-github fa-2x" aria-hidden="true"></i>
 				&nbsp; <b>github</b>

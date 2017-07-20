@@ -1,7 +1,8 @@
 <?php
 
 Route::get('test', function(){
-    
+    //$x = DB::table('translation')->orderBy('id_num', 'desc')->first()->id_num;
+    //dd($x);
 });
 
 // Auth routes

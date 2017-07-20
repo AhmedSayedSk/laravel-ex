@@ -3,8 +3,8 @@
 $adminCPanel = "Admin c.panel";
 $TR_brand = "keywords.brand";
 
-$PN = trans("$TR_brand.one");
-$SN = trans("$TR_brand.much");
+$PN = trans2("$TR_brand.one");
+$SN = trans2("$TR_brand.much");
 
 return [
 	'A1'       => 'unlimited',
@@ -37,7 +37,7 @@ return [
 
 	// AN: Admin Navbar
 	'AN'       => [
-		'T1'     => 'welcome :Name',
+		'T1'   => 'welcome :Name',
 	    'T2'   => 'documentations',
 	    'T3'   => 'dashboard',
 	    'T4'   => "all $SN (frontend)",

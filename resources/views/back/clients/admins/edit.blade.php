@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.ACPS";
-?>
-
 @extends('back.master')
-@section('title', trans('admin_panel.APT.T11'))
+@section('title', trans2("A247", "Admin c.p - edit admins (by superadmin)"))
 
 @section('content')
 	<div id="admins-edit-page">
@@ -13,34 +8,34 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				{{ trans("$TR.T9") }}
-				<a class="btn btn-default pull-right" href="{{ route('admin.clients.admins.accounts.index') }}">{{ trans("$TR.T10") }}</a>
+				{{ trans2("A248", "edit admin") }}
+				<a class="btn btn-default pull-right" href="{{ route('admin.clients.admins.accounts.index') }}">{{ trans2("A249", "back to admins accounts") }}</a>
 			</div>
 			<div class="panel-body">
 				{!! Form::open(["url"=> route('admin.clients.admins.accounts.update', $admin->id), "method"=>"PATCH"]) !!}
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								{!! Form::label("", trans("$TR.T11")) !!}
+								{!! Form::label("", trans2("A250", "admin name")) !!}
 								{!! Form::text("name", $admin->name, ["class"=>"form-control"]) !!}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								{!! Form::label("", trans("$TR.T12")) !!}
+								{!! Form::label("", trans2("A251", "Email address")) !!}
 								{!! Form::email("email", $admin->email, ["class"=>"form-control", "disabled"=>"disabled"]) !!}
 							</div>
 						</div>
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							{{ trans("$TR.T13") }}
+							{{ trans2("A252", "admin permissions") }}
 						</div>
 						<div class="panel-body">
 							@include('back.add-ons.roles-form')
 						</div>
 					</div>
-					{!! Form::submit(trans("$TR.T8"), ["class"=>"btn btn-primary"]) !!}
+					{!! Form::submit(trans2("A253", "Edit"), ["class"=>"btn btn-primary"]) !!}
 				{!! Form::close() !!}
 			</div>
 		</div>

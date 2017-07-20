@@ -28,7 +28,9 @@ class mainController extends Controller
         $visitor_count = Visitor::count();
         $visitor_count_lastWeek = Visitor::range(date("d-m-Y", time() - 7 * 24 * 60 * 60), date("d-m-Y", time()));
         $tags_count = DB::table('products_tags')->count();
+
         $trans_count = DB::table('translation')->count();
+        $last_trans_id = DB::table('translation')->orderBy('id_num', 'desc')->first()->id_num;
         
         for ($i=1; $i <= 4; $i++) { 
             $products_categories[] = DB::table("products_categories_$i")->get();
@@ -37,7 +39,7 @@ class mainController extends Controller
         return view("back.dashboard")->with(compact(
             'products_count', 'live_products_count', 'products_carousel_count',
             'products_categories', 'visitor_count', 'visitor_count_lastWeek', 'tags_count',
-            'trans_count'
+            'trans_count', 'last_trans_id'
         ));
     }
 
@@ -79,7 +81,7 @@ class mainController extends Controller
 
         Session::flash('flashMessage', [
             "type" => "success",
-            "content" => trans('admin_panel.ASSP.T10')
+            "content" => trans2('A499', "Information was Updated successfully.")
         ]);
 
         return back();

@@ -8,11 +8,13 @@ class TranslationSeeder extends Seeder
 {
     public function run()
     {
-        $translation = json_decode(Storage::get("translation.json"));
+        if(Storage::has("translation.json")){
+            $translation = json_decode(Storage::get("translation.json"));
 
-        foreach($translation as $values){
-            DB::table('translation')->insert((array) $values);
-        }
+            foreach($translation as $values){
+                DB::table('translation')->insert((array) $values);
+            }
+        } 
     }
 }
 

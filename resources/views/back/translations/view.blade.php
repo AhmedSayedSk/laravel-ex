@@ -10,7 +10,7 @@
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{ trans2(1, "Translations section") }}
+                        {{ trans2("A468", "Translations section") }}
                         <a href="/admin/translations/take-backup" class="btn btn-success btn-sm pull-right">
                             Take backup
                         </a>
@@ -29,7 +29,7 @@
                                     <table class="table table-striped table-hover sortable ps-view">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <th>Caller</th>
                                                 @foreach($supported_trans as $key => $value)
                                                     @if(in_array($key, (array) $displayed_trans))
                                                         <th>
@@ -49,13 +49,13 @@
                                         <tbody>
                                             @foreach($translations as $trans)
                                                 <tr data-id="{{ $trans->id_num }}">
-                                                    <td>{{ $trans->id_num }}</td>
+                                                    <td>{{ $trans->caller }}</td>
                                                     @foreach($supported_trans as $key => $value)
                                                         @if(in_array($key, (array) $displayed_trans))
                                                             <td data-key="{{ $key }}">
                                                                 <a href="#" class="title" data-toggle="popover" data-trans-key="{{ $key }}" dir="auto">{{ $trans->$key }}</a>
                                                                 @if($key != 'en')
-                                                                    <a href="#" class="pull-right auto-trans" data-from="en" title="translation from (en) to ({{ $key }})" aria-hidden="true" data-toggle="tooltip" data-placement="top">(auto trans)</a>
+                                                                    <button class="pull-right auto-trans" data-from="en" title="translation from (en) to ({{ $key }})" aria-hidden="true" data-toggle="tooltip" data-placement="top">(auto trans)</button>
                                                                 @endif
                                                             </td>
                                                         @endif
@@ -214,7 +214,7 @@
 
     <script type="text/javascript" data-des="auto trans options">
         $(document).ready(function(){
-            $('a.auto-trans').click(function(){
+            $('.auto-trans').click(function(){
                 var _this = $(this);
                 var id = _this.parents('tr').attr('data-id');
                 var content = _this.parents('tr').find('td[data-key="en"] a.title').text();

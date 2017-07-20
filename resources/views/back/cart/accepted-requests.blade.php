@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.ACVAIP";
-?>
-
 @extends("back.master")
-@section('title', trans("admin_panel.APT.T7"))
+@section('title', trans2("A207", "Admin c.p - cart items (accepted requests)"))
 
 @section("content")
 	<div id="cart-view-page">
@@ -13,13 +8,13 @@
         
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				{{ trans("$TR.T1") }} - {!! trans("$TR.T4") !!}
+				{{ trans2("A208", "cart items") }} - {!! trans2("A209", "accepted requests <small>(cashed ::products)</small>", ["products"=>"products"]) !!}
 			</div>
 			<div class="panel-body">
 				@if(count($cart_items) == 0)
 					<h3 class="text-center">
-						{{ trans("$TR.T2") }}
-						<a href="/admin/products">{{ trans("$TR.T3") }}</a>
+						{{ trans2("A210", "no accepted requests.") }}
+						<a href="/admin/products">{{ trans2("A211", "::products page", ["products"=>"products"]) }}</a>
 					</h3>
 				@else
 					<div class="container-fluid">
@@ -27,40 +22,40 @@
 							<table class="table table-striped table-bordered ps-view">
 								<thead>
 									<tr>
-										<th>{{ trans("$TR.T5") }}</th>
-										<th>{{ trans("$TR.T6") }}</th>
-										<th>{{ trans("$TR.T7") }}</th>
-										<th>{{ trans("$TR.T8") }}</th>
-										<th>{{ trans("$TR.T9") }}</th>
-										<th>{{ trans("$TR.T10") }}</th>
-                                        <th>{{ trans("$TR.T11") }}</th>
-										<th>options</th>
+										<th>{{ trans2("A212", "image") }}</th>
+										<th>{{ trans2("A213", "name") }}</th>
+										<th>{{ trans2("A214", "price") }}</th>
+										<th>{{ trans2("A215", "quantity") }}</th>
+										<th>{{ trans2("A216", "payment method") }}</th>
+										<th>{{ trans2("A217", "created at") }}</th>
+                                        <th>{{ trans2("A218", "accepted at") }}</th>
+										<th>{{ trans2("A219", "options") }}</th>
 									</tr>
 								</thead>
 								<tbody>
 									@foreach($cart_items as $item)
 										<tr>
-											<td data-title='{{ trans("$TR.T5") }}'>
+											<td data-title='{{ trans2("A212") }}'>
 												@if(!is_null($item->product_image))
                                                     <img src='{{ asset("uploaded/products/images/icon_size/$item->product_image") }}' height="80px">
                                                 @else
                                                     <img src='{{ asset("assets/images/no-image.png") }}' width="80px">
                                                 @endif
 											</td>
-											<td data-title='{{ trans("$TR.T6") }}'>{{ $item->product_name }}</td>
-											<td data-title='{{ trans("$TR.T7") }}'>{{ $item->product_price }} {{ $item->product_currency }}</td>
-											<td data-title='{{ trans("$TR.T8") }}'>{{ $item->product_quantity }}</td>
-											<td data-title='{{ trans("$TR.T9") }}'>{{ $item->payment_method }}</td>
-											<td data-title='{{ trans("$TR.T10") }}'>{{ $item->created_at }}</td>
-											<td data-title='{{ trans("$TR.T11") }}'>{{ date("d/m/Y", $item->accepted_at_timestamps) }}</td>
-										    <td>
+											<td data-title='{{ trans2("A213") }}'>{{ $item->product_name }}</td>
+											<td data-title='{{ trans2("A214") }}'>{{ $item->product_price }} {{ $item->product_currency }}</td>
+											<td data-title='{{ trans2("A215") }}'>{{ $item->product_quantity }}</td>
+											<td data-title='{{ trans2("A216") }}'>{{ $item->payment_method }}</td>
+											<td data-title='{{ trans2("A217") }}'>{{ $item->created_at }}</td>
+											<td data-title='{{ trans2("A218") }}'>{{ date("d/m/Y", $item->accepted_at_timestamps) }}</td>
+										    <td data-title='{{ trans2("A219") }}'>
                                                 {!! Form::open(["url"=>"/admin/review-cart/accepting-requests/pay"]) !!}
                                                     {!! Form::hidden('item_id', $item->id) !!}
-                                                    <button type="submit" class="btn btn-{{ $item->is_payed ? 'success disabled' : 'default' }} btn-sm">payed</button>
+                                                    <button type="submit" class="btn btn-{{ $item->is_payed ? 'success disabled' : 'default' }} btn-sm">{{ trans2("A220", "payed") }}</button>
                                                 {!! Form::close() !!}
                                                 @if(!$item->is_payed)
                                                     {!! Form::open(["url"=>"/admin/review-cart/accepting-requests/$item->id", "method"=>"DELETE"]) !!}
-                                                        <button type="submit" class="btn btn-danger btn-sm" aria-label="Left Align">cancel request</button>
+                                                        <button type="submit" class="btn btn-danger btn-sm" aria-label="Left Align">{{ trans2("A221", "cancel request") }}</button>
                                                     {!! Form::close() !!}
                                                 @endif
                                             </td>

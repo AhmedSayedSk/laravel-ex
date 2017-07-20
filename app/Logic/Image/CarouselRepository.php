@@ -32,7 +32,7 @@ class CarouselRepository
         if($currentCount >= $max_uploads){
             return Response::json([
                 'error' => true,
-                'message' => trans("sub_validation.carousel.max_uplaod", ['number' => $max_uploads]),
+                'message' => trans2("A504", "max carousel upload is ::number carousel", ['number' => $max_uploads]),
                 'code' => 400
             ], 400);
         }

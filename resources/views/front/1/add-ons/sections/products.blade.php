@@ -1,8 +1,3 @@
-<?php
-	/* Translation */
-	$TR = "frontend.$frontendNumber.add-ons.PS1";
-?>
-
 <div class="row">
 	@foreach($products as $product)
 		<div class="item">
@@ -30,17 +25,17 @@
 						@endif
 						<b class="text-success">{{ number_format($product->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</b>
 					</p>
-					<p class="p-sales">{{ trans("$TR.T1") }} {{ $product->sales }}</p>
-					<p class="p-amount">{{ trans("$TR.T4") }} {{ $product->amount }}</p>
+					<p class="p-sales">{{ trans2("A44", "sales: ") }} {{ $product->sales }}</p>
+					<p class="p-amount">{{ trans2("A45", "amount: ") }} {{ $product->amount }}</p>
 					<div class="options">
 						<div class="add-to-cart">
-							<button class="btn btn-link" title="{{ trans("$TR.T3") }}" aria-hidden="true" data-toggle="tooltip" data-placement="top">
+							<button class="btn btn-link" title="{{ trans2('A46', 'Add to cart') }}" aria-hidden="true" data-toggle="tooltip" data-placement="top">
 								<span class="glyphicon glyphicon-shopping-cart"></span>
 							</button>
 						</div>
 						<div class="product-details">
 							<a class="btn btn-link" href='/products/{{ $product->serial_number }}/{{ $product_name }}'>
-								{{ trans("$TR.T2") }}
+								{{ trans2("A47", "read more") }}
 							</a>
 						</div>
 					</div>
@@ -50,12 +45,4 @@
 	@endforeach
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		product_addToCart([
-			'you need to login first, Login now?',
-			'The request was cancelled',
-			'Detect product quantity'
-		]);
-	});
-</script>
+@include("front.$frontendNumber.scripts.add-to-cart-btn")

@@ -58,11 +58,11 @@
 	</div>		
 
 	<footer id="footer">
-		<div class="container footer-bottom">
-			<span>© 2016 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></span> ·
-			<span>Sensorization demo project</span>
-		</div>
-	</footer>
+        <div class="container">
+            <span>{{ trans2("A154", "© 2016 Company, Inc.") }} · <a href="#">{{ trans2("A155", "Privacy") }}</a> · <a href="#">{{ trans2("A156", "Terms") }}</a></span> ·
+            <span>{{ trans2("A157", "Sensorization demo project") }}</span>
+        </div>
+    </footer>
 
 	@yield('footer-js')
 	<script type="text/javascript" src="./assets/js/token.js"></script>

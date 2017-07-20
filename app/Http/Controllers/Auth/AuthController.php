@@ -86,7 +86,7 @@ class AuthController extends Controller
 
         $request->session()->flash('flashMessage', [
             "type" => "success",
-            "content" => trans('auth.register.T6')
+            "content" => trans2('A500', "Account successfully created")
         ]);
 
         return redirect("/login");

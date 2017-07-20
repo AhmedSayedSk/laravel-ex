@@ -1,12 +1,7 @@
-<?php
-	/* Translation */
-	$TR = "errors.401";
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ trans("$TR.T1") }}</title>
+	<title>{{ trans2("A158", "Invalid permission") }}</title>
 	<style type="text/css">
 		body {
 			padding-top: 80px;
@@ -20,9 +15,9 @@
 </head>
 <body>
 	<center>
-		<h1>{{ trans("$TR.T2") }}</h1>
+		<h1>{{ trans2("A159", "You haven't permission to enter here") }}</h1>
 		<img src="{{ asset('assets/icons/stop.png') }}">
-		<h3><a href="/admin">{{ trans("$TR.T3") }}</a></h3>
+		<h3><a href="/admin">{{ trans2("A160", "Back to admin home") }}</a></h3>
 	</center>
 </body>
 </html>

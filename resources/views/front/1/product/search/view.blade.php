@@ -1,17 +1,12 @@
-<?php
-	/* Translation */
-	$TR = "frontend.$frontendNumber.PSV1";
-?>
-
 @extends("front.$frontendNumber.master")
-@section("title", trans("frontend.$frontendNumber.PT.T3"))
+@section("title", trans2("A90", "Search on products"))
 
 @section('content')
 
 	<div id="products-view">
 		@if(count($products) > 0)
 			<div class="container-fluid content">
-				<h4>{{ trans("$TR.T1", ["result_count"=>count($products)]) }}</h4>
+				<h4>{{ trans2("A91", "Result: ::result_count product", ["result_count"=>count($products)]) }}</h4>
 				<div class="row">
 					<div class="col-md-3">
 						@include("front.$frontendNumber.add-ons.sections.leftnav-filter")
@@ -29,8 +24,8 @@
 			</div>
 		@else
 			<div class="text-center opc-7">
-				<h2>{{ trans("$TR.T2") }}</h2>
-				<h3>{{ trans("$TR.T3") }}</h3>
+				<h2>{{ trans2("A92", "There is no identical results") }}</h2>
+				<h3>{{ trans2("A93", "Try again :)") }}</h3>
 			</div>
 		@endif
 

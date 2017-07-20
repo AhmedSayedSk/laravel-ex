@@ -16,6 +16,7 @@ class CreateTranslationTable extends Migration
     {
         Schema::create('translation', function (Blueprint $table) {
             $table->increments('id_num');
+            $table->string('caller')->nullable()->unique();
             $table->text('zh-cn')->nullable()->comment('官話 / 普通话');     // Chinese
             $table->text('es')->nullable()->comment('Español');             // Spanish
             $table->text('en')->nullable()->comment('English');             // English

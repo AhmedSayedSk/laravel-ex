@@ -1,9 +1,6 @@
 <?php
 	$pendingRequestsCount = App\Models\CartItem::where('status', 0)->count();
 	$acceptedRequestsCount = App\Models\CartItem::where('status', 2)->count();
-
-	/* Translation */
-	$TR = "admin_panel.AN";
 ?>
 
 <div class="list-group">
@@ -12,83 +9,83 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<span class="icomoon-gears"></span>
-			<span class="des">{{ trans("$TR.T6") }}</span>
+			<span class="des">{{ trans2("A181", "::products setting", ["products"=>"products"]) }}</span>
             <a href="#" class="btn btn-default btn-xs pull-right slide-toggle" title="slide toggle">
                 <span class="glyphicon glyphicon-chevron-up"></span>
             </a>
 		</div>
 		<div class="panel-body">
-			<a href="/admin" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T3") }}"> 
+			<a href="/admin" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A182", "dashboard") }}'> 
 				<span class="icomoon-dashboard"></span> 
-				<span class="des">{{ trans("$TR.T3") }}</span>
+				<span class="des">{{ trans2("A182") }}</span>
 			</a>
-			<a href="/admin/products" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T5") }}">
+			<a href="/admin/products" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A183", "all ::products (backend)", ["products"=>"products"]) }}'>
 				<span class="icomoon-items"></span>
-				<span class="des">{{ trans("$TR.T5") }}</span>
+				<span class="des">{{ trans2("A183", null, ["products"=>"products"]) }}</span>
 			</a>
-			<a href="/admin/products/create/step/1" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T7") }}">
+			<a href="/admin/products/create/step/1" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A184", "Create a new ::product", ["product"=>"product"]) }}'>
 				<span class="icomoon-paper-add"></span>
-				<span class="des">{{ trans("$TR.T7") }}</span>
+				<span class="des">{{ trans2("A184", null, ["product"=>"product"]) }}</span>
 			</a>
-			<a href="/admin/products/categories" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T8") }}">
+			<a href="/admin/products/categories" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A185", "categories (CRUD)") }}'>
 				<span class="icomoon-branch"></span>
-				<span class="des">{{ trans("$TR.T8") }}</span>
+				<span class="des">{{ trans2("A185") }}</span>
 			</a>
-			<a href="/admin/products/carousel" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T9") }}">
+			<a href="/admin/products/carousel" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A186", "carousel (CRUD)") }}'>
 				<span class="icomoon-gallery"></span>
-				<span class="des">{{ trans("$TR.T9") }}</span>
+				<span class="des">{{ trans2("A186") }}</span>
 			</a>
-			<a href="/admin/products/tags" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T10") }}">
+			<a href="/admin/products/tags" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A187", "tags (CRUD)") }}'>
 				<span class="icomoon-tags"></span>
-				<span class="des">{{ trans("$TR.T10") }}</span>
+				<span class="des">{{ trans2("A187") }}</span>
 			</a>
 		</div>
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<span class="icomoon-gears"></span>
-			<span class="des">{{ trans("$TR.T11") }}</span>
+			<span class="des">{{ trans2("A188", "clients setting") }}</span>
             <a href="#" class="btn btn-default btn-xs pull-right slide-toggle" title="slide toggle">
                 <span class="glyphicon glyphicon-chevron-up"></span>
             </a>
 		</div>
 		<div class="panel-body">
-			<a href="/admin/review-cart/pending-requests" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T13") }}">
+			<a href="/admin/review-cart/pending-requests" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A189", "pending requests") }}'>
 				<span class="icomoon-cart pending"></span>
 				<span class="des">
-					{{ trans("$TR.T12") }} ({{ trans("$TR.T13") }})
+					{{ trans2("A190", "cart items") }} ({{ trans2("A189") }})
 					<span class="badge pull-right">{{ $pendingRequestsCount }}</span>
 				</span>
 			</a>
-			<a href="/admin/review-cart/accepting-requests" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T14") }}">
+			<a href="/admin/review-cart/accepting-requests" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A191", "accepted requests") }}'>
 				<span class="icomoon-cart accepted"></span>
 				<span class="des">
-					{{ trans("$TR.T12") }} ({{ trans("$TR.T14") }})
+					{{ trans2("A190") }} ({{ trans2("A191") }})
 					<span class="badge pull-right">{{ $acceptedRequestsCount }}</span>
 				</span>
 			</a>
-			<a href="/admin/clients/users/accounts" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T15") }}">
+			<a href="/admin/clients/users/accounts" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A192", "users accounts") }}'>
 				<span class="icomoon-users-crowd"></span>
-				<span class="des">{{ trans("$TR.T15") }}</span>
+				<span class="des">{{ trans2("A192") }}</span>
 			</a>
-			<a href="/admin/clients/admins/accounts" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T16") }}">
+			<a href="/admin/clients/admins/accounts" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A193", "admins accounts") }}'>
 				<span class="icomoon-admin"></span>
-				<span class="des">{{ trans("$TR.T16") }}</span>
+				<span class="des">{{ trans2("A193") }}</span>
 			</a>
 		</div>
 	</div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="icomoon-gears"></span>
-            <span class="des">Multiple control</span>
+            <span class="des">{{ trans2("A194", "Multiple control") }}</span>
             <a href="#" class="btn btn-default btn-xs pull-right slide-toggle" title="slide toggle">
                 <span class="glyphicon glyphicon-chevron-up"></span>
             </a>
         </div>
         <div class="panel-body">
-            <a href="/admin/translations" class="list-group-item" data-toggle="tooltip" data-placement="right" title='Translations (CRUD)'>
+            <a href="/admin/translations" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A195", "Translations (CRUD)") }}'>
                 <span class="icomoon-translation"></span>
-                <span class="des">Translations (CRUD)</span>
+                <span class="des">{{ trans2("A195") }}</span>
             </a>
         </div>
     </div>
@@ -96,30 +93,28 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<span class="icomoon-gears"></span>
-				<span class="des">{{ trans("$TR.T17") }}</span>
+				<span class="des">{{ trans2("A196", "super admin setting") }}</span>
                 <a href="#" class="btn btn-default btn-xs pull-right slide-toggle" title="slide toggle">
                     <span class="glyphicon glyphicon-chevron-up"></span>
                 </a>
 			</div>
 		  	<div class="panel-body">
-		  		<a href="/admin/super-admin/edit" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans("$TR.T19") }}'>
+		  		<a href="/admin/super-admin/edit" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A197", "edit my information") }}'>
 		  			<span class="icomoon-paper-edit"></span>
-		  			<span class="des">{{ trans("$TR.T19") }}</span>
+		  			<span class="des">{{ trans2("A197") }}</span>
 		  		</a>
-		    	<a href="/admin/clients/admins/accounts/create" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans("$TR.T20") }}'>
+		    	<a href="/admin/clients/admins/accounts/create" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A198", "add & set admins with permissions") }}'>
 		    		<span class="icomoon-lock"></span>
-		    		<span class="des">{{ trans("$TR.T20") }}</span>
+		    		<span class="des">{{ trans2("A198") }}</span>
 		    	</a>
-				<a href="/admin/site-setting" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{{ trans("$TR.T21") }}">
+				<a href="/admin/site-setting" class="list-group-item" data-toggle="tooltip" data-placement="right" title='{{ trans2("A199", "site setting") }}'>
 					<span class="icomoon-gears"></span>
-					<span class="des">{{ trans("$TR.T21") }}</span>
+					<span class="des">{{ trans2("A199") }}</span>
 				</a>
 		  	</div>
 		</div>
 	@endif
 </div>
-
-{{ Session::get('leftnav_resize_status') }}
 
 <script type="text/javascript">
 	$(document).ready(function(){

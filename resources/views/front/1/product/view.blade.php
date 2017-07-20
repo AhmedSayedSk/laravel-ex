@@ -1,16 +1,11 @@
-<?php
-	/* Translation */
-	$TR = "frontend.$frontendNumber.APCVP";
-?>
-
 @extends("front.$frontendNumber.master")
-@section('title', trans("frontend.$frontendNumber.PT.T2"))
+@section('title', trans2("A51", "All categories"))
 
 @section('content')
 	<div id="products-view">
 		<div class="container-fluid content">
 			@if(count($products) == 0)
-				<h2 class="text-center opc-6">{{ trans("$TR.T1") }}</h2>
+				<h2 class="text-center opc-6">{{ trans2("A52", "no ::products yet", ["products"=>"products"]) }}</h2>
 			@else
 			<div class="row">
 				<div class="col-md-3">

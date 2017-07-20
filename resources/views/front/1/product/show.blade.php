@@ -3,9 +3,6 @@
 	if(Auth::check()){
 		Session::forget('referedToProduct');
 	}
-
-	/* Translation */
-	$TR = "frontend.$frontendNumber.PS1";
 ?>
 
 @extends("front.$frontendNumber.master")
@@ -69,11 +66,11 @@
                                 <span class="p-price">
                                     <b class="text-success">{{ number_format($product->discountPrice * DB::table('currencies')->where('title_en', $main_currency)->first()->content_refresh_to_USD) }} {{ $main_currency }}</b>
                                     @if($product->discount_percentage > 0)
-                                        <span class="text-danger">{{ trans("$TR.T1", ["discount"=>$product->discount_percentage]) }}</span>
+                                        <span class="text-danger">% {{ $product->discount_percentage }}</span>
                                     @endif
                                 </span>
                                 <div class="right-section" product-id="{{ $product->id }}" serial-number="{{ $product->serial_number }}">
-                                    <button class="btn btn-default add-to-cart">{{ trans("$TR.T2") }}</button>
+                                    <button class="btn btn-default add-to-cart">{{ trans2("A94", "Add to cart") }}</button>
                                 </div>
 							</div>
 						</div>
@@ -81,17 +78,17 @@
 					<div class="panel-body">
 						@if(Auth::check())
 							@if($personType == "super_admin" || $personType == "admin")
-								<a href="{{ route('admin.products..show', $product->id) }}" class="btn btn-default">{{ trans("$TR.T3") }}</a>
+								<a href="{{ route('admin.products..show', $product->id) }}" class="btn btn-default">{{ trans2("A95", "Show the ::product page [in Admins view]", ["product"=>"product"]) }}</a>
 								<hr>
 							@endif
 						@endif
 						<table class="table table-striped table-bordered">
 							<tr>
-								<td>{{ trans("$TR.T4") }}</td>
+								<td>{{ trans2("A96", "category") }}</td>
 								<td>{!! $product->categories_list !!}</td>
 							</tr>
 							<tr>
-								<td>{{ trans("$TR.T5") }}</td>
+								<td>{{ trans2("A97", "stars") }}</td>
 								<td>
 									@for($i = 1; $i <= $product->stars; $i++)
 										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -99,31 +96,31 @@
 								</td>
 							</tr>
 							<tr>
-								<td>{{ trans("$TR.T6") }}</td>
+								<td>{{ trans2("A98", "views") }}</td>
 								<td>{{ $product->view_counter }}</td>
 							</tr>
 							<tr>
-								<td>{{ trans("$TR.T7") }}</td>
+								<td>{{ trans2("A99", "Payment by delivery") }}</td>
 								<td>{{ $product->payment_on_delivery }}</td>
 							</tr>
 							<tr>
-								<td>{{ trans("$TR.T8") }}</td>
+								<td>{{ trans2("A100", "Payment by paypal") }}</td>
 								<td>{{ $product->payment_by_paypal }}</td>
 							</tr>
 							<tr>
-								<td>{{ trans("$TR.T9") }}</td>
+								<td>{{ trans2("A101", "tags") }}</td>
 								<td>
 									@if(count($products_tags) > 0)
 										@foreach($products_tags as $tag)
 											<a href="/products/search/tag/{{ $tag }}" class="tag-btn">{{ $tag }}</a>
 										@endforeach
 									@else
-										<span class="text-warning">{{ trans("$TR.T10") }}</span>
+										<span class="text-warning">{{ trans2("A102", "No tags yet") }}</span>
 									@endif
 								</td>
 							</tr>
 						</table>
-						<div class="lead">{{ trans("$TR.T11") }}</div>
+						<div class="lead">{{ trans2("A103", "description") }}</div>
 						{{ $product->description }}
 						<br /><br />
 
@@ -258,14 +255,5 @@
 @stop
 
 @section('footer-js')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            //toggle_edit_section();
-            product_addToCart([
-                'you need to login first, Login now?',
-                'The request was cancelled',
-                "Detect product quantity"
-            ]);
-        })
-    </script>
+    @include("front.$frontendNumber.scripts.add-to-cart-btn")
 @stop

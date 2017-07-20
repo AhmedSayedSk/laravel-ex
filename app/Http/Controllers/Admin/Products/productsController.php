@@ -69,7 +69,7 @@ class productsController extends Controller {
         if(Category1::count() <= 0){
             Session::flash('flashMessage', [
                 "type" => "warning",
-                "content" => trans('admin_panel.ACPP.T46')
+                "content" => trans2('A497', "Excuse me, you must add 1 category at least to can create a ::products.", ["products"=>"products"])
             ]);
             return false;
         } else {
@@ -217,7 +217,7 @@ class productsController extends Controller {
                 $request->session()->forget('products_step1');
                 $request->session()->flash('flashMessage', [
                     "type" => "success",
-                    "content" => trans('admin_panel.ACPP.T45')
+                    "content" => trans2('A498', "::product was created successfully.", ["product"=>"product"])
                 ]);
 
                 if($input->create_again){

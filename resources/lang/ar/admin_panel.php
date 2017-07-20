@@ -4,8 +4,8 @@ $CRUD        = "متكامل التحكم";
 $adminCPanel = "لوحة تحكم المشرف";
 $TR_brand = "keywords.brand";
 
-$PN = trans("$TR_brand.one");
-$SN = trans("$TR_brand.much");
+$PN = trans2("$TR_brand.one");
+$SN = trans2("$TR_brand.much");
 
 return [
 	'A1'       => 'غير محدود',

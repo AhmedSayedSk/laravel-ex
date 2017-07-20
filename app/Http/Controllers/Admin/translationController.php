@@ -16,20 +16,23 @@ use Response;
 class translationController extends Controller
 {
     protected function unsupportedTranslations(){
-        $table_comments = DB::select("SELECT COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_NAME = 'translation'");
         $table_columns = Schema::getColumnListing('translation');
+        $table_comments = DB::select("SELECT COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_NAME = 'translation'");
+
+        $x = array_slice($table_comments, count($table_columns));
 
         $tableColumnsAndComments = [];
         $i = 0;
 
-        foreach ($table_comments as $comment) {
-            $tableColumnsAndComments[$table_columns[$i]] = $comment->COLUMN_COMMENT;
+        foreach ($table_columns as $key => $value) {
+            $tableColumnsAndComments[$value] = $table_comments[$i]->COLUMN_COMMENT;
             $i++;
         }
 
         $supported_translations = (array) json_decode(Storage::get('supported_translations.json'));
 
         unset($tableColumnsAndComments['id_num']);
+        unset($tableColumnsAndComments['caller']);
 
         foreach ($supported_translations as $key => $value) {
             unset($tableColumnsAndComments[$key]);
@@ -39,7 +42,7 @@ class translationController extends Controller
     }
 
     public function index(){
-        $translations = DB::table('translation')->paginate(50);
+        $translations = DB::table('translation')->orderBy("ar", "desc")->paginate(50);
         $unsupportedTranslations = $this->unsupportedTranslations();
         $supported_trans = json_decode(Storage::get('supported_translations.json'));
 
@@ -102,7 +105,7 @@ class translationController extends Controller
         $supported_translations = (array) json_decode(Storage::get('supported_translations.json'));
         
         $translation = DB::table('translation')
-            ->select(array_merge(['id_num'], array_keys($supported_translations)))
+            ->select(array_merge(['caller'], array_keys($supported_translations)))
             ->get();
 
         $unique_value = round(time()/60) * 60;

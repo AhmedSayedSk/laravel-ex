@@ -32,7 +32,7 @@ class ImageRepository
         if($currentCount >= $max_uploads){
             return Response::json([
                 'error' => true,
-                'message' => trans("sub_validation.image.max_uplaod", ['number' => $max_uploads]),
+                'message' => trans2("A505", "max image upload is ::number image", ['number' => $max_uploads]),
                 'code' => 400
             ], 400);
         }

@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.ACPS";
-?>
-
 @extends('back.master')
-@section('title', trans('admin_panel.APT.T10'))
+@section('title', trans2("A254", "Admin c.p - admins (by superadmin)"))
 
 @section('content')
 	<div id="admins-view-page">
@@ -13,37 +8,37 @@
 		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				{{ trans("$TR.T6") }}
-				<a href="{{ route('admin.clients.admins.accounts.create') }}" class="btn btn-default pull-right" {{ $personType == "super_admin" ? "" : "disabled" }}>{{ trans("$TR.T7") }}</a>
+				{{ trans2("A255", "admins accounts") }}
+				<a href="{{ route('admin.clients.admins.accounts.create') }}" class="btn btn-default pull-right" {{ $personType == "super_admin" ? "" : "disabled" }}>{{ trans2("A56", "add new admin by [super-admin]") }}</a>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
 					@if(count($admins) <= 0)
                         <div class="empty-status text-center">
-                            <h3>{{ trans("$TR.T5") }}</h3>  
+                            <h3>{{ trans2("A257", "there is no row yet") }}</h3>  
                         </div>
 					@else
 						<div id="response-table">
                             <table class="table table-condensed table-bordered ps-view">
                                 <thead>
                                     <tr>
-                                        <th>{{ trans("$TR.T2") }}</th>
-                                        <th>{{ trans("$TR.T3") }}</th>
-                                        <th>created at</th>
-                                        <th>{{ trans("$TR.T4") }}</th>
+                                        <th>{{ trans2("A258", "name") }}</th>
+                                        <th>{{ trans2("A259", "email") }}</th>
+                                        <th>{{ trans2("A260", "created at") }}</th>
+                                        <th>{{ trans2("A261", "options") }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($admins as $admin)
                                         <tr>
-                                            <td data-title='{{ trans("$TR.T2") }}'>{{ $admin->name }}</td>
-                                            <td data-title='{{ trans("$TR.T3") }}'>{{ $admin->email }}</td>
-                                            <td data-title='created at'>{{ $admin->created_at }}</td>
-                                            <td data-title='{{ trans("$TR.T4") }}'>
+                                            <td data-title='{{ trans2("A258") }}'>{{ $admin->name }}</td>
+                                            <td data-title='{{ trans2("A259") }}'>{{ $admin->email }}</td>
+                                            <td data-title='{{ trans2("A260") }}'>{{ $admin->created_at }}</td>
+                                            <td data-title='{{ trans2("A261") }}'>
                                                 @if($personType == "super_admin")
-                                                    <a href="{{ route('admin.clients.admins.accounts.edit', $admin->id) }}" class="btn btn-warning btn-xs">{{ trans("$TR.T8") }}</a>
+                                                    <a href="{{ route('admin.clients.admins.accounts.edit', $admin->id) }}" class="btn btn-warning btn-xs">{{ trans2("A262", "edit") }}</a>
                                                     {!! Form::open(["url"=> route('admin.clients.admins.accounts.destroy', $admin->id), "method"=>"DELETE"]) !!}
-                                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                                        {!! Form::submit(trans2("A263", "Delete"), ['class' => 'btn btn-danger btn-xs']) !!}
                                                     {!! Form::close() !!}
                                                 @else 
                                                     -

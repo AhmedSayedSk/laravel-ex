@@ -1,10 +1,5 @@
-<?php
-	/* Translation */
-	$TR = "admin_panel.ACPP";
-?>
-
 @extends('back.master')
-@section('title', trans("admin_panel.APT.T3", ['number'=>2]))
+@section('title', trans2("A332", "Admin c.p - Create ::product step 2", ["product"=>"product"]))
 
 @section('content')
 	<div id="product-create-page">
@@ -13,12 +8,15 @@
 
 		<div class="alert alert-warning alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<span>{!! trans("$TR.H26") !!}</span>
+			<span>
+                <b>{{ trans2("A333", "Warning !!") }}</b>
+                {{ trans2("A334", "you must complete this step, because your ::product creation is not finshed yet.", ["product"=>"product"]) }}
+            </span>
 		</div>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<b>{{ trans("$TR.T1", ['number'=>'II']) }}</b>
+				<b>{{ trans2("A335", "create a new ::product (step II)", ["product"=>"product"]) }}</b>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid tabs-wrap">
@@ -27,19 +25,19 @@
 					        <li class="active">
 					        	<a href="#product-images" aria-controls="upload-images-carousel" aria-expanded="true" role="tab" data-toggle="tab">
 					        		<span class="icon-fontello-n4"></span>
-					        		{{ trans("$TR.T28") }}
+					        		{{ trans2("A336", "upload images & carousel") }}
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="#tags" aria-controls="tags" aria-expanded="true" role="tab" data-toggle="tab">
 					        		<span class="icon-fontello-n5"></span>
-					        		{{ trans("$TR.T29-5") }}
+					        		{{ trans2("A337", "tags") }}
 					        	</a>
 					        </li>
 					        <li>
 					        	<a href="#options" aria-controls="options" aria-expanded="true" role="tab" data-toggle="tab">
 					        		<span class="icon-fontello-n6"></span>
-					        		{{ trans("$TR.T30") }}
+					        		{{ trans2("A338", "options") }}
 					        	</a>
 					        </li>
 					    </ul>
@@ -48,14 +46,14 @@
 					    <div class="tab-content">
 					        <div class="tab-pane active" id="product-images">
 								<div class="dropzone-image">
-									<label>{{ trans("$TR.T31") }} <span id="photoCounter-1"></span></label>
+									<label>{{ trans2("A339", "upload images") }} <span id="photoCounter-1"></span></label>
 									<div class="form-group">
 										<div class="droping">
 									        {!! Form::open(['url' => route('image-upload'), 'class' => 'dropzone', 'files'=>true, 'id'=>'dropzone-1']) !!}
 										        {!! Form::hidden('upload_type', 'image') !!}
 										        {!! Form::hidden('parent_id', Session::get('products_step1')['product_id']) !!}
 										        <div class="dz-message">
-										        	<h3>{{ trans("$TR.T32") }}</h3>
+										        	<h3>{{ trans2("A340", "drop images in this area or click here") }}</h3>
 										        </div>
 										        <div class="fallback">
 										            <input name="file" type="file" multiple>
@@ -64,18 +62,18 @@
 									        {!! Form::close() !!}
 										</div>
 										@include('standers.dropzone.preview-template')
-										<p class="help-block">{{ trans("$TR.T42", ['max_images' => config('sensorization.images.max_uploads')]) }}</p>
+										<p class="help-block">{{ trans2("A341", "max images upload is ::max_images images", ['max_images' => config('sensorization.images.max_uploads')]) }}</p>
 									</div>
 								</div>
 								<div class="dropzone-image">
-									<label>{{ trans("$TR.T40") }} <span id="photoCounter-2"></span></label>
+									<label>{{ trans2("A342", "upload carousel") }} <span id="photoCounter-2"></span></label>
 									<div class="form-group">
 										<div class="droping">
 									        {!! Form::open(['url' => route('carousel-upload'), 'class' => 'dropzone', 'files'=>true, 'id'=>'dropzone-2']) !!}
 										        {!! Form::hidden('upload_type', 'carousel') !!}
 										        {!! Form::hidden('parent_id', Session::get('products_step1')['product_id']) !!}
 										        <div class="dz-message">
-										        	<h3>{{ trans("$TR.T41") }}</h3>
+										        	<h3>{{ trans2("A343", "drop carousel in this area or click here") }}</h3>
 										        </div>
 										        <div class="fallback">
 										            <input name="file" type="file" multiple>
@@ -84,29 +82,32 @@
 									        {!! Form::close() !!}
 										</div>
 										@include('standers.dropzone.preview-template')
-										<p class="help-block">{{ trans("$TR.T43", ['max_carousel' => config('sensorization.carousel.max_uploads')]) }}</p>
+										<p class="help-block">{{ trans2("A344", "max carousel upload is ::max_carousel carousel", ['max_carousel' => config('sensorization.carousel.max_uploads')]) }}</p>
 									</div>
 								</div>	
-								<button class="btn btn-default continue" type="button">{{ trans("$TR.T10") }} <span class="icomoon-arrow-10"></span></button>	
+								<button class="btn btn-default continue" type="button">
+                                    {{ trans2("A345", "next") }} 
+                                    <span class="icomoon-arrow-10"></span>
+                                </button>	
 					        </div>	   
 					        <div class="tab-pane" id="tags">
 					        	{!! Form::open(["url"=>route("admin.products..store")."/store/step/2"]) !!}
 					        	{!! Form::hidden('product_id', Session::get('products_step1')['product_id']) !!}
 					        	<div class="form-group">
-									{!! Form::label("", trans("$TR.T29")) !!} 
-									&nbsp; [<a href="{{ route('APT.view-append-modal') }}" data-toggle="modal" data-target="#Modal" data-remote="false">{{ trans("$TR.T33") }}</a>]
+									{!! Form::label("", trans2("A346", "Look for local tags")) !!} 
+									&nbsp; [<a href="{{ route('APT.view-append-modal') }}" data-toggle="modal" data-target="#Modal" data-remote="false">{{ trans2("A347", "append new tags") }}</a>]
 									{!! Form::text("", "", ["class"=>"form-control tags_searcher"]) !!}
 								</div>
 								<div class="well p-tags">
 									{!! Form::hidden("product_tags") !!}
 								</div>
-								<p class="loading-text" style="display: none">loading...</p>
+								<p class="loading-text" style="display: none">{{ trans2("A348", "Loading...") }}</p>
 								<button type="button" class="btn btn-default back">
 									<span class="icomoon-arrow-10 flipped col-flip-180"></span> 
-									{{ trans("$TR.T13") }}
+									{{ trans2("A349", "back") }}
 								</button>
 					    		<button type="button" class="btn btn-default continue">
-				    				{{ trans("$TR.T14") }} 
+				    				{{ trans2("A350", "continue") }} 
 				    				<span class="icomoon-arrow-10"></span>
 				    			</button>
 					        </div>
@@ -116,28 +117,28 @@
 										<label>
 											{!! Form::hidden("is_new", 0) !!}
 											{!! Form::checkbox("is_new", 1, null, ["class"=>"checkbox"]) !!}
-											<b>{{ trans("$TR.T34") }}</b>
+											<b>{{ trans2("A351", "Are it's new ::product", ["product"=>"product"]) }}</b>
 										</label>
 									</div>
 									<div class="checkbox">
 										<label>
 											{!! Form::hidden("is_live", 0) !!}
 											{!! Form::checkbox("is_live", 1, "checked", ["class"=>"checkbox"]) !!}
-											<b>{{ trans("$TR.T35") }}</b>
+											<b>{{ trans2("A352", "set this product on live", ["product"=>"product"]) }}</b>
 										</label>
 									</div>
 									<div class="checkbox">
 										<label>
 											{!! Form::hidden("is_carousel_live", 0) !!}
 											{!! Form::checkbox("is_carousel_live", 1, "checked", ["class"=>"checkbox"]) !!}
-											<b>{{ trans("$TR.T44") }}</b>
+											<b>{{ trans2("A353", "set carousel images live?") }}</b>
 										</label>
 									</div>
 									<div class="checkbox">
 										<label>
 											{!! Form::hidden("is_payment_on_delivery", 0) !!}
 											{!! Form::checkbox("is_payment_on_delivery", 1, null, ["class"=>"checkbox"]) !!}
-											<b>{{ trans("$TR.T36") }}</b>
+											<b>{{ trans2("A354", "is support a payment on delivery?") }}</b>
 										</label>
 									</div>
                                     @if($global_setting->is_support_paypal_payment)
@@ -145,18 +146,23 @@
     										<label>
     											{!! Form::hidden("is_payment_by_paypal", 0) !!}
     											{!! Form::checkbox("is_payment_by_paypal", 1, "checked", ["class"=>"checkbox", "disabled"=>"disabled"]) !!}
-    											<b>{{ trans("$TR.T37") }}</b>
+    											<b>{{ trans2("A355", "is support a payment by paypal?") }}</b>
     										</label>
-                                            <div class="help-block">you can change paypal status from <a href="/admin/site-setting">main setting</a> section</div>
+                                            <div class="help-block">
+                                                {{ trans2("A356", "you can change paypal status from") }}
+                                                <a href="/admin/site-setting">{{ trans2("A357", "main setting") }}</a>
+                                                {{ trans2("A358", "section") }}
+                                            </div>
     									</div>
                                     @else
                                         {!! Form::hidden("is_payment_by_paypal", 0) !!}
                                     @endif
+                                    <hr>
 									<div class="checkbox">
 										<label>
 											{!! Form::hidden("create_again", 0) !!}
 											{!! Form::checkbox("create_again", 1, "checked", ["class"=>"checkbox"]) !!}
-											<b>{{ trans("$TR.T38") }}</b>
+											<b>{{ trans2("A359", "create another ::product?", ["product"=>"product"]) }}</b>
 										</label>
 									</div>
 								</div>
@@ -164,10 +170,10 @@
 								{!! Form::hidden("primary_carousel_id", 1) !!}
 								<button type="button" class="btn btn-default back">
 									<span class="icomoon-arrow-10 col-flip-180 flipped"></span>
-									{{ trans("$TR.T13") }}
+									{{ trans2("A360", "back") }}
 								</button>
 					    		<button type="submit" class="btn btn-default continue">
-					    			{{ trans("$TR.T39") }} 
+					    			{{ trans2("A361", "finish") }} 
 					    			<span class="icomoon-arrow-10"></span>
 					    		</button>
 								{!! Form::close() !!}
@@ -217,7 +223,7 @@
 			tags_searcher();
 
 			tagModal([
-				'{{ trans("$TR.T33") }}'
+				'{{ trans2("A362", "append new tags") }}'
 			], null, null, null);
 
 			$('.tab-pane .continue').click(function(){

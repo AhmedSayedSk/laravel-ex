@@ -1,5 +1,5 @@
 @extends("front.$frontendNumber.master")
-@section("title", trans("frontend.$frontendNumber.PT.T4"))
+@section("title", trans2("A80", "Success payment"))
 
 @section("content")
 	<div class="container">

@@ -49,7 +49,7 @@ class profileController extends Controller
     	} else {
             $request->session()->flash('flashMessage', [
                 "type" => "success",
-                "content" => trans("frontend.$this->frontendNumber.UP.EI.T8")
+                "content" => trans2("A502", "Information was updated successfully :)")
             ]);
     		return back();
     	}

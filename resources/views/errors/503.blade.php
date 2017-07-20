@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{{ trans("errors.503.T1") }}</title>
+        <title>{{ trans2("A164", "Be right back.") }}</title>
         <style>
             html, body {
                 height: 100%;
@@ -37,7 +37,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">{{ trans("errors.503.T1") }}</div>
+                <div class="title">{{ trans2("A165", "Be right back.") }}</div>
             </div>
         </div>
     </body>
